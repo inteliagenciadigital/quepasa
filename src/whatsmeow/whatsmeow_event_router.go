@@ -48,13 +48,31 @@ func (source *WhatsmeowHandlers) buildRouter() *EventRouter {
 	// Calls
 	r.register(reflect.TypeOf(&events.CallOffer{}), func(raw interface{}) {
 		evt := raw.(*events.CallOffer)
-		source.GetLogger().Infof("CallOffer: %v", evt)
-		go source.CallMessage(evt.BasicCallMeta)
+		go source.HandleCallOffer(evt)
 	})
 	r.register(reflect.TypeOf(&events.CallOfferNotice{}), func(raw interface{}) {
 		evt := raw.(*events.CallOfferNotice)
-		source.GetLogger().Infof("CallOfferNotice: %v", evt)
-		go source.CallMessage(evt.BasicCallMeta)
+		go source.HandleCallOfferNotice(evt)
+	})
+	r.register(reflect.TypeOf(&events.CallPreAccept{}), func(raw interface{}) {
+		evt := raw.(*events.CallPreAccept)
+		go source.HandleCallPreAccept(evt)
+	})
+	r.register(reflect.TypeOf(&events.CallAccept{}), func(raw interface{}) {
+		evt := raw.(*events.CallAccept)
+		go source.HandleCallAccept(evt)
+	})
+	r.register(reflect.TypeOf(&events.CallReject{}), func(raw interface{}) {
+		evt := raw.(*events.CallReject)
+		go source.HandleCallReject(evt)
+	})
+	r.register(reflect.TypeOf(&events.CallTransport{}), func(raw interface{}) {
+		evt := raw.(*events.CallTransport)
+		go source.HandleCallTransport(evt)
+	})
+	r.register(reflect.TypeOf(&events.CallTerminate{}), func(raw interface{}) {
+		evt := raw.(*events.CallTerminate)
+		go source.HandleCallTerminate(evt)
 	})
 
 	r.register(reflect.TypeOf(&events.Receipt{}), func(raw interface{}) {
@@ -165,7 +183,6 @@ func (source *WhatsmeowHandlers) buildRouter() *EventRouter {
 		}
 	}
 	r.register(reflect.TypeOf(&events.AppState{}), unimplementedHandler)
-	r.register(reflect.TypeOf(&events.CallTerminate{}), unimplementedHandler)
 	r.register(reflect.TypeOf(&events.DeleteChat{}), unimplementedHandler)
 	r.register(reflect.TypeOf(&events.DeleteForMe{}), unimplementedHandler)
 	r.register(reflect.TypeOf(&events.MarkChatAsRead{}), unimplementedHandler)

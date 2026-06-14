@@ -80,6 +80,8 @@ func main() {
 		WMLogLevel:              environment.Settings.Whatsmeow.LogLevel,
 		DBLogLevel:              environment.Settings.Whatsmeow.DBLogLevel,
 		UseRetryMessageStore:    environment.Settings.Whatsmeow.UseRetryMessageStore,
+		VoIPAutoAnswer:          environment.Settings.Whatsmeow.VoIPAutoAnswer,
+		VoIPMediaDebug:          environment.Settings.Whatsmeow.VoIPMediaDebug,
 	}
 
 	dbParameters := environment.Settings.Database.GetDBParameters()

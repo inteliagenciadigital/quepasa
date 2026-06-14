@@ -19,6 +19,9 @@ services:
 
   quepasa:
     image: srwarez/quepasa:latest
+    build:
+      context: ../
+      dockerfile: docker/Dockerfile
     env_file:
       - .env
     ports:
