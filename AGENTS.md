@@ -89,6 +89,7 @@ Implement an evidence-driven native WhatsApp VoIP path in QuePasa focused on inb
 3. Validation must happen locally on Linux without Docker
 4. Each layer must be proven with captures/logs before advancing to the next
 5. Audio playback inside the call is the target outcome, not chat audio attachment fallback
+6. The target Docker Hub registry for building and pushing images is `srwarez/quepasa`, and the owner GitHub organization is `inteliagenciadigital`. Never use `codeleaks/quepasa` or `exitoads/quepasa`.
 
 ## Previous Context (Preserved)
 

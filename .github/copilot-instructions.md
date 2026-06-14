@@ -10,6 +10,10 @@
 - Persist compact task state only. Never dump raw chat transcripts, secrets, or oversized logs into memory.
 - If the MCP server is unavailable or the current workspace is not configured for it, continue normally and do not block the task.
 
+## Repository and Docker Registry Defaults (Global Rules)
+- **Docker Hub Namespace:** `srwarez` (Docker images must always be built, tagged, and pushed as `srwarez/quepasa`, not `codeleaks/quepasa` or `exitoads/quepasa`).
+- **GitHub Repository Owner:** `inteliagenciadigital` (The canonical repository is `https://github.com/inteliagenciadigital/quepasa.git`).
+
 ## AI Agent Startup Checklist - EXECUTE FIRST
 
 **At the start of EVERY conversation or when resuming after summary:**

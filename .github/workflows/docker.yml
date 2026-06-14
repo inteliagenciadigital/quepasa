@@ -17,7 +17,7 @@ permissions:
 
 env:
   REGISTRY: docker.io
-  IMAGE_NAME: exitoads/quepasa
+  IMAGE_NAME: srwarez/quepasa
   NODE_ENV: production
   APP_ENV: production
   QUEPASA_CONTAINER_NAME: "quepasa"
