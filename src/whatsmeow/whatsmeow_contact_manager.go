@@ -171,33 +171,20 @@ func (cm *WhatsmeowContactManager) GetLIDFromPhone(phone string) (string, error)
 		cm.maps.SetLIDFromPhoneMap(normalized, lid)
 		logger.Debugf("Phone->LID mapping cached: %s -> %s", normalized, lid)
 
-		// TEMPORARY WORKAROUND: Brazilian mobile phones exist in two variants —
-		// 8-digit (legacy, pre-migration) and 9-digit (modern, with extra leading 9 after DDD).
-		// WhatsApp has not standardized which variant is canonical for each account.
-		// When we successfully resolve a mapping for one variant, we persist the other variant
-		// in Store.LIDs so that whatsmeow's SendMessage PN→LID conversion path (triggered
-		// when LIDMigrationTimestamp > 0) can resolve either form without a round-trip to
-		// the WhatsApp server. AllDDDs variants are used here (no DDD > 30 restriction)
-		// because persisting an extra mapping that is never looked up is harmless.
-		// Remove this block once WhatsApp enforces a single canonical phone format.
+		// BR ALIAS: cache the digit-9 variant in memory only — do NOT write to Store.LIDs.
+		// Writing PutLIDMapping(lid, aliasJID) corrupts the reverse mapping: whatsmeow's
+		// GetPNForLID then returns the alias instead of the canonical phone from the DB.
+		// Confirmed in prod logs: DB returned 554796396152 (canonical 8-digit) but
+		// PutLIDMapping was promoting 5547996396152 (9-digit alias) as the official mapping.
+		// In-memory SetLIDFromPhoneMap preserves the fallback lookup without the corruption.
 		if variantPhone, verr := library.AddDigit9BRAllDDDs("+" + normalized); verr == nil {
 			variantNormalized := strings.TrimPrefix(variantPhone, "+")
-			variantJID := types.JID{User: variantNormalized, Server: whatsapp.WHATSAPP_SERVERDOMAIN_USER}
-			if perr := cm.Client.Store.LIDs.PutLIDMapping(context.Background(), lidJID, variantJID); perr == nil {
-				logger.Debugf("BR digit-9 variant persisted in Store.LIDs: %s -> %s", variantNormalized, lid)
-				cm.maps.SetLIDFromPhoneMap(variantNormalized, lid)
-			} else {
-				logger.Warnf("BR digit-9 variant Store.LIDs write failed for %s: %v", variantNormalized, perr)
-			}
+			cm.maps.SetLIDFromPhoneMap(variantNormalized, lid)
+			logger.Debugf("BR digit-9 alias cached in-memory only: %s -> %s", variantNormalized, lid)
 		} else if variantPhone, verr := library.RemoveDigit9BRAllDDDs("+" + normalized); verr == nil {
 			variantNormalized := strings.TrimPrefix(variantPhone, "+")
-			variantJID := types.JID{User: variantNormalized, Server: whatsapp.WHATSAPP_SERVERDOMAIN_USER}
-			if perr := cm.Client.Store.LIDs.PutLIDMapping(context.Background(), lidJID, variantJID); perr == nil {
-				logger.Debugf("BR digit-9 variant persisted in Store.LIDs: %s -> %s", variantNormalized, lid)
-				cm.maps.SetLIDFromPhoneMap(variantNormalized, lid)
-			} else {
-				logger.Warnf("BR digit-9 variant Store.LIDs write failed for %s: %v", variantNormalized, perr)
-			}
+			cm.maps.SetLIDFromPhoneMap(variantNormalized, lid)
+			logger.Debugf("BR digit-9 alias cached in-memory only: %s -> %s", variantNormalized, lid)
 		}
 
 		return lid, nil
@@ -297,32 +284,20 @@ func (cm *WhatsmeowContactManager) GetPhoneFromLID(lid string) (string, error) {
 	cm.maps.SetPhoneFromLIDMap(lid, phone)
 	logger.Debugf("LID->Phone mapping stored: %s -> %s", lid, phone)
 
-	// TEMPORARY WORKAROUND: Brazilian mobile phones exist in two variants —
-	// 8-digit (legacy, pre-migration) and 9-digit (modern, with extra leading 9 after DDD).
-	// When we resolve a phone from a LID, we persist the alternate variant in Store.LIDs
-	// so that subsequent lookups (and whatsmeow's internal PN→LID path) find either form.
-	// AllDDDs variants are used here — no DDD > 30 restriction since storing an extra
-	// mapping that is never looked up is harmless. For phone-only sends keep using the
-	// restricted (DDD > 30) helpers to avoid wrong digit manipulation.
-	// Remove this block once WhatsApp enforces a single canonical phone format.
+	// BR ALIAS (reverse): cache the digit-9 variant in memory only — do NOT write to Store.LIDs.
+	// PutLIDMapping(lid, aliasJID) corrupts the reverse mapping: whatsmeow's GetPNForLID
+	// then returns the alias instead of the canonical phone returned by the DB.
+	// Confirmed in prod logs (line 17): "BR digit-9 variant persisted in Store.LIDs (reverse):
+	// 35386755649716@lid -> 5547996396152" caused subsequent lookups to return wrong number
+	// instead of canonical 554796396152. In-memory cache preserves fallback without corruption.
 	if variantPhone, verr := library.AddDigit9BRAllDDDs("+" + phone); verr == nil {
 		variantNormalized := strings.TrimPrefix(variantPhone, "+")
-		variantJID := types.JID{User: variantNormalized, Server: whatsapp.WHATSAPP_SERVERDOMAIN_USER}
-		if perr := cm.Client.Store.LIDs.PutLIDMapping(context.Background(), lidJID, variantJID); perr == nil {
-			logger.Debugf("BR digit-9 variant persisted in Store.LIDs (reverse): %s -> %s", lid, variantNormalized)
-			cm.maps.SetLIDFromPhoneMap(variantNormalized, lid)
-		} else {
-			logger.Warnf("BR digit-9 variant Store.LIDs write failed (reverse) for %s: %v", variantNormalized, perr)
-		}
+		cm.maps.SetLIDFromPhoneMap(variantNormalized, lid)
+		logger.Debugf("BR digit-9 alias cached in-memory only (reverse): %s -> %s", variantNormalized, lid)
 	} else if variantPhone, verr := library.RemoveDigit9BRAllDDDs("+" + phone); verr == nil {
 		variantNormalized := strings.TrimPrefix(variantPhone, "+")
-		variantJID := types.JID{User: variantNormalized, Server: whatsapp.WHATSAPP_SERVERDOMAIN_USER}
-		if perr := cm.Client.Store.LIDs.PutLIDMapping(context.Background(), lidJID, variantJID); perr == nil {
-			logger.Debugf("BR digit-9 variant persisted in Store.LIDs (reverse): %s -> %s", lid, variantNormalized)
-			cm.maps.SetLIDFromPhoneMap(variantNormalized, lid)
-		} else {
-			logger.Warnf("BR digit-9 variant Store.LIDs write failed (reverse) for %s: %v", variantNormalized, perr)
-		}
+		cm.maps.SetLIDFromPhoneMap(variantNormalized, lid)
+		logger.Debugf("BR digit-9 alias cached in-memory only (reverse): %s -> %s", variantNormalized, lid)
 	}
 
 	return phone, nil

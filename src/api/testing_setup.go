@@ -47,6 +47,7 @@ func createTestSchema(db *sqlx.DB) error {
 		CREATE TABLE IF NOT EXISTS users (
 			username TEXT PRIMARY KEY,
 			password TEXT NOT NULL,
+			ui TEXT DEFAULT NULL,
 			timestamp DATETIME DEFAULT CURRENT_TIMESTAMP
 		);
 
@@ -58,12 +59,14 @@ func createTestSchema(db *sqlx.DB) error {
 			verified BOOLEAN DEFAULT 0,
 			devel BOOLEAN DEFAULT 0,
 			metadata TEXT,
-			timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
 			groups INTEGER DEFAULT 1,
 			broadcasts INTEGER DEFAULT 1,
 			readreceipts INTEGER DEFAULT 1,
+			deliveryreceipts INTEGER DEFAULT 1,
 			calls INTEGER DEFAULT 1,
 			readupdate INTEGER DEFAULT 1,
+			direct INTEGER DEFAULT 1,
+			timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
 			FOREIGN KEY (user) REFERENCES users(username)
 		);
 
@@ -72,14 +75,18 @@ func createTestSchema(db *sqlx.DB) error {
 			context TEXT NOT NULL,
 			connection_string TEXT NOT NULL,
 			type TEXT NOT NULL DEFAULT 'webhook',
-			forward_internal BOOLEAN DEFAULT 0,
-			track_id TEXT,
-			extra TEXT,
-			timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+			forwardinternal BOOLEAN DEFAULT 0,
+			trackid TEXT,
 			groups INTEGER DEFAULT 1,
 			broadcasts INTEGER DEFAULT 1,
 			readreceipts INTEGER DEFAULT 1,
+			deliveryreceipts INTEGER DEFAULT 1,
 			calls INTEGER DEFAULT 1,
+			direct INTEGER DEFAULT 1,
+			extra BLOB,
+			failure DATETIME,
+			success DATETIME,
+			timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
 			PRIMARY KEY (context, connection_string)
 		);
 

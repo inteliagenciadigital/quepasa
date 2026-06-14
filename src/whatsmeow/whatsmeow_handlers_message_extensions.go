@@ -58,9 +58,12 @@ func HandleKnowingMessages(handler *WhatsmeowHandlers, out *whatsapp.WhatsappMes
 	case in.ListMessage != nil:
 		HandleListMessage(logentry, out, in.ListMessage)
 	case in.SenderKeyDistributionMessage != nil:
-
+		// SenderKeyDistributionMessage carries Signal group session keys.
+		// whatsmeow processes these internally before dispatching to this handler,
+		// so discarding here is safe. Logging at Debug to reduce noise in production
+		// (hundreds of occurrences per hour were masking real warnings like crypto errors).
 		json := library.ToJson(in.SenderKeyDistributionMessage)
-		logentry.Infof("unhandled SenderKeyDistributionMessage: %s", json)
+		logentry.Debugf("discarding SenderKeyDistributionMessage (processed internally by whatsmeow): %s", json)
 
 		out.Type = whatsapp.UnhandledMessageType
 		out.Debug = &whatsapp.WhatsappMessageDebug{
