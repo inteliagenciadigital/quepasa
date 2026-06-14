@@ -300,6 +300,11 @@ func (cm *WhatsmeowContactManager) GetPhoneFromLID(lid string) (string, error) {
 		logger.Debugf("BR digit-9 alias cached in-memory only (reverse): %s -> %s", variantNormalized, lid)
 	}
 
+	// Retrieve the phone number again from the maps cache to ensure we return the upgraded/promoted 9-digit version
+	if upgradedPhone, ok := cm.maps.GetPhoneFromLIDMap(lid); ok {
+		phone = strings.TrimPrefix(upgradedPhone, "+")
+	}
+
 	return phone, nil
 }
 
