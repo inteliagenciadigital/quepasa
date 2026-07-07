@@ -1,8 +1,8 @@
 <!-- VERSION: 5.26.0625.0 -->
-[![Go Build](https://github.com/nocodeleaks/quepasa/actions/workflows/go.yml/badge.svg)](https://github.com/nocodeleaks/quepasa/actions/workflows/go.yml)
+[![Go Build](https://github.com/nocodeleaks/quepasa-/actions/workflows/go.yml/badge.svg)](https://github.com/nocodeleaks/quepasa-/actions/workflows/go.yml)
 
 <p align="center">
-	<img src="https://github.com/nocodeleaks/quepasa/raw/main/src/assets/favicon.png" alt="Quepasa-logo" width="100" />	
+	<img src="src/assets/favicon.png" alt="Quepasa-logo" width="100" />	
 	<p align="center">QuePasa is an open-source, free license software to exchange messages with WhatsApp Platform</p>
 </p>
 <hr />
@@ -33,8 +33,8 @@ The fastest way to get QuePasa running:
 
 ```bash
 # Clone the repository
-git clone https://github.com/nocodeleaks/quepasa.git
-cd quepasa/docker
+git clone https://github.com/nocodeleaks/quepasa-.git
+cd quepasa-/docker
 
 # Configure environment
 cp .env.example .env
@@ -92,8 +92,8 @@ The easiest way to deploy QuePasa is using Docker with our pre-configured setup:
 
 1. **Quick Setup**
    ```bash
-   git clone https://github.com/nocodeleaks/quepasa.git
-   cd quepasa/docker
+   git clone https://github.com/nocodeleaks/quepasa-.git
+   cd quepasa-/docker
    cp .env.example .env
    # Edit .env with your configurations
    docker-compose up -d --build
@@ -116,8 +116,8 @@ For development or custom installations:
 #### Build from Source
 ```bash
 # Clone repository
-git clone https://github.com/nocodeleaks/quepasa.git
-cd quepasa/src
+git clone https://github.com/nocodeleaks/quepasa-.git
+cd quepasa-/src
 
 # Install dependencies
 go mod download
@@ -391,7 +391,7 @@ QuePasa is built with:
 ### Get Help
 - 💬 **Telegram Group**: [QuePasa API](https://t.me/quepasa_api)
 - 📢 **Telegram Channel**: [QuePasa Channel](https://t.me/quepasa_channel)
-- 🐛 **Issues**: [GitHub Issues](https://github.com/nocodeleaks/quepasa/issues)
+- 🐛 **Issues**: [GitHub Issues](https://github.com/nocodeleaks/quepasa-/issues)
 
 ### Alternative Projects
 Looking for Node.js? Check out [whatsapp-web.js](https://github.com/pedroslopez/whatsapp-web.js) - A more complete Node.js WhatsApp API.
