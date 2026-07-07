@@ -105,6 +105,34 @@ jobs:
           git tag -fa "${{ env.VERSION }}" -m "Release ${{ env.VERSION }}"
           git push -f origin "${{ env.VERSION }}"
 
+      - name: Set up Go
+        if: ${{ steps.extract_old.outputs.old != steps.extract_new.outputs.new }}
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: src/go.mod
+
+      - name: Build multi-platform release binaries
+        if: ${{ steps.extract_old.outputs.old != steps.extract_new.outputs.new }}
+        working-directory: src
+        run: |
+          set -e
+          mkdir -p ../dist
+          combos=(
+            "linux 386" "linux amd64" "linux arm64"
+            "windows 386" "windows amd64"
+            "darwin amd64" "darwin arm64"
+          )
+          for combo in "${combos[@]}"; do
+            read -r goos goarch <<< "$combo"
+            out="quepasa"
+            [ "$goos" = "windows" ] && out="quepasa.exe"
+            echo "Building $goos/$goarch..."
+            GOOS="$goos" GOARCH="$goarch" go build -ldflags="-s -w" -o "$out" main.go
+            archive="../dist/quepasa-${{ env.VERSION }}-${goos}-${goarch}.zip"
+            zip -j "$archive" "$out" ../LICENSE.md ../README.md
+            rm -f "$out"
+          done
+
       - name: Create GitHub Release ${{ env.VERSION }}
         if: ${{ steps.extract_old.outputs.old != steps.extract_new.outputs.new }}
         uses: softprops/action-gh-release@v3
@@ -112,6 +140,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           tag_name: ${{ env.VERSION }}
           name: "Release ${{ env.VERSION }}"
+          files: dist/*.zip
           body: |
             📦 Imagem Docker `${{ env.IMAGE_NAME }}:${{ env.VERSION }}` publicada!
             Commit: ${{ github.sha }}

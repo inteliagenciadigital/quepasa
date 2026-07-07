@@ -1,8 +1,16 @@
-name: Release
+name: Release (manual rebuild)
 
+# Automatic release binaries are built and attached inline by docker.yml
+# whenever QpVersion changes on main (release events fired via GITHUB_TOKEN
+# don't trigger other workflows, so a separate `release: created` listener
+# here would never actually run). This workflow is a manual fallback to
+# rebuild and re-attach binaries for an existing tag.
 on:
-  release:
-    types: [created]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Existing tag/release to (re)attach binaries to"
+        required: true
 
 permissions:
     contents: write
@@ -24,12 +32,15 @@ jobs:
             goos: windows
     steps:
     - uses: actions/checkout@v5
+      with:
+        ref: ${{ inputs.tag }}
     - uses: wangyoucao577/go-release-action@v1
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         goos: ${{ matrix.goos }}
         goarch: ${{ matrix.goarch }}
-        goversion: "1.25"
+        goversion: "1.26"
         project_path: "./src"
         binary_name: "quepasa"
-        extra_files: LICENSE README.md
+        release_tag: ${{ inputs.tag }}
+        extra_files: LICENSE.md README.md
