@@ -85,6 +85,13 @@ type SIPCallManagerSipgo struct {
 	listenerAddr   string
 }
 
+func sipWildcardListenAddr(port int) string {
+	if port <= 0 {
+		return ":0"
+	}
+	return fmt.Sprintf(":%d", port)
+}
+
 // SetLocalRTPPort registers the local RTP port to advertise in the SDP offer
 // for callID. Must be called before InitiateCallSipgo for that call.
 func (scm *SIPCallManagerSipgo) SetLocalRTPPort(callID string, port int) {
@@ -140,13 +147,10 @@ func NewSIPCallManagerSipgo(logger qplog.Logger, config SIPProxySettings, networ
 	localPort := networkManager.GetLocalPort()
 	publicIP := networkManager.GetPublicIP()
 
-	// The SIP socket MUST bind to a concrete local IP, not 0.0.0.0. When the
-	// host has multiple interfaces/default routes, a 0.0.0.0 bind lets the
-	// kernel pick the egress source IP by route — which can differ from the
-	// address the SIP server's IP ACL expects (causing 403/603). pickBindIP
-	// prefers the configured public IP when it's a local interface address so
-	// the source IP stays consistent with the Via/Contact/SDP.
-	bindIP := pickBindIP(localIP, publicIP)
+	// Bind SIP on the wildcard address so the proxy can receive calls through
+	// any interface available on the host/container. Source address selection
+	// for outbound SIP then follows the kernel route to the peer.
+	listenAddr := sipWildcardListenAddr(localPort)
 
 	// LOG CONFIGURATION VALUES FOR DEBUGGING
 	logger.Infof("🔍 SIPGO CONFIGURATION DEBUG:")
@@ -160,18 +164,18 @@ func NewSIPCallManagerSipgo(logger qplog.Logger, config SIPProxySettings, networ
 	// Initialize sipgo UserAgent with complete configuration
 	ua, err := sipgo.NewUA(
 		sipgo.WithUserAgent(userAgentName),
-		sipgo.WithUserAgentHostname(bindIP),
+		sipgo.WithUserAgentHostname(publicIP),
 	)
 	if err != nil {
 		logger.Errorf("❌ Failed to create sipgo UserAgent: %v", err)
 		return nil
 	}
 
-	logger.Infof("✅ UserAgent configured: %s@%s:%d", userAgentName, bindIP, localPort)
+	logger.Infof("✅ UserAgent configured: %s@%s:%d", userAgentName, publicIP, localPort)
 
-	// Create sipgo Client with explicit listen address
-	// Try to bind to the specific IP:port to ensure Via header is correct
-	listenAddr := fmt.Sprintf("%s:%d", bindIP, localPort)
+	// Create sipgo Client with explicit wildcard listen address. The server
+	// listener below uses the same address/port so inbound OPTIONS/INVITE/BYE
+	// can arrive on any IPv4 or IPv6 interface.
 	client, err := sipgo.NewClient(ua, sipgo.WithClientAddr(listenAddr))
 	if err != nil {
 		logger.Errorf("❌ Failed to create sipgo Client with addr %s: %v", listenAddr, err)
@@ -181,9 +185,9 @@ func NewSIPCallManagerSipgo(logger qplog.Logger, config SIPProxySettings, networ
 			logger.Errorf("❌ Failed to create sipgo Client even with fallback: %v", err)
 			return nil
 		}
-		logger.Warnf("⚠️ Using default client binding, Via header may show 0.0.0.0")
+		logger.Warnf("⚠️ Using default client binding, Via header may show wildcard address")
 	} else {
-		logger.Infof("🌐 SIP Client bound to specific address: %s", listenAddr)
+		logger.Infof("🌐 SIP Client bound to wildcard address: %s", listenAddr)
 	}
 
 	// Create contact header for this client using UserAgent name
@@ -260,16 +264,13 @@ func (scm *SIPCallManagerSipgo) StartListener() error {
 		return nil
 	}
 
-	localIP := scm.networkManager.GetLocalIP()
-	publicIP := scm.networkManager.GetPublicIP()
 	localPort := scm.networkManager.GetLocalPort()
-	bindIP := pickBindIP(localIP, publicIP)
 	protocol := strings.ToLower(strings.TrimSpace(scm.config.Protocol))
 	if protocol == "" {
 		protocol = "udp"
 	}
 
-	listenAddr := fmt.Sprintf("%s:%d", bindIP, localPort)
+	listenAddr := sipWildcardListenAddr(localPort)
 	ctx, cancel := context.WithCancel(context.Background())
 	done := make(chan error, 1)
 
