@@ -50,12 +50,29 @@ docker-compose up -d --build
 - **[Local Development Setup](#local-development)**
 - **[Manual Installation](#manual-installation)**
 
+### P2P Mirror (Radicle)
+This repository is also seeded on [Radicle](https://radicle.xyz), a peer-to-peer alternative to GitHub. No account needed, just the `rad` CLI:
+
+```bash
+# Install the Radicle CLI (see https://radicle.xyz for details)
+curl -sSf https://radicle.xyz/install | sh
+
+# Create your local identity (one-time)
+rad auth
+
+# Clone quepasa's `develop` branch from the P2P network
+rad clone rad:z4N4hVxiroGtMpgB5AyzvfcptdfgD
+```
+
+Repository ID (RID): `rad:z4N4hVxiroGtMpgB5AyzvfcptdfgD` — only `develop` is published there.
+
 ## 📋 Table of Contents
 
 - [Features](#features)
 - [Installation](#installation)
   - [Docker Setup](#docker-installation-recommended)
   - [Local Development](#local-development)
+  - [P2P Mirror (Radicle)](#p2p-mirror-radicle)
 - [Integration Examples](#integration-examples)
 - [API Documentation](#api-documentation)
 - [Connection States](#connection-states)
