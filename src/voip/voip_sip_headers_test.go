@@ -38,7 +38,7 @@ func TestSIPHeadersIncludeCallerMetadata(t *testing.T) {
 	assertHeader(t, headers, "X-QuePasa-CallId", "CALL-123")
 	assertHeader(t, headers, "X-QuePasa-Direction", "inbound-whatsapp")
 	assertHeader(t, headers, "X-QuePasa-Account-Phone", testAccountPhone)
-	assertHeader(t, headers, "X-QuePasa-Caller-Phone", testCallerPhone)
+	assertHeader(t, headers, "X-QuePasa-Caller-Phone", "+"+testCallerPhone)
 	assertHeader(t, headers, "X-QuePasa-Caller-E164", "+"+testCallerPhone)
 	assertHeader(t, headers, "X-QuePasa-Caller-JID", testCallerPhone+"@s.whatsapp.net")
 	assertHeader(t, headers, "X-QuePasa-Caller-LID", "111222333@lid")
@@ -68,6 +68,51 @@ func TestSIPHeadersSanitizeValues(t *testing.T) {
 			t.Fatalf("header %s contains unsafe whitespace: %q", name, value)
 		}
 	}
+}
+
+func TestSIPHeadersNormalizeBrazilianLegacyWhatsAppPhone(t *testing.T) {
+	const (
+		legacyWhatsAppPhone = "554788026105"
+		fullPhoneE164       = "+5547988026105"
+	)
+	mgr := &VoipManager{sectionID: "5500000000000:2", sessionToken: "token-123"}
+	meta := callSIPMetadata{
+		CallID:    "CALL-123",
+		FromPhone: legacyWhatsAppPhone,
+		ToPhone:   testAccountPhone,
+		Peer:      types.NewJID(legacyWhatsAppPhone, types.DefaultUserServer),
+		CallerInfo: CallerInfo{
+			JID:       legacyWhatsAppPhone + "@s.whatsapp.net",
+			Phone:     legacyWhatsAppPhone,
+			PhoneE164: "+" + legacyWhatsAppPhone,
+		},
+	}
+
+	headers := mgr.sipHeaders(meta)
+
+	assertHeader(t, headers, "X-QuePasa-Caller-Phone", fullPhoneE164)
+	assertHeader(t, headers, "X-QuePasa-Caller-E164", fullPhoneE164)
+	assertHeader(t, headers, "X-QuePasa-Caller-JID", legacyWhatsAppPhone+"@s.whatsapp.net")
+}
+
+func TestSIPHeadersKeepBrazilianFullPhone(t *testing.T) {
+	const fullPhoneE164 = "+5521987654321"
+	mgr := &VoipManager{sectionID: "5500000000000:2", sessionToken: "token-123"}
+	meta := callSIPMetadata{
+		CallID:    "CALL-123",
+		FromPhone: strings.TrimPrefix(fullPhoneE164, "+"),
+		ToPhone:   testAccountPhone,
+		Peer:      types.NewJID(strings.TrimPrefix(fullPhoneE164, "+"), types.DefaultUserServer),
+		CallerInfo: CallerInfo{
+			Phone:     strings.TrimPrefix(fullPhoneE164, "+"),
+			PhoneE164: fullPhoneE164,
+		},
+	}
+
+	headers := mgr.sipHeaders(meta)
+
+	assertHeader(t, headers, "X-QuePasa-Caller-Phone", fullPhoneE164)
+	assertHeader(t, headers, "X-QuePasa-Caller-E164", fullPhoneE164)
 }
 
 func TestSIPHeadersResolveSectionInfoAtInviteTime(t *testing.T) {

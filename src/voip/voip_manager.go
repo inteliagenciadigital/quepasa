@@ -34,6 +34,7 @@ import (
 
 	"github.com/emiago/sipgo/sip"
 	environment "github.com/nocodeleaks/quepasa/environment"
+	"github.com/nocodeleaks/quepasa/library"
 	qplog "github.com/nocodeleaks/quepasa/qplog"
 	sipproxy "github.com/nocodeleaks/quepasa/sipproxy"
 	calls "github.com/nocodeleaks/quepasa/voip/calls"
@@ -436,8 +437,10 @@ func (m *VoipManager) sipHeaders(meta callSIPMetadata) map[string]string {
 	addSIPHeader(headers, "X-QuePasa-CallId", meta.CallID)
 	addSIPHeader(headers, "X-QuePasa-Direction", "inbound-whatsapp")
 	addSIPHeader(headers, "X-QuePasa-Account-Phone", meta.ToPhone)
-	addSIPHeader(headers, "X-QuePasa-Caller-Phone", firstNonEmpty(meta.CallerInfo.Phone, meta.FromPhone))
-	addSIPHeader(headers, "X-QuePasa-Caller-E164", meta.CallerInfo.PhoneE164)
+
+	callerPhoneE164 := normalizeSIPPhoneE164(meta.CallerInfo.PhoneE164, meta.CallerInfo.Phone, meta.FromPhone)
+	addSIPHeader(headers, "X-QuePasa-Caller-Phone", callerPhoneE164)
+	addSIPHeader(headers, "X-QuePasa-Caller-E164", callerPhoneE164)
 	addSIPHeader(headers, "X-QuePasa-Caller-JID", firstNonEmpty(meta.CallerInfo.JID, meta.Peer.String()))
 	addSIPHeader(headers, "X-QuePasa-Caller-LID", meta.CallerInfo.LID)
 	addSIPHeader(headers, "X-QuePasa-Caller-Title", meta.CallerInfo.Title)
@@ -450,6 +453,21 @@ func (m *VoipManager) sipHeaders(meta callSIPMetadata) map[string]string {
 		return nil
 	}
 	return headers
+}
+
+func normalizeSIPPhoneE164(values ...string) string {
+	for _, value := range values {
+		phone, err := whatsapp.GetPhoneIfValid(value)
+		if err != nil {
+			continue
+		}
+
+		if phoneWith9, addErr := library.AddDigit9BRAllDDDs(phone); addErr == nil {
+			return phoneWith9
+		}
+		return phone
+	}
+	return ""
 }
 
 func (m *VoipManager) currentSessionID(fallback string) string {
