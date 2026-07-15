@@ -54,6 +54,7 @@ func (source QpServer) MarshalJSON() ([]byte, error) {
 		Devel     bool       `json:"devel"`
 		Metadata  QpMetadata `json:"metadata,omitempty"`
 		User      string     `json:"user,omitempty"`
+		ContextID string     `json:"contextid,omitempty"`
 		Timestamp time.Time  `json:"timestamp,omitempty"`
 	}
 
@@ -65,6 +66,7 @@ func (source QpServer) MarshalJSON() ([]byte, error) {
 		Devel:           source.Devel,
 		Metadata:        source.Metadata,
 		User:            source.GetUser(),
+		ContextID:       source.GetContextId(),
 		Timestamp:       source.Timestamp,
 	})
 }
@@ -78,6 +80,7 @@ func (source *QpServer) UnmarshalJSON(data []byte) error {
 		Devel     bool       `json:"devel"`
 		Metadata  QpMetadata `json:"metadata,omitempty"`
 		User      string     `json:"user"`
+		ContextID string     `json:"contextid"`
 		Timestamp time.Time  `json:"timestamp,omitempty"`
 	}
 
@@ -93,6 +96,7 @@ func (source *QpServer) UnmarshalJSON(data []byte) error {
 	source.Devel = payload.Devel
 	source.Metadata = payload.Metadata
 	source.SetUser(payload.User)
+	source.SetContextId(payload.ContextID)
 	source.Timestamp = payload.Timestamp
 	return nil
 }
@@ -153,6 +157,19 @@ func (source *QpServer) GetContextId() string {
 	}
 	return source.ContextId.String
 }
+
+// SetContextId sets the ContextId field (tenant/sharing scope).
+func (source *QpServer) SetContextId(contextid string) {
+	if source == nil {
+		return
+	}
+	if len(contextid) == 0 {
+		source.ContextId = sql.NullString{}
+	} else {
+		source.ContextId = sql.NullString{String: contextid, Valid: true}
+	}
+}
+
 
 // SetUser sets the User field
 func (source *QpServer) SetUser(user string) {

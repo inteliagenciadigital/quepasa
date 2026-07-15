@@ -628,7 +628,8 @@ func FindUserByAPIKey(apiKey string) (*models.QpUser, error) {
 	if apiKey == "" {
 		return nil, errors.New("api key cannot be empty")
 	}
-	return models.WhatsappService.DB.Users.FindByAPIKey(apiKey)
+	hashedKey := models.HashAPIKey(apiKey)
+	return models.WhatsappService.DB.Users.FindByAPIKey(hashedKey)
 }
 
 // RotateUserAPIKey rotates a user's API key and returns the new plaintext key.
@@ -700,7 +701,7 @@ func GetOwnedOrContextLiveServer(user *models.QpUser, token string) (*models.QpW
 		if err != nil {
 			return nil, err
 		}
-		if contextAccess != nil {
+		if contextAccess != nil && contextAccess.Enabled {
 			// Get the live session
 			session, err := GetOrCreateLiveSessionByToken(token)
 			if err != nil {
@@ -710,7 +711,7 @@ func GetOwnedOrContextLiveServer(user *models.QpUser, token string) (*models.QpW
 		}
 	}
 
-	return nil, errors.New("access denied")
+	return nil, errors.New("server token not owned by user")
 }
 
 // GetOwnedOrContextServerRecord resolves a server record by token with the same
@@ -739,12 +740,12 @@ func GetOwnedOrContextServerRecord(user *models.QpUser, token string) (*models.Q
 		if err != nil {
 			return nil, err
 		}
-		if contextAccess != nil {
+		if contextAccess != nil && contextAccess.Enabled {
 			return record, nil
 		}
 	}
 
-	return nil, errors.New("access denied")
+	return nil, errors.New("server token not owned by user")
 }
 
 // userOwnsServer checks if the given user owns the server record.

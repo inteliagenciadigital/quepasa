@@ -90,6 +90,12 @@ func GetAuthenticatedUser(r *http.Request) (*models.QpUser, error) {
 		return findPersistedUser(scopedAuth.Username)
 	}
 
+	if usernameVal := r.Context().Value("username"); usernameVal != nil {
+		if username, ok := usernameVal.(string); ok && strings.TrimSpace(username) != "" {
+			return findPersistedUser(username)
+		}
+	}
+
 	_, claims, err := jwtauth.FromContext(r.Context())
 	if err != nil {
 		return nil, err
@@ -251,6 +257,7 @@ func buildFallbackServerSummary(dbServer *models.QpServer, snap serverRuntimeSna
 			"verified":       false,
 			"devel":          false,
 			"user":           "",
+			"contextid":      "",
 			"timestamp":      time.Time{},
 			"startTime":      snap.timestamps.Start,
 			"lastUpdate":     snap.timestamps.Update,
@@ -284,6 +291,7 @@ func buildFallbackServerSummary(dbServer *models.QpServer, snap serverRuntimeSna
 		"verified":         dbServer.Verified,
 		"devel":            dbServer.Devel,
 		"user":             dbServer.GetUser(),
+		"contextid":        dbServer.GetContextId(),
 		"timestamp":        dbServer.Timestamp,
 		"startTime":        snap.timestamps.Start,
 		"lastUpdate":       snap.timestamps.Update,

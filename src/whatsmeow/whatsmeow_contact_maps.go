@@ -3,6 +3,8 @@ package whatsmeow
 import (
 	"strings"
 	"sync"
+
+	library "github.com/nocodeleaks/quepasa/library"
 )
 
 // WhatsmeowContactMaps provides thread-safe mapping for LID/Phone relationships
@@ -59,18 +61,38 @@ func (c *WhatsmeowContactMaps) GetPhoneFromLIDMap(lid string) (string, bool) {
 	return "", false
 }
 
-// SetPhoneFromLIDMap stores LID->Phone mapping (stores phone without + prefix)
+// SetPhoneFromLIDMap stores LID->Phone mapping (stores phone without + prefix).
+// BR mobile phones are automatically canonicalized to 9-digit form before storage.
 func (c *WhatsmeowContactMaps) SetPhoneFromLIDMap(lid, phone string) {
 	c.mutex.Lock()
 	defer c.mutex.Unlock()
 
-	// Normalize phone for storage (remove + prefix)
-	normalizedPhone := normalizePhone(phone)
-	c.lidToPhone[lid] = normalizedPhone
+	// Normalize phone for storage (remove + prefix) and canonicalize BR mobile
+	normalizedPhone := library.NormalizeCanonicalPhone(normalizePhone(phone))
+
+	// Avoid downgrading a 9-digit Brazilian number (13 digits total) to 8-digit (12 digits total)
+	existing, exists := c.lidToPhone[lid]
+	if !exists {
+		c.lidToPhone[lid] = normalizedPhone
+	} else {
+		if strings.HasPrefix(existing, "55") && len(existing) == 13 &&
+			strings.HasPrefix(normalizedPhone, "55") && len(normalizedPhone) == 12 {
+			// Keep the 9-digit version
+		} else {
+			c.lidToPhone[lid] = normalizedPhone
+		}
+	}
 
 	// Also store reverse mapping if phone is not empty
 	if len(normalizedPhone) > 0 {
 		c.phoneToLID[normalizedPhone] = lid
+
+		// Index aliases (e.g. 8-digit BR variant) so reverse lookups work from either form
+		for _, alias := range library.BuildPhoneAliases(normalizedPhone) {
+			if _, aliasExists := c.phoneToLID[alias]; !aliasExists {
+				c.phoneToLID[alias] = lid
+			}
+		}
 	}
 }
 
@@ -85,18 +107,35 @@ func (c *WhatsmeowContactMaps) GetLIDFromPhoneMap(phone string) (string, bool) {
 	return lid, exists
 }
 
-// SetLIDFromPhoneMap stores Phone->LID mapping (stores phone without + prefix)
+// SetLIDFromPhoneMap stores Phone->LID mapping (stores phone without + prefix).
+// BR mobile phones are automatically canonicalized to 9-digit form before storage.
 func (c *WhatsmeowContactMaps) SetLIDFromPhoneMap(phone, lid string) {
 	c.mutex.Lock()
 	defer c.mutex.Unlock()
 
-	// Normalize phone for storage (remove + prefix)
-	normalizedPhone := normalizePhone(phone)
+	// Normalize phone for storage (remove + prefix) and canonicalize BR mobile
+	normalizedPhone := library.NormalizeCanonicalPhone(normalizePhone(phone))
 	c.phoneToLID[normalizedPhone] = lid
 
-	// Also store reverse mapping if lid is not empty
+	// Also store reverse mapping if lid is not empty, but protect 9-digit BR numbers
 	if len(lid) > 0 {
-		c.lidToPhone[lid] = normalizedPhone
+		existing, exists := c.lidToPhone[lid]
+		if !exists {
+			c.lidToPhone[lid] = normalizedPhone
+		} else {
+			// Only overwrite if upgrading from 8-digit (12 chars starting with 55) to 9-digit (13 chars starting with 55)
+			if strings.HasPrefix(existing, "55") && len(existing) == 12 &&
+				strings.HasPrefix(normalizedPhone, "55") && len(normalizedPhone) == 13 {
+				c.lidToPhone[lid] = normalizedPhone
+			}
+		}
+	}
+
+	// Also index aliases so reverse lookups work from either variant
+	for _, alias := range library.BuildPhoneAliases(normalizedPhone) {
+		if _, aliasExists := c.phoneToLID[alias]; !aliasExists {
+			c.phoneToLID[alias] = lid
+		}
 	}
 }
 

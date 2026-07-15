@@ -75,6 +75,8 @@ func createTestSchema(db *sqlx.DB) error {
 			readupdate INTEGER DEFAULT 1,
 			direct INTEGER DEFAULT 0,
 			historysyncdays INTEGER NOT NULL DEFAULT 0,
+			store_retention_days INTEGER,
+			dispatch_types TEXT,
 			FOREIGN KEY (user) REFERENCES quepasa_users(username)
 		);
 
@@ -104,8 +106,8 @@ func createTestSchema(db *sqlx.DB) error {
 			context TEXT NOT NULL,
 			connection_string TEXT NOT NULL,
 			type TEXT NOT NULL DEFAULT 'webhook',
-			forward_internal BOOLEAN DEFAULT 0,
-			track_id TEXT,
+			forwardinternal BOOLEAN DEFAULT 0,
+			trackid TEXT,
 			extra TEXT,
 			timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
 			groups INTEGER DEFAULT 1,

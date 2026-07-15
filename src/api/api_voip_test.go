@@ -4,6 +4,7 @@ import (
 	"testing"
 
 	"github.com/nocodeleaks/quepasa/models"
+	"github.com/nocodeleaks/quepasa/runtime"
 )
 
 func TestGetOwnedOrContextServerRecordAllowsOwner(t *testing.T) {
@@ -19,7 +20,7 @@ func TestGetOwnedOrContextServerRecordAllowsOwner(t *testing.T) {
 		t.Fatalf("add server: %v", err)
 	}
 
-	record, err := GetOwnedOrContextServerRecord(owner, "owner-token")
+	record, err := runtime.GetOwnedOrContextServerRecord(owner, "owner-token")
 	if err != nil {
 		t.Fatalf("expected owner access, got error: %v", err)
 	}
@@ -51,7 +52,7 @@ func TestGetOwnedOrContextServerRecordAllowsEnabledContextAccess(t *testing.T) {
 		t.Fatalf("upsert context access: %v", err)
 	}
 
-	record, err := GetOwnedOrContextServerRecord(viewer, "shared-token")
+	record, err := runtime.GetOwnedOrContextServerRecord(viewer, "shared-token")
 	if err != nil {
 		t.Fatalf("expected context access, got error: %v", err)
 	}
@@ -83,7 +84,7 @@ func TestGetOwnedOrContextServerRecordRejectsDisabledContextAccess(t *testing.T)
 		t.Fatalf("upsert context access: %v", err)
 	}
 
-	if _, err := GetOwnedOrContextServerRecord(viewer, "disabled-context-token"); err == nil {
+	if _, err := runtime.GetOwnedOrContextServerRecord(viewer, "disabled-context-token"); err == nil {
 		t.Fatalf("expected disabled context access to be rejected")
 	}
 }

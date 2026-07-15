@@ -126,7 +126,10 @@ func GetUsernameFromJID(client *whatsmeow.Client, jid types.JID) string {
 func GetPhoneFromJID(contactManager whatsapp.WhatsappContactManagerInterface, jid types.JID) string {
 	// Type assertion to access GetPhoneFromStore method
 	if cm, ok := contactManager.(*WhatsmeowContactManager); ok {
-		return cm.GetPhoneFromStore(jid)
+		phoneRaw := cm.GetPhoneFromStore(jid)
+		if len(phoneRaw) > 0 {
+			return library.NormalizeCanonicalPhone(phoneRaw)
+		}
 	}
 	return ""
 }

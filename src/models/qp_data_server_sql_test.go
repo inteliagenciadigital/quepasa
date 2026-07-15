@@ -30,9 +30,11 @@ func TestQpDataServerSqlFindByTokenAndUserReturnServerRows(t *testing.T) {
 		calls INTEGER,
 		readupdate INTEGER,
 		direct INTEGER,
+		deliveryreceipts INTEGER DEFAULT 0,
 		store_retention_days INTEGER,
 		dispatch_types TEXT,
 		user TEXT,
+		contextid TEXT,
 		timestamp DATETIME DEFAULT CURRENT_TIMESTAMP
 	);`)
 	if _, err := db.Exec(schema); err != nil {

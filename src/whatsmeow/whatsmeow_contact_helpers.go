@@ -4,6 +4,7 @@ import (
 	"context"
 	"strings"
 
+	library "github.com/nocodeleaks/quepasa/library"
 	whatsapp "github.com/nocodeleaks/quepasa/whatsapp"
 	"go.mau.fi/whatsmeow/store"
 	"go.mau.fi/whatsmeow/types"
@@ -41,7 +42,7 @@ func GetContactsFromDevice(device *store.Device) (chats []whatsapp.WhatsappChat,
 			// For @lid contacts, get the corresponding phone number
 			pnJID, err := device.LIDs.GetPNForLID(context.TODO(), jid)
 			if err == nil && !pnJID.IsEmpty() {
-				phoneNumber = pnJID.User
+				phoneNumber = library.NormalizeCanonicalPhone(pnJID.User)
 				lid = jid.ToNonAD().String()
 				// Format phone to E164
 				if phone, err := whatsapp.GetPhoneIfValid(phoneNumber); err == nil {
@@ -54,7 +55,7 @@ func GetContactsFromDevice(device *store.Device) (chats []whatsapp.WhatsappChat,
 			}
 		} else {
 			// For regular @s.whatsapp.net contacts
-			phoneNumber = jid.User
+			phoneNumber = library.NormalizeCanonicalPhone(jid.User)
 			// Format phone to E164
 			if phone, err := whatsapp.GetPhoneIfValid(phoneNumber); err == nil {
 				phoneE164 = phone

@@ -99,6 +99,9 @@ func (source *WhatsmeowConnection) Connect() (err error) {
 	// not required
 	_ = source.Client.WaitForConnection(time.Millisecond * 2000)
 
+	// Repair any legacy 8-digit BR mobile numbers in the cache
+	RepairBRPhoneCache(GetGlobalContactMaps())
+
 	source.failedToken = false
 	return
 }
