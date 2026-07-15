@@ -2,6 +2,7 @@ package models
 
 import (
 	"fmt"
+	"strings"
 	"time"
 
 	library "github.com/nocodeleaks/quepasa/library"
@@ -120,6 +121,16 @@ func (server *QpWhatsappServer) GetMessages(timestamp time.Time) (messages []wha
 func (source *QpWhatsappServer) SendMessage(msg *whatsapp.WhatsappMessage) (response whatsapp.IWhatsappSendResponse, err error) {
 	logger := source.GetLogger()
 	logger.Debugf("sending msg to: %s", msg.Chat.Id)
+
+	// Canonicalize BR phone in chat ID before any other processing
+	if phone, err := whatsapp.GetPhoneIfValid(msg.Chat.Id); err == nil {
+		canonical := library.NormalizeCanonicalPhone(strings.TrimPrefix(phone, "+"))
+		if canonical != strings.TrimPrefix(phone, "+") {
+			oldChatId := msg.Chat.Id
+			msg.Chat.Id = canonical + whatsapp.WHATSAPP_SERVERDOMAIN_USER_SUFFIX
+			logger.Infof("send: chat id canonicalized: %s -> %s", oldChatId, msg.Chat.Id)
+		}
+	}
 
 	conn, err := source.GetValidConnection()
 	if err != nil {

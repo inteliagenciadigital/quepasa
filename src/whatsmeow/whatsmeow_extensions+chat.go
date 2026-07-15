@@ -2,6 +2,7 @@ package whatsmeow
 
 import (
 	"context"
+	"strings"
 
 	library "github.com/nocodeleaks/quepasa/library"
 	whatsapp "github.com/nocodeleaks/quepasa/whatsapp"
@@ -146,7 +147,12 @@ func NewWhatsappChatRaw(client *whatsmeow.Client, contactManager whatsapp.Whatsa
 		// For @lid contacts, get the corresponding phone number
 		phone, err := contactManager.GetPhoneFromContactId(chat.Id)
 		if err == nil && len(phone) > 0 {
-			chat.Phone = phone
+			canonicalPhone := library.NormalizeCanonicalPhone(strings.TrimPrefix(phone, "+"))
+			if p, e := whatsapp.GetPhoneIfValid(canonicalPhone); e == nil {
+				chat.Phone = p
+			} else {
+				chat.Phone = phone
+			}
 			// LId is already the chat.Id for @lid contacts
 			chat.LId = chat.Id
 		}

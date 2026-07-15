@@ -139,6 +139,9 @@ func (cm *WhatsmeowContactManager) GetLIDFromPhone(phone string) (string, error)
 	normalized := strings.TrimSpace(phone)
 	normalized = strings.TrimPrefix(normalized, "+") // Remove leading + if present
 
+	// Canonicalize BR mobile numbers before lookup (ensures both forms resolve)
+	normalized = library.NormalizeCanonicalPhone(normalized)
+
 	// First, check maps for existing mapping - this should be the very first check
 	if cachedLID, exists := cm.maps.GetLIDFromPhoneMap(normalized); exists {
 		logger.Debugf("Found LID in maps for phone %s: %s", phone, cachedLID)
@@ -279,6 +282,14 @@ func (cm *WhatsmeowContactManager) GetPhoneFromLID(lid string) (string, error) {
 
 	phone := phoneJID.User
 	logger.Debugf("Phone found in database for LID %s: %s", lid, phone)
+
+	// Canonicalize BR mobile phones: promote 8-digit to 9-digit when applicable.
+	// The whatsmeow DB may store the legacy 8-digit form; we always want canonical.
+	canonicalPhone := library.NormalizeCanonicalPhone(phone)
+	if canonicalPhone != phone {
+		logger.Infof("phone canonicalized: input=%s, canonical=%s, lid=%s", phone, canonicalPhone, lid)
+		phone = canonicalPhone
+	}
 
 	// Store successful mapping for future use
 	cm.maps.SetPhoneFromLIDMap(lid, phone)
@@ -506,6 +517,13 @@ func (cm *WhatsmeowContactManager) GetPhoneFromContactId(contactId string) (stri
 		// For @lid, try to get the corresponding phone number using contact manager interface
 		if retrieved, err := cm.GetPhoneFromLID(contactId); err == nil && len(retrieved) > 0 {
 			logentry.Debugf("Retrieved phone from LId mapping: %s", retrieved)
+
+			// Canonicalize BR mobile phones before formatting to E164
+			canonicalRetrieved := library.NormalizeCanonicalPhone(strings.TrimPrefix(retrieved, "+"))
+			if canonicalRetrieved != strings.TrimPrefix(retrieved, "+") {
+				logentry.Infof("phone from LID canonicalized: input=%s, canonical=%s, contactId=%s", retrieved, canonicalRetrieved, contactId)
+				retrieved = canonicalRetrieved
+			}
 
 			// Format the phone to E164 if needed
 			if phone, err := whatsapp.GetPhoneIfValid(retrieved); err == nil {
