@@ -17,7 +17,7 @@ permissions:
 
 env:
   REGISTRY: docker.io
-  IMAGE_NAME: codeleaks/quepasa
+  IMAGE_NAME: srwarez/quepasa
   DOCKER_BUILD_RECORD_UPLOAD: false
   DOCKER_BUILD_SUMMARY: false
   NODE_ENV: production
