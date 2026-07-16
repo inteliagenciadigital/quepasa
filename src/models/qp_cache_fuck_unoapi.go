@@ -22,6 +22,20 @@ func ValidateItemBecauseUNOAPIConflict(item QpCacheItem, from string, previous a
 		return true
 	}
 
+	// Defense-in-depth: protocol mutations (revoke, edit, reaction) reuse the
+	// original message ID and arrive with different content. They must never
+	// pass the dedup gate as "new message" regardless of content comparison.
+	// The primary filter is shouldSuppressFromCreateWebhook in dispatching_handler;
+	// this is the secondary safety net.
+	if newWaMsg, ok := item.Value.(*whatsapp.WhatsappMessage); ok {
+		if newWaMsg.Type == whatsapp.RevokeMessageType || newWaMsg.Edited || newWaMsg.InReaction {
+			logentry := log.New().WithContext(context.Background())
+			logentry = logentry.WithField(LogFields.MessageId, item.Key)
+			logentry.Info("protocol mutation detected in cache validator, denying trigger")
+			return false
+		}
+	}
+
 	// Heavy reflection-based diagnostics are emitted only when debug logging is
 	// enabled; the dedup DECISION below must always run regardless of log level,
 	// otherwise duplicate messages stop being deduped in production.

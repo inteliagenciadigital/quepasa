@@ -236,6 +236,35 @@ func (source *DispatchingHandler) Receipt(msg *whatsapp.WhatsappMessage) {
 //#endregion
 //region MESSAGE CONTROL REGION HANDLE A LOCK
 
+// shouldSuppressFromCreateWebhook returns true for message types that represent
+// mutations of existing messages (REVOKE, EDIT, REACTION) rather than genuinely
+// new messages. These must never trigger the create-webhook pipeline because:
+//
+//   - REVOKE reuses the original message ID and arrives with different content,
+//     which fools the UNOAPI dedup ("content differs → new message") into
+//     re-posting the same msgid to the webhook, creating duplicates in Chatwoot.
+//   - EDIT also reuses the original message ID with updated text.
+//   - REACTION reuses the original message ID with an emoji payload.
+//
+// All three should be handled by dedicated mutation endpoints in the future;
+// for now they are silently dropped from the create path.
+func shouldSuppressFromCreateWebhook(msg *whatsapp.WhatsappMessage) bool {
+	if msg == nil {
+		return true
+	}
+
+	switch {
+	case msg.Type == whatsapp.RevokeMessageType:
+		return true
+	case msg.Edited:
+		return true
+	case msg.InReaction:
+		return true
+	default:
+		return false
+	}
+}
+
 // dispatchDecision: store-independent dispatch gate — realtime always, history only
 // when new (dedup), and only for allowed message types.
 func dispatchDecision(r ResolvedMessageSettings, from string, wasNew bool, msgType string) bool {
@@ -266,6 +295,12 @@ func (source *DispatchingHandler) appendMsgToCache(msg *whatsapp.WhatsappMessage
 
 		// should cleanup old messages ?
 		source.QpWhatsappMessages.CleanUp(ENV.CacheLength())
+	}
+
+	if shouldSuppressFromCreateWebhook(msg) {
+		logentry := source.GetLogger()
+		logentry.Infof("suppressing %s event for msgid %s from create webhook", msg.Type, msg.Id)
+		return
 	}
 
 	if dispatchDecision(r, from, wasNew, msg.Type.String()) {
