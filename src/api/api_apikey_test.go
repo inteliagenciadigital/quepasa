@@ -6,8 +6,8 @@ import (
 	"testing"
 
 	"github.com/go-chi/jwtauth"
-	library "github.com/nocodeleaks/quepasa/library"
-	models "github.com/nocodeleaks/quepasa/models"
+	library "github.com/inteliagenciadigital/quepasa/library"
+	models "github.com/inteliagenciadigital/quepasa/models"
 )
 
 // userKeyChain mirrors the production middleware order (JWT verifier, then the

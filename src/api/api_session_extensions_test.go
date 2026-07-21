@@ -4,7 +4,7 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	models "github.com/nocodeleaks/quepasa/models"
+	models "github.com/inteliagenciadigital/quepasa/models"
 )
 
 func TestGetSessionReturnsSessionByToken(t *testing.T) {

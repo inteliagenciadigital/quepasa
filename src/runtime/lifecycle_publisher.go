@@ -1,8 +1,8 @@
 package runtime
 
 import (
-	dispatchservice "github.com/nocodeleaks/quepasa/dispatch/service"
-	models "github.com/nocodeleaks/quepasa/models"
+	dispatchservice "github.com/inteliagenciadigital/quepasa/dispatch/service"
+	models "github.com/inteliagenciadigital/quepasa/models"
 )
 
 // lifecyclePublisher adapts models lifecycle events to dispatch realtime transport.

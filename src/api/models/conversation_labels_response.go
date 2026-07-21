@@ -1,6 +1,6 @@
 package api
 
-import models "github.com/nocodeleaks/quepasa/models"
+import models "github.com/inteliagenciadigital/quepasa/models"
 
 // ConversationLabelsResponse is the API transport shape for conversation label endpoints.
 type ConversationLabelsResponse struct {

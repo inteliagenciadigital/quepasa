@@ -6,8 +6,8 @@ import (
 	"fmt"
 	"strings"
 
-	library "github.com/nocodeleaks/quepasa/library"
-	whatsapp "github.com/nocodeleaks/quepasa/whatsapp"
+	library "github.com/inteliagenciadigital/quepasa/library"
+	whatsapp "github.com/inteliagenciadigital/quepasa/whatsapp"
 	whatsmeow "go.mau.fi/whatsmeow"
 	types "go.mau.fi/whatsmeow/types"
 	events "go.mau.fi/whatsmeow/types/events"
@@ -171,7 +171,7 @@ func (cm *WhatsmeowContactManager) GetLIDFromPhone(phone string) (string, error)
 		cm.maps.SetLIDFromPhoneMap(normalized, lid)
 		logger.Debugf("Phone->LID mapping cached: %s -> %s", normalized, lid)
 
-		// BR ALIAS: cache the digit-9 variant in memory only — do NOT write to Store.LIDs.
+		// BR ALIAS: cache the digit-9 variant in memory only â€” do NOT write to Store.LIDs.
 		// Writing PutLIDMapping(lid, aliasJID) corrupts the reverse mapping: whatsmeow's
 		// GetPNForLID then returns the alias instead of the canonical phone from the DB.
 		// Confirmed in prod logs: DB returned 554796396152 (canonical 8-digit) but
@@ -190,7 +190,7 @@ func (cm *WhatsmeowContactManager) GetLIDFromPhone(phone string) (string, error)
 		return lid, nil
 	}
 
-	// TEMPORARY WORKAROUND: direct lookup failed — try the BR digit-9 variant before giving up.
+	// TEMPORARY WORKAROUND: direct lookup failed â€” try the BR digit-9 variant before giving up.
 	// The phone in the store may be the opposite form (e.g. stored as 9-digit, queried as 8-digit).
 	// All Brazilian DDDs are tried since the store mapping may exist for any DDD.
 	var variantNormalizedFallback string
@@ -292,7 +292,7 @@ func (cm *WhatsmeowContactManager) GetPhoneFromLID(lid string) (string, error) {
 	cm.maps.SetPhoneFromLIDMap(lid, phone)
 	logger.Debugf("LID->Phone mapping stored: %s -> %s", lid, phone)
 
-	// BR ALIAS (reverse): cache the digit-9 variant in memory only — do NOT write to Store.LIDs.
+	// BR ALIAS (reverse): cache the digit-9 variant in memory only â€” do NOT write to Store.LIDs.
 	// PutLIDMapping(lid, aliasJID) corrupts the reverse mapping: whatsmeow's GetPNForLID
 	// then returns the alias instead of the canonical phone returned by the DB.
 	// Confirmed in prod logs (line 17): "BR digit-9 variant persisted in Store.LIDs (reverse):

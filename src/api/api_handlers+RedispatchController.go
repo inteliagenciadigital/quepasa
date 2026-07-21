@@ -5,7 +5,7 @@ import (
 	"net/http"
 
 	"github.com/go-chi/chi/v5"
-	models "github.com/nocodeleaks/quepasa/models"
+	models "github.com/inteliagenciadigital/quepasa/models"
 )
 
 // RedispatchAPIHandler forces re-dispatch of a cached message by ID

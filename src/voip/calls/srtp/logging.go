@@ -1,9 +1,9 @@
 package srtp
 
-import qplog "github.com/nocodeleaks/quepasa/qplog"
+import qplog "github.com/inteliagenciadigital/quepasa/qplog"
 
 // Option configures optional, non-behavioral aspects of the keying/protection
-// types — currently the diagnostic logger. The zero configuration logs nothing.
+// types â€” currently the diagnostic logger. The zero configuration logs nothing.
 type Option func(*config)
 
 type config struct {

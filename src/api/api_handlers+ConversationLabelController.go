@@ -8,10 +8,10 @@ import (
 	"strconv"
 	"strings"
 
-	apiModels "github.com/nocodeleaks/quepasa/api/models"
-	library "github.com/nocodeleaks/quepasa/library"
-	models "github.com/nocodeleaks/quepasa/models"
-	whatsapp "github.com/nocodeleaks/quepasa/whatsapp"
+	apiModels "github.com/inteliagenciadigital/quepasa/api/models"
+	library "github.com/inteliagenciadigital/quepasa/library"
+	models "github.com/inteliagenciadigital/quepasa/models"
+	whatsapp "github.com/inteliagenciadigital/quepasa/whatsapp"
 )
 
 type conversationLabelRequest struct {

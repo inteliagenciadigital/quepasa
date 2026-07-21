@@ -5,8 +5,8 @@ import (
 	"testing"
 	"time"
 
-	cache_memory "github.com/nocodeleaks/quepasa/cache/memory"
-	whatsapp "github.com/nocodeleaks/quepasa/whatsapp"
+	cache_memory "github.com/inteliagenciadigital/quepasa/cache/memory"
+	whatsapp "github.com/inteliagenciadigital/quepasa/whatsapp"
 )
 
 // TestQpWhatsappMessagesSetBackend verifies backend injection works.

@@ -3,7 +3,7 @@ package whatsmeow
 import (
 	"time"
 
-	library "github.com/nocodeleaks/quepasa/library"
+	library "github.com/inteliagenciadigital/quepasa/library"
 )
 
 const DEFAULTEXPIRATION_WGIC time.Duration = time.Duration(1 * time.Hour)

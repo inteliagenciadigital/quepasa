@@ -5,7 +5,7 @@ import (
 	"reflect"
 	"strings"
 
-	whatsapp "github.com/nocodeleaks/quepasa/whatsapp"
+	whatsapp "github.com/inteliagenciadigital/quepasa/whatsapp"
 )
 
 // IsValidForDispatch validates if a given WhatsApp message payload is suitable for further processing

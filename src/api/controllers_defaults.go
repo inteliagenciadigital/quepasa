@@ -1,7 +1,7 @@
 package api
 
 import (
-	library "github.com/nocodeleaks/quepasa/library"
+	library "github.com/inteliagenciadigital/quepasa/library"
 )
 
 // copying log fields names

@@ -10,9 +10,9 @@ import (
 
 	jwt "github.com/dgrijalva/jwt-go"
 	"github.com/go-chi/chi/v5"
-	environment "github.com/nocodeleaks/quepasa/environment"
-	library "github.com/nocodeleaks/quepasa/library"
-	models "github.com/nocodeleaks/quepasa/models"
+	environment "github.com/inteliagenciadigital/quepasa/environment"
+	library "github.com/inteliagenciadigital/quepasa/library"
+	models "github.com/inteliagenciadigital/quepasa/models"
 )
 
 func TestCanonicalAuthConfigIsPublicButSessionRemainsProtected(t *testing.T) {

@@ -3,15 +3,15 @@ package api
 import (
 	"net/http"
 
-	models "github.com/nocodeleaks/quepasa/models"
-	runtime "github.com/nocodeleaks/quepasa/runtime"
+	models "github.com/inteliagenciadigital/quepasa/models"
+	runtime "github.com/inteliagenciadigital/quepasa/runtime"
 )
 
 // AuthenticatedApiKeyController manages the authenticated user's personal API key.
 //
-//	GET    /account/apikey  → status (whether a key is set, last rotation time)
-//	POST   /account/apikey  → rotate: generate a new key, return the plaintext ONCE
-//	DELETE /account/apikey  → revoke the key
+//	GET    /account/apikey  â†’ status (whether a key is set, last rotation time)
+//	POST   /account/apikey  â†’ rotate: generate a new key, return the plaintext ONCE
+//	DELETE /account/apikey  â†’ revoke the key
 //
 // The personal API key lets a user authenticate to their own WhatsApp sessions
 // (header X-QUEPASA-USERKEY) without the admin master key. Rotation invalidates

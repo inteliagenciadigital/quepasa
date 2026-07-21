@@ -6,7 +6,7 @@ import (
 	"sync"
 	"time"
 
-	qplog "github.com/nocodeleaks/quepasa/qplog"
+	qplog "github.com/inteliagenciadigital/quepasa/qplog"
 )
 
 // RTPProxy manages the RTP media bridge between WhatsApp and SIP server
@@ -25,8 +25,8 @@ type RTPStream struct {
 	SIPPort          int          // Porta para enviar ao servidor SIP
 	RemoteHost       string       // Host do servidor SIP
 	RemotePort       int          // Porta do servidor SIP
-	WhatsAppConn     *net.UDPConn // Conexão para WhatsApp
-	SIPConn          *net.UDPConn // Conexão para servidor SIP
+	WhatsAppConn     *net.UDPConn // ConexÃ£o para WhatsApp
+	SIPConn          *net.UDPConn // ConexÃ£o para servidor SIP
 	isActive         bool
 	lastPacketTime   time.Time
 	packetsForwarded int64
@@ -99,7 +99,7 @@ func (rtp *RTPProxy) CreateRTPStream(callID string, remoteHost string, remotePor
 
 	// Check if stream already exists
 	if existingStream, exists := rtp.activeStreams[callID]; exists {
-		rtp.logger.Infof("🎵 RTP stream already exists for CallID: %s, WhatsApp port: %d", callID, existingStream.WhatsAppPort)
+		rtp.logger.Infof("ðŸŽµ RTP stream already exists for CallID: %s, WhatsApp port: %d", callID, existingStream.WhatsAppPort)
 		return existingStream, nil
 	}
 
@@ -133,9 +133,9 @@ func (rtp *RTPProxy) CreateRTPStream(callID string, remoteHost string, remotePor
 	// Start RTP forwarding in background
 	go rtp.startRTPForwarding(stream)
 
-	rtp.logger.Infof("🎵✅ RTP stream created for CallID: %s", callID)
-	rtp.logger.Infof("   � WhatsApp port %d ← WhatsApp RTP packets", whatsAppPort)
-	rtp.logger.Infof("   � SIP port %d → %s:%d (SIP server)", sipPort, remoteHost, remotePort)
+	rtp.logger.Infof("ðŸŽµâœ… RTP stream created for CallID: %s", callID)
+	rtp.logger.Infof("   ï¿½ WhatsApp port %d â† WhatsApp RTP packets", whatsAppPort)
+	rtp.logger.Infof("   ï¿½ SIP port %d â†’ %s:%d (SIP server)", sipPort, remoteHost, remotePort)
 
 	return stream, nil
 }
@@ -152,7 +152,7 @@ func (rtp *RTPProxy) CreateRTPStreamRaw(callID string, remoteHost string, remote
 
 	// Check if stream already exists
 	if existingStream, exists := rtp.activeStreams[callID]; exists {
-		rtp.logger.Infof("🎵 RTP stream already exists for CallID: %s, WhatsApp port: %d", callID, existingStream.WhatsAppPort)
+		rtp.logger.Infof("ðŸŽµ RTP stream already exists for CallID: %s, WhatsApp port: %d", callID, existingStream.WhatsAppPort)
 		return existingStream, nil
 	}
 
@@ -184,10 +184,10 @@ func (rtp *RTPProxy) CreateRTPStreamRaw(callID string, remoteHost string, remote
 
 	rtp.activeStreams[callID] = stream
 
-	// NOTE: No forwarding goroutines started — the caller owns I/O.
-	rtp.logger.Infof("🎵✅ RTP raw stream created for CallID: %s (no forwarders)", callID)
-	rtp.logger.Infof("   📥 WhatsApp port %d ← raw socket", whatsAppPort)
-	rtp.logger.Infof("   📤 SIP port %d → %s:%d (raw socket)", sipPort, remoteHost, remotePort)
+	// NOTE: No forwarding goroutines started â€” the caller owns I/O.
+	rtp.logger.Infof("ðŸŽµâœ… RTP raw stream created for CallID: %s (no forwarders)", callID)
+	rtp.logger.Infof("   ðŸ“¥ WhatsApp port %d â† raw socket", whatsAppPort)
+	rtp.logger.Infof("   ðŸ“¤ SIP port %d â†’ %s:%d (raw socket)", sipPort, remoteHost, remotePort)
 
 	return stream, nil
 }
@@ -240,32 +240,32 @@ func (rtp *RTPProxy) startRTPForwarding(stream *RTPStream) {
 	defer stream.WhatsAppConn.Close()
 	defer stream.SIPConn.Close()
 
-	rtp.logger.Infof("🎵🚀 RTP FORWARDING STARTED for CallID: %s", stream.CallID)
-	rtp.logger.Infof("   🎵 WhatsApp port %d ← WhatsApp RTP packets", stream.WhatsAppPort)
-	rtp.logger.Infof("   🎵 SIP port %d → %s:%d (SIP server)", stream.SIPPort, stream.RemoteHost, stream.RemotePort)
+	rtp.logger.Infof("ðŸŽµðŸš€ RTP FORWARDING STARTED for CallID: %s", stream.CallID)
+	rtp.logger.Infof("   ðŸŽµ WhatsApp port %d â† WhatsApp RTP packets", stream.WhatsAppPort)
+	rtp.logger.Infof("   ðŸŽµ SIP port %d â†’ %s:%d (SIP server)", stream.SIPPort, stream.RemoteHost, stream.RemotePort)
 
 	// Create remote connection for forwarding to SIP server
 	remoteAddr, err := net.ResolveUDPAddr("udp", fmt.Sprintf("%s:%d", stream.RemoteHost, stream.RemotePort))
 	if err != nil {
-		rtp.logger.Errorf("❌ Failed to resolve remote SIP address: %v", err)
+		rtp.logger.Errorf("âŒ Failed to resolve remote SIP address: %v", err)
 		return
 	}
 
 	// Create connection to SIP server for outbound packets
 	remoteSIPConn, err := net.DialUDP("udp", nil, remoteAddr)
 	if err != nil {
-		rtp.logger.Errorf("❌ Failed to create remote SIP connection: %v", err)
+		rtp.logger.Errorf("âŒ Failed to create remote SIP connection: %v", err)
 		return
 	}
 	defer remoteSIPConn.Close()
 
-	rtp.logger.Infof("✅ RTP connections ready - monitoring for packets...")
+	rtp.logger.Infof("âœ… RTP connections ready - monitoring for packets...")
 
 	// Start two goroutines for bidirectional forwarding
-	// 1. WhatsApp → SIP Server
+	// 1. WhatsApp â†’ SIP Server
 	go rtp.forwardWhatsAppToSIP(stream, remoteSIPConn)
 
-	// 2. SIP Server → WhatsApp
+	// 2. SIP Server â†’ WhatsApp
 	go rtp.forwardSIPToWhatsApp(stream, remoteSIPConn)
 
 	// Keep the main goroutine alive
@@ -289,10 +289,10 @@ func (rtp *RTPProxy) forwardWhatsAppToSIP(stream *RTPStream, remoteSIPConn *net.
 			if netErr, ok := err.(net.Error); ok && netErr.Timeout() {
 				// Extend deadline if no packets received
 				stream.WhatsAppConn.SetReadDeadline(time.Now().Add(30 * time.Second))
-				rtp.logger.Infof("🔍 RTP DEBUG: No WhatsApp packets received on port %d for 30s, waiting...", stream.WhatsAppPort)
+				rtp.logger.Infof("ðŸ” RTP DEBUG: No WhatsApp packets received on port %d for 30s, waiting...", stream.WhatsAppPort)
 				continue
 			}
-			rtp.logger.Debugf("🎵 WhatsApp RTP read error for CallID %s: %v", stream.CallID, err)
+			rtp.logger.Debugf("ðŸŽµ WhatsApp RTP read error for CallID %s: %v", stream.CallID, err)
 			break
 		}
 
@@ -303,7 +303,7 @@ func (rtp *RTPProxy) forwardWhatsAppToSIP(stream *RTPStream, remoteSIPConn *net.
 
 		// Log first few packets and periodic updates
 		if packetCount <= 5 || time.Since(lastLogTime) > 10*time.Second {
-			rtp.logger.Infof("🎵📦 WhatsApp→SIP: Packet #%d (CallID=%s, WhatsAppPort=%d, Size=%d bytes, From=%s)",
+			rtp.logger.Infof("ðŸŽµðŸ“¦ WhatsAppâ†’SIP: Packet #%d (CallID=%s, WhatsAppPort=%d, Size=%d bytes, From=%s)",
 				packetCount, stream.CallID, stream.WhatsAppPort, n, clientAddr.String())
 			if packetCount > 5 {
 				lastLogTime = time.Now()
@@ -313,7 +313,7 @@ func (rtp *RTPProxy) forwardWhatsAppToSIP(stream *RTPStream, remoteSIPConn *net.
 		// Forward packet to SIP server
 		_, err = remoteSIPConn.Write(buffer[:n])
 		if err != nil {
-			rtp.logger.Errorf("❌ Failed to forward WhatsApp packet to SIP server: %v", err)
+			rtp.logger.Errorf("âŒ Failed to forward WhatsApp packet to SIP server: %v", err)
 			continue
 		}
 
@@ -321,7 +321,7 @@ func (rtp *RTPProxy) forwardWhatsAppToSIP(stream *RTPStream, remoteSIPConn *net.
 		stream.WhatsAppConn.SetReadDeadline(time.Now().Add(30 * time.Second))
 	}
 
-	rtp.logger.Infof("🎵🛑 WhatsApp→SIP forwarding stopped for CallID: %s", stream.CallID)
+	rtp.logger.Infof("ðŸŽµðŸ›‘ WhatsAppâ†’SIP forwarding stopped for CallID: %s", stream.CallID)
 }
 
 // forwardSIPToWhatsApp forwards RTP packets from SIP server to WhatsApp
@@ -338,27 +338,27 @@ func (rtp *RTPProxy) forwardSIPToWhatsApp(stream *RTPStream, remoteSIPConn *net.
 			if netErr, ok := err.(net.Error); ok && netErr.Timeout() {
 				continue // Timeout is expected, just continue
 			}
-			rtp.logger.Debugf("🎵 SIP RTP read error for CallID %s: %v", stream.CallID, err)
+			rtp.logger.Debugf("ðŸŽµ SIP RTP read error for CallID %s: %v", stream.CallID, err)
 			continue
 		}
 
 		// If we don't have WhatsApp address yet, we can't forward
 		if whatsAppAddr == nil {
-			rtp.logger.Debugf("🎵 SIP→WhatsApp: Received packet but no WhatsApp address yet, dropping")
+			rtp.logger.Debugf("ðŸŽµ SIPâ†’WhatsApp: Received packet but no WhatsApp address yet, dropping")
 			continue
 		}
 
 		// Forward packet back to WhatsApp
 		_, err = stream.WhatsAppConn.WriteToUDP(buffer[:n], whatsAppAddr)
 		if err != nil {
-			rtp.logger.Errorf("❌ Failed to forward SIP packet to WhatsApp: %v", err)
+			rtp.logger.Errorf("âŒ Failed to forward SIP packet to WhatsApp: %v", err)
 			continue
 		}
 
-		rtp.logger.Debugf("🎵📦 SIP→WhatsApp: Packet forwarded (Size=%d bytes, To=%s)", n, whatsAppAddr.String())
+		rtp.logger.Debugf("ðŸŽµðŸ“¦ SIPâ†’WhatsApp: Packet forwarded (Size=%d bytes, To=%s)", n, whatsAppAddr.String())
 	}
 
-	rtp.logger.Infof("🎵🛑 SIP→WhatsApp forwarding stopped for CallID: %s", stream.CallID)
+	rtp.logger.Infof("ðŸŽµðŸ›‘ SIPâ†’WhatsApp forwarding stopped for CallID: %s", stream.CallID)
 }
 
 // StopRTPStream stops and removes an RTP stream
@@ -368,7 +368,7 @@ func (rtp *RTPProxy) StopRTPStream(callID string) {
 
 	stream, exists := rtp.activeStreams[callID]
 	if !exists {
-		rtp.logger.Warnf("⚠️ RTP stream not found for CallID: %s", callID)
+		rtp.logger.Warnf("âš ï¸ RTP stream not found for CallID: %s", callID)
 		return
 	}
 
@@ -377,8 +377,8 @@ func (rtp *RTPProxy) StopRTPStream(callID string) {
 	stream.SIPConn.Close()
 	delete(rtp.activeStreams, callID)
 
-	rtp.logger.Infof("🎵✅ RTP stream stopped for CallID: %s", callID)
-	rtp.logger.Infof("   📊 Final stats: %d packets, %d bytes", stream.packetsForwarded, stream.bytesForwarded)
+	rtp.logger.Infof("ðŸŽµâœ… RTP stream stopped for CallID: %s", callID)
+	rtp.logger.Infof("   ðŸ“Š Final stats: %d packets, %d bytes", stream.packetsForwarded, stream.bytesForwarded)
 }
 
 // GetActiveStreams returns the number of active RTP streams
@@ -405,12 +405,12 @@ func (rtp *RTPProxy) UpdateWhatsAppEndpoint(callID, whatsappIP string, whatsappP
 		return fmt.Errorf("RTP stream not found for callID: %s", callID)
 	}
 
-	rtp.logger.Infof("🎵🔧 [RTP-UPDATE] Updating WhatsApp endpoint for %s: %s:%d", callID, whatsappIP, whatsappPort)
-	rtp.logger.Infof("🎵📡 [RTP-ENDPOINT] Stream %s (port %d) configurado para encaminhar para %s:%d",
+	rtp.logger.Infof("ðŸŽµðŸ”§ [RTP-UPDATE] Updating WhatsApp endpoint for %s: %s:%d", callID, whatsappIP, whatsappPort)
+	rtp.logger.Infof("ðŸŽµðŸ“¡ [RTP-ENDPOINT] Stream %s (port %d) configurado para encaminhar para %s:%d",
 		callID, stream.WhatsAppPort, whatsappIP, whatsappPort)
 
-	// A configuração do endpoint específico pode ser feita aqui
-	// Por enquanto apenas logamos a informação
+	// A configuraÃ§Ã£o do endpoint especÃ­fico pode ser feita aqui
+	// Por enquanto apenas logamos a informaÃ§Ã£o
 
 	return nil
 }
@@ -425,15 +425,15 @@ func (rtp *RTPProxy) UpdateServerEndpoint(callID, serverHost string, serverPort 
 		return fmt.Errorf("RTP stream not found for callID: %s", callID)
 	}
 
-	rtp.logger.Infof("🎵🔧 [RTP-SERVER-UPDATE] Updating SIP server endpoint for %s: %s:%d → %s:%d",
+	rtp.logger.Infof("ðŸŽµðŸ”§ [RTP-SERVER-UPDATE] Updating SIP server endpoint for %s: %s:%d â†’ %s:%d",
 		callID, stream.RemoteHost, stream.RemotePort, serverHost, serverPort)
 
 	// Update the stream's remote endpoint
 	stream.RemoteHost = serverHost
 	stream.RemotePort = serverPort
 
-	rtp.logger.Infof("🎵✅ [RTP-SERVER-UPDATED] SIP server endpoint updated successfully for CallID: %s", callID)
-	rtp.logger.Infof("🎵📡 [RTP-NEW-FLOW] WhatsApp port %d ← → SIP port %d → %s:%d",
+	rtp.logger.Infof("ðŸŽµâœ… [RTP-SERVER-UPDATED] SIP server endpoint updated successfully for CallID: %s", callID)
+	rtp.logger.Infof("ðŸŽµðŸ“¡ [RTP-NEW-FLOW] WhatsApp port %d â† â†’ SIP port %d â†’ %s:%d",
 		stream.WhatsAppPort, stream.SIPPort, serverHost, serverPort)
 
 	return nil
@@ -447,11 +447,11 @@ func (rtp *RTPProxy) CreateRTPStreamWithLocalPort(callID string, whatsAppPort in
 
 	// Check if stream already exists
 	if existingStream, exists := rtp.activeStreams[callID]; exists {
-		rtp.logger.Infof("🎵 RTP stream already exists for CallID: %s, WhatsApp port: %d", callID, existingStream.WhatsAppPort)
+		rtp.logger.Infof("ðŸŽµ RTP stream already exists for CallID: %s, WhatsApp port: %d", callID, existingStream.WhatsAppPort)
 		return existingStream, nil
 	}
 
-	rtp.logger.Infof("🎵🔢 Creating RTP stream with specified WhatsApp port: %d (ensuring port consistency)", whatsAppPort)
+	rtp.logger.Infof("ðŸŽµðŸ”¢ Creating RTP stream with specified WhatsApp port: %d (ensuring port consistency)", whatsAppPort)
 
 	// Create UDP listener for WhatsApp RTP using the specified (fixed) port.
 	whatsAppAddr, err := net.ResolveUDPAddr("udp", fmt.Sprintf("%s:%d", rtp.localIP, whatsAppPort))
@@ -489,7 +489,7 @@ func (rtp *RTPProxy) CreateRTPStreamWithLocalPort(callID string, whatsAppPort in
 	// Start bidirectional RTP forwarding
 	go rtp.startRTPForwarding(stream)
 
-	rtp.logger.Infof("🎵✅ RTP stream created with port consistency - CallID: %s, WhatsApp: %d, SIP: %d, Remote: %s:%d",
+	rtp.logger.Infof("ðŸŽµâœ… RTP stream created with port consistency - CallID: %s, WhatsApp: %d, SIP: %d, Remote: %s:%d",
 		callID, whatsAppPort, sipPort, remoteHost, remotePort)
 
 	return stream, nil

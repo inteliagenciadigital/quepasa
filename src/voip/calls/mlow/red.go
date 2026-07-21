@@ -3,10 +3,10 @@ package mlow
 import (
 	"errors"
 
-	qplog "github.com/nocodeleaks/quepasa/qplog"
+	qplog "github.com/inteliagenciadigital/quepasa/qplog"
 )
 
-// MLow RED ("SplitRed") depacketization — the outermost wire layer of a WhatsApp
+// MLow RED ("SplitRed") depacketization â€” the outermost wire layer of a WhatsApp
 // MLow RTP audio payload (WASM func 3819). OPTIONAL: applied only when the call
 // negotiated redundancy > 0; otherwise the RTP payload is a single bare MLow frame
 // and this MUST NOT run (a bare frame's high-bit-set first byte would misparse).

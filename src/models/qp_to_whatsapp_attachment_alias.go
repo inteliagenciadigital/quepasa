@@ -1,6 +1,6 @@
 package models
 
-import media "github.com/nocodeleaks/quepasa/media"
+import media "github.com/inteliagenciadigital/quepasa/media"
 
 type QpToWhatsappAttachment = media.QpToWhatsappAttachment
 

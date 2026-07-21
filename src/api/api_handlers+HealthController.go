@@ -5,10 +5,10 @@ import (
 	"net/http"
 	"time"
 
-	api "github.com/nocodeleaks/quepasa/api/models"
-	library "github.com/nocodeleaks/quepasa/library"
-	models "github.com/nocodeleaks/quepasa/models"
-	runtime "github.com/nocodeleaks/quepasa/runtime"
+	api "github.com/inteliagenciadigital/quepasa/api/models"
+	library "github.com/inteliagenciadigital/quepasa/library"
+	models "github.com/inteliagenciadigital/quepasa/models"
+	runtime "github.com/inteliagenciadigital/quepasa/runtime"
 )
 
 //region CONTROLLER - HEALTH

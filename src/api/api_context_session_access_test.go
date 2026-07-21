@@ -7,8 +7,8 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"github.com/nocodeleaks/quepasa/models"
-	"github.com/nocodeleaks/quepasa/runtime"
+	"github.com/inteliagenciadigital/quepasa/models"
+	"github.com/inteliagenciadigital/quepasa/runtime"
 )
 
 func TestCanonicalSessionGetAllowsEnabledContextAccess(t *testing.T) {

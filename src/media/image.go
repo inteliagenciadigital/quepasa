@@ -9,7 +9,7 @@ import (
 	"strings"
 	"sync"
 
-	log "github.com/nocodeleaks/quepasa/qplog"
+	log "github.com/inteliagenciadigital/quepasa/qplog"
 )
 
 // Static flags to store FFmpeg availability.

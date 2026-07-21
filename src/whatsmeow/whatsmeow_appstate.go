@@ -7,7 +7,7 @@ import (
 
 	"google.golang.org/protobuf/proto"
 
-	whatsapp "github.com/nocodeleaks/quepasa/whatsapp"
+	whatsapp "github.com/inteliagenciadigital/quepasa/whatsapp"
 	"go.mau.fi/whatsmeow/appstate"
 	"go.mau.fi/whatsmeow/proto/waSyncAction"
 	types "go.mau.fi/whatsmeow/types"

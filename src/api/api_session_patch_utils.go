@@ -1,6 +1,6 @@
 package api
 
-import runtime "github.com/nocodeleaks/quepasa/runtime"
+import runtime "github.com/inteliagenciadigital/quepasa/runtime"
 
 func buildSessionConfigurationPatch(request interface{}) *runtime.SessionConfigurationPatch {
 	patch := &runtime.SessionConfigurationPatch{}

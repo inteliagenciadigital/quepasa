@@ -1,7 +1,7 @@
 package environment
 
 import (
-	library "github.com/nocodeleaks/quepasa/library"
+	library "github.com/inteliagenciadigital/quepasa/library"
 )
 
 // Database environment variable names used to build the SQL connection for

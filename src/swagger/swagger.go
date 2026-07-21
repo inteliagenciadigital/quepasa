@@ -8,8 +8,8 @@ import (
 	"strings"
 
 	"github.com/go-chi/chi/v5"
-	"github.com/nocodeleaks/quepasa/environment"
-	"github.com/nocodeleaks/quepasa/webserver"
+	"github.com/inteliagenciadigital/quepasa/environment"
+	"github.com/inteliagenciadigital/quepasa/webserver"
 	httpSwagger "github.com/swaggo/http-swagger"
 )
 

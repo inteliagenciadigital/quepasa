@@ -1,31 +1,31 @@
 package main
 
 import (
-	api "github.com/nocodeleaks/quepasa/api"
-	_ "github.com/nocodeleaks/quepasa/apps/form"
-	_ "github.com/nocodeleaks/quepasa/cable"
-	environment "github.com/nocodeleaks/quepasa/environment"
-	library "github.com/nocodeleaks/quepasa/library"
-	_ "github.com/nocodeleaks/quepasa/mcp"
-	_ "github.com/nocodeleaks/quepasa/metrics"
-	models "github.com/nocodeleaks/quepasa/models"
-	oauth "github.com/nocodeleaks/quepasa/oauth"
-	webserver "github.com/nocodeleaks/quepasa/webserver"
-	whatsapp "github.com/nocodeleaks/quepasa/whatsapp"
-	whatsmeow "github.com/nocodeleaks/quepasa/whatsmeow"
+	api "github.com/inteliagenciadigital/quepasa/api"
+	_ "github.com/inteliagenciadigital/quepasa/apps/form"
+	_ "github.com/inteliagenciadigital/quepasa/cable"
+	environment "github.com/inteliagenciadigital/quepasa/environment"
+	library "github.com/inteliagenciadigital/quepasa/library"
+	_ "github.com/inteliagenciadigital/quepasa/mcp"
+	_ "github.com/inteliagenciadigital/quepasa/metrics"
+	models "github.com/inteliagenciadigital/quepasa/models"
+	oauth "github.com/inteliagenciadigital/quepasa/oauth"
+	webserver "github.com/inteliagenciadigital/quepasa/webserver"
+	whatsapp "github.com/inteliagenciadigital/quepasa/whatsapp"
+	whatsmeow "github.com/inteliagenciadigital/quepasa/whatsmeow"
 
-	_ "github.com/nocodeleaks/quepasa/swagger" // Swagger docs
-	qplog "github.com/nocodeleaks/quepasa/qplog"
+	_ "github.com/inteliagenciadigital/quepasa/swagger" // Swagger docs
+	qplog "github.com/inteliagenciadigital/quepasa/qplog"
 )
 
 // @title						QuePasa WhatsApp API
 // @version					5.26.0625.0
 // @description				QuePasa is a Go-based WhatsApp bot platform that exposes HTTP APIs for WhatsApp messaging integration
-// @termsOfService				https://github.com/nocodeleaks/quepasa
+// @termsOfService				https://github.com/inteliagenciadigital/quepasa
 // @contact.name				QuePasa Support
-// @contact.url				https://github.com/nocodeleaks/quepasa
+// @contact.url				https://github.com/inteliagenciadigital/quepasa
 // @license.name				GNU Affero General Public License v3.0
-// @license.url				https://github.com/nocodeleaks/quepasa/blob/main/LICENSE.md
+// @license.url				https://github.com/inteliagenciadigital/quepasa/blob/main/LICENSE.md
 // @BasePath					/
 // @schemes					http https
 // @securityDefinitions.apikey	ApiKeyAuth

@@ -3,8 +3,8 @@ package models
 import (
 	"time"
 
-	library "github.com/nocodeleaks/quepasa/library"
-	log "github.com/nocodeleaks/quepasa/qplog"
+	library "github.com/inteliagenciadigital/quepasa/library"
+	log "github.com/inteliagenciadigital/quepasa/qplog"
 )
 
 // quepasa build version format has 4 sections only: 3.YY.MMDD.HHMM

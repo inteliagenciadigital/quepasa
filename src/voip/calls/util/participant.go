@@ -3,7 +3,7 @@ package util
 import (
 	"strings"
 
-	qplog "github.com/nocodeleaks/quepasa/qplog"
+	qplog "github.com/inteliagenciadigital/quepasa/qplog"
 )
 
 // FormatParticipantID is the device-qualified participant id used as the HKDF

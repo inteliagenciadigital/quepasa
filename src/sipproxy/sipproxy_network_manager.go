@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"net"
 
-	qplog "github.com/nocodeleaks/quepasa/qplog"
+	qplog "github.com/inteliagenciadigital/quepasa/qplog"
 )
 
 // SIPNetworkManager handles UDP networking and STUN operations
@@ -28,7 +28,7 @@ func (snm *SIPProxyNetworkManager) ConfigureNetwork() error {
 	// Discover public IP using sipgo native methods with STUN fallback
 	publicIP, localIP, err := snm.discoverPublicIPWithSipgoAndSTUN()
 	if err != nil {
-		snm.logger.Errorf("❌ Failed to discover public IP: %v", err)
+		snm.logger.Errorf("âŒ Failed to discover public IP: %v", err)
 		return err
 	}
 
@@ -38,17 +38,17 @@ func (snm *SIPProxyNetworkManager) ConfigureNetwork() error {
 	// If local port is 0, discover it now
 	if snm.LocalPort == 0 {
 		if err := snm.DiscoverLocalPort(); err != nil {
-			snm.logger.Errorf("❌ Failed to discover local port: %v", err)
+			snm.logger.Errorf("âŒ Failed to discover local port: %v", err)
 			return err
 		}
 	}
 
 	snm.IsSTUNConfigured = true
 
-	snm.logger.Infof("🌐 Network configuration complete:")
-	snm.logger.Infof("   📍 Public IP: %s", snm.PublicIP)
-	snm.logger.Infof("   🏠 Local IP: %s", snm.LocalIP)
-	snm.logger.Infof("   🔌 Local Port: %d", snm.LocalPort)
+	snm.logger.Infof("ðŸŒ Network configuration complete:")
+	snm.logger.Infof("   ðŸ“ Public IP: %s", snm.PublicIP)
+	snm.logger.Infof("   ðŸ  Local IP: %s", snm.LocalIP)
+	snm.logger.Infof("   ðŸ”Œ Local Port: %d", snm.LocalPort)
 
 	return nil
 }
@@ -75,15 +75,15 @@ func (snm *SIPProxyNetworkManager) IsConfigured() bool {
 
 // discoverPublicIPWithSipgoAndSTUN uses sipgo native capabilities with STUN fallback for NAT discovery
 func (snm *SIPProxyNetworkManager) discoverPublicIPWithSipgoAndSTUN() (publicIP, localIP string, err error) {
-	snm.logger.Infof("🔍 Discovering public IP using sipgo native methods with STUN fallback")
+	snm.logger.Infof("ðŸ” Discovering public IP using sipgo native methods with STUN fallback")
 
 	// First, get local IP using sipgo-style network discovery
 	localIP, err = snm.discoverLocalIPWithSipgo()
 	if err != nil {
-		snm.logger.WithError(err).Warnf("⚠️  Failed to discover local IP, using fallback")
+		snm.logger.WithError(err).Warnf("âš ï¸  Failed to discover local IP, using fallback")
 		localIP = "127.0.0.1"
 	} else {
-		snm.logger.WithField("local_ip", localIP).Infof("🏠 Local IP discovered successfully")
+		snm.logger.WithField("local_ip", localIP).Infof("ðŸ  Local IP discovered successfully")
 	}
 
 	// If public IP is manually configured, use it
@@ -91,17 +91,17 @@ func (snm *SIPProxyNetworkManager) discoverPublicIPWithSipgoAndSTUN() (publicIP,
 		snm.logger.WithFields(qplog.Fields{
 			"public_ip": snm.PublicIP,
 			"local_ip":  localIP,
-		}).Infof("✅ Using configured public IP")
+		}).Infof("âœ… Using configured public IP")
 		return snm.PublicIP, localIP, nil
 	}
 
 	// Try STUN discovery only if needed for NAT traversal
 	if snm.StunServer != "" && snm.StunServer != ":0" {
-		snm.logger.WithField("stun_server", snm.StunServer).Infof("🌐 Using STUN for NAT traversal")
+		snm.logger.WithField("stun_server", snm.StunServer).Infof("ðŸŒ Using STUN for NAT traversal")
 		stunManager := NewSIPProxySTUNManager(snm.logger, snm.StunServer)
 		discoveredIP, err := stunManager.DiscoverPublicIPv4WithFallback()
 		if err != nil {
-			snm.logger.WithError(err).Warnf("⚠️  STUN discovery failed, using local IP as public IP")
+			snm.logger.WithError(err).Warnf("âš ï¸  STUN discovery failed, using local IP as public IP")
 			return localIP, localIP, nil
 		}
 		return discoveredIP, localIP, nil
@@ -111,7 +111,7 @@ func (snm *SIPProxyNetworkManager) discoverPublicIPWithSipgoAndSTUN() (publicIP,
 	snm.logger.WithFields(qplog.Fields{
 		"local_ip":  localIP,
 		"public_ip": localIP,
-	}).Infof("📡 No STUN server configured, using local IP as public IP (no NAT)")
+	}).Infof("ðŸ“¡ No STUN server configured, using local IP as public IP (no NAT)")
 	return localIP, localIP, nil
 }
 
@@ -126,10 +126,10 @@ func (snm *SIPProxyNetworkManager) discoverLocalIPWithSipgo() (string, error) {
 
 		// Double-check it's IPv4
 		if ipv4 := localAddr.IP.To4(); ipv4 != nil {
-			snm.logger.WithField("local_ipv4", localIP).Infof("🏠 Local IPv4 discovered via UDP4 routing to Google DNS")
+			snm.logger.WithField("local_ipv4", localIP).Infof("ðŸ  Local IPv4 discovered via UDP4 routing to Google DNS")
 			return localIP, nil
 		} else {
-			snm.logger.WithField("unexpected_ip", localIP).Warnf("⚠️  UDP4 connection returned non-IPv4 address, trying interface detection")
+			snm.logger.WithField("unexpected_ip", localIP).Warnf("âš ï¸  UDP4 connection returned non-IPv4 address, trying interface detection")
 		}
 	}
 
@@ -141,7 +141,7 @@ func (snm *SIPProxyNetworkManager) discoverLocalIPWithSipgo() (string, error) {
 		return "", fmt.Errorf("failed to get network interfaces: %w", err)
 	}
 
-	snm.logger.Debugf("🔍 Scanning network interfaces for IPv4 addresses")
+	snm.logger.Debugf("ðŸ” Scanning network interfaces for IPv4 addresses")
 	for _, iface := range interfaces {
 		if iface.Flags&net.FlagUp == 0 || iface.Flags&net.FlagLoopback != 0 {
 			continue
@@ -160,14 +160,14 @@ func (snm *SIPProxyNetworkManager) discoverLocalIPWithSipgo() (string, error) {
 					snm.logger.WithFields(qplog.Fields{
 						"local_ipv4": localIP,
 						"interface":  iface.Name,
-					}).Infof("🏠 Local IPv4 discovered via interface detection")
+					}).Infof("ðŸ  Local IPv4 discovered via interface detection")
 					return localIP, nil
 				} else {
 					// Log IPv6 addresses found but skip them
 					snm.logger.WithFields(qplog.Fields{
 						"ipv6_address": ipNet.IP.String(),
 						"interface":    iface.Name,
-					}).Debugf("🚫 Skipping IPv6 address (IPv4 required)")
+					}).Debugf("ðŸš« Skipping IPv6 address (IPv4 required)")
 				}
 			}
 		}
@@ -184,35 +184,35 @@ func (snm *SIPProxyNetworkManager) GetSIPServerEndpoint() string {
 // DiscoverLocalPort discovers the local port by creating a test UDP connection
 func (snm *SIPProxyNetworkManager) DiscoverLocalPort() error {
 	if snm.LocalPort != 0 {
-		snm.logger.Infof("🔌 Local port already set: %d", snm.LocalPort)
+		snm.logger.Infof("ðŸ”Œ Local port already set: %d", snm.LocalPort)
 		return nil
 	}
 
-	snm.logger.Infof("🔍 Discovering local port via test connection to %s:%d...", snm.SIPServer, snm.SIPPort)
+	snm.logger.Infof("ðŸ” Discovering local port via test connection to %s:%d...", snm.SIPServer, snm.SIPPort)
 
 	// Resolve SIP server address
-	snm.logger.Infof("🌐 Resolving SIP server address...")
+	snm.logger.Infof("ðŸŒ Resolving SIP server address...")
 	serverAddr, err := net.ResolveUDPAddr("udp", fmt.Sprintf("%s:%d", snm.SIPServer, snm.SIPPort))
 	if err != nil {
-		snm.logger.Errorf("❌ Failed to resolve SIP server: %v", err)
+		snm.logger.Errorf("âŒ Failed to resolve SIP server: %v", err)
 		return fmt.Errorf("failed to resolve SIP server: %v", err)
 	}
-	snm.logger.Infof("✅ SIP server resolved: %s", serverAddr)
+	snm.logger.Infof("âœ… SIP server resolved: %s", serverAddr)
 
 	// Create temporary UDP connection to discover local port
-	snm.logger.Infof("🔌 Creating test UDP connection...")
+	snm.logger.Infof("ðŸ”Œ Creating test UDP connection...")
 	conn, err := net.DialUDP("udp", nil, serverAddr)
 	if err != nil {
-		snm.logger.Errorf("❌ Failed to create test UDP connection: %v", err)
+		snm.logger.Errorf("âŒ Failed to create test UDP connection: %v", err)
 		return fmt.Errorf("failed to create test UDP connection: %v", err)
 	}
 	defer conn.Close()
-	snm.logger.Infof("✅ Test UDP connection established")
+	snm.logger.Infof("âœ… Test UDP connection established")
 
 	// Get the local address and port
 	localAddr := conn.LocalAddr().(*net.UDPAddr)
 	snm.LocalPort = localAddr.Port
 
-	snm.logger.Infof("🔌 Local port discovered: %d", snm.LocalPort)
+	snm.logger.Infof("ðŸ”Œ Local port discovered: %d", snm.LocalPort)
 	return nil
 }

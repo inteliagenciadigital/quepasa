@@ -1,8 +1,8 @@
 package api
 
 import (
-	models "github.com/nocodeleaks/quepasa/models"
-	whatsapp "github.com/nocodeleaks/quepasa/whatsapp"
+	models "github.com/inteliagenciadigital/quepasa/models"
+	whatsapp "github.com/inteliagenciadigital/quepasa/whatsapp"
 )
 
 // ContactsResponse is the API transport shape for contact list endpoints.

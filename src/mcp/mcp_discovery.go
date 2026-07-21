@@ -6,7 +6,7 @@ import (
 	"reflect"
 	"strings"
 
-	log "github.com/nocodeleaks/quepasa/qplog"
+	log "github.com/inteliagenciadigital/quepasa/qplog"
 )
 
 // MCPEndpoint represents an API endpoint that can be exposed as MCP tool

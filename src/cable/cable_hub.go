@@ -9,10 +9,10 @@ import (
 
 	"github.com/google/uuid"
 	"github.com/gorilla/websocket"
-	dispatchservice "github.com/nocodeleaks/quepasa/dispatch/service"
-	models "github.com/nocodeleaks/quepasa/models"
-	whatsapp "github.com/nocodeleaks/quepasa/whatsapp"
-	log "github.com/nocodeleaks/quepasa/qplog"
+	dispatchservice "github.com/inteliagenciadigital/quepasa/dispatch/service"
+	models "github.com/inteliagenciadigital/quepasa/models"
+	whatsapp "github.com/inteliagenciadigital/quepasa/whatsapp"
+	log "github.com/inteliagenciadigital/quepasa/qplog"
 )
 
 const (

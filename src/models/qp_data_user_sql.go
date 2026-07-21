@@ -9,7 +9,7 @@ import (
 	_ "github.com/mattn/go-sqlite3"
 	"golang.org/x/crypto/bcrypt"
 
-	log "github.com/nocodeleaks/quepasa/qplog"
+	log "github.com/inteliagenciadigital/quepasa/qplog"
 )
 
 type QpDataUserSql struct {

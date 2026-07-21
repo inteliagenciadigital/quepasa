@@ -1,7 +1,7 @@
 package api
 
 import (
-	metrics "github.com/nocodeleaks/quepasa/metrics"
+	metrics "github.com/inteliagenciadigital/quepasa/metrics"
 )
 
 // API-specific metrics initialized directly using generic factory functions

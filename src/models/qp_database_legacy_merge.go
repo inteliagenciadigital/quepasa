@@ -16,8 +16,8 @@ import (
 	"fmt"
 	"os"
 
-	library "github.com/nocodeleaks/quepasa/library"
-	log "github.com/nocodeleaks/quepasa/qplog"
+	library "github.com/inteliagenciadigital/quepasa/library"
+	log "github.com/inteliagenciadigital/quepasa/qplog"
 )
 
 // MergeLegacyApplicationDatabase imports the tables of a legacy standalone

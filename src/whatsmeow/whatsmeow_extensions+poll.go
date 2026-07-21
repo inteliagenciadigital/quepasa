@@ -4,7 +4,7 @@ import (
 	"fmt"
 
 	_ "github.com/mattn/go-sqlite3"
-	whatsapp "github.com/nocodeleaks/quepasa/whatsapp"
+	whatsapp "github.com/inteliagenciadigital/quepasa/whatsapp"
 	"go.mau.fi/util/random"
 	"go.mau.fi/whatsmeow/proto/waE2E"
 	"google.golang.org/protobuf/proto"

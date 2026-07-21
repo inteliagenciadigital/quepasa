@@ -3,8 +3,8 @@ package api
 import (
 	"net/http"
 
-	api "github.com/nocodeleaks/quepasa/api/models"
-	environment "github.com/nocodeleaks/quepasa/environment"
+	api "github.com/inteliagenciadigital/quepasa/api/models"
+	environment "github.com/inteliagenciadigital/quepasa/environment"
 )
 
 //region CONTROLLER - ENVIRONMENT

@@ -9,9 +9,9 @@ import (
 	"net/http/httptest"
 	"strings"
 
-	environment "github.com/nocodeleaks/quepasa/environment"
-	library "github.com/nocodeleaks/quepasa/library"
-	log "github.com/nocodeleaks/quepasa/qplog"
+	environment "github.com/inteliagenciadigital/quepasa/environment"
+	library "github.com/inteliagenciadigital/quepasa/library"
+	log "github.com/inteliagenciadigital/quepasa/qplog"
 )
 
 // APIHandlerTool wraps a standard API handler as an MCP tool

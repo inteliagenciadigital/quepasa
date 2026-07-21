@@ -6,9 +6,9 @@ import (
 	"io"
 	"net/http"
 
-	api "github.com/nocodeleaks/quepasa/api/models"
-	models "github.com/nocodeleaks/quepasa/models"
-	runtime "github.com/nocodeleaks/quepasa/runtime"
+	api "github.com/inteliagenciadigital/quepasa/api/models"
+	models "github.com/inteliagenciadigital/quepasa/models"
+	runtime "github.com/inteliagenciadigital/quepasa/runtime"
 )
 
 //region CONTROLLER - User

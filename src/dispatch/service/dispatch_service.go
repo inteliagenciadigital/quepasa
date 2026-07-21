@@ -5,8 +5,8 @@ import (
 	"net/http"
 	"sync"
 
-	whatsapp "github.com/nocodeleaks/quepasa/whatsapp"
-	log "github.com/nocodeleaks/quepasa/qplog"
+	whatsapp "github.com/inteliagenciadigital/quepasa/whatsapp"
+	log "github.com/inteliagenciadigital/quepasa/qplog"
 )
 
 // DispatchService coordinates outbound delivery to external integrations.

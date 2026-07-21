@@ -5,7 +5,7 @@ import (
 
 	"github.com/jmoiron/sqlx"
 	_ "github.com/mattn/go-sqlite3"
-	whatsapp "github.com/nocodeleaks/quepasa/whatsapp"
+	whatsapp "github.com/inteliagenciadigital/quepasa/whatsapp"
 )
 
 func TestQpDataServerSqlFindByTokenAndUserReturnServerRows(t *testing.T) {

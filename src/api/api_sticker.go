@@ -7,10 +7,10 @@ import (
 	"net/http"
 	"strings"
 
-	apiModels "github.com/nocodeleaks/quepasa/api/models"
-	media "github.com/nocodeleaks/quepasa/media"
-	whatsapp "github.com/nocodeleaks/quepasa/whatsapp"
-	log "github.com/nocodeleaks/quepasa/qplog"
+	apiModels "github.com/inteliagenciadigital/quepasa/api/models"
+	media "github.com/inteliagenciadigital/quepasa/media"
+	whatsapp "github.com/inteliagenciadigital/quepasa/whatsapp"
+	log "github.com/inteliagenciadigital/quepasa/qplog"
 )
 
 // ResolveStickerAttachment downloads or decodes the sticker content and

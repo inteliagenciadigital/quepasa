@@ -1,7 +1,7 @@
 package metrics
 
 import (
-	events "github.com/nocodeleaks/quepasa/events"
+	events "github.com/inteliagenciadigital/quepasa/events"
 )
 
 var (

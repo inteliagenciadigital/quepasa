@@ -4,9 +4,9 @@ import (
 	"net/http"
 	"strings"
 
-	environment "github.com/nocodeleaks/quepasa/environment"
-	library "github.com/nocodeleaks/quepasa/library"
-	models "github.com/nocodeleaks/quepasa/models"
+	environment "github.com/inteliagenciadigital/quepasa/environment"
+	library "github.com/inteliagenciadigital/quepasa/library"
+	models "github.com/inteliagenciadigital/quepasa/models"
 )
 
 // masterKeyHeader points to the shared library constant so the string literal

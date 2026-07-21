@@ -4,7 +4,7 @@ import (
 	"sync"
 	"time"
 
-	whatsapp "github.com/nocodeleaks/quepasa/whatsapp"
+	whatsapp "github.com/inteliagenciadigital/quepasa/whatsapp"
 )
 
 // RealtimeServerMessage is the canonical realtime payload for message fanout.

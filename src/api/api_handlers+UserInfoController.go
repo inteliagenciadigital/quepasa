@@ -6,8 +6,8 @@ import (
 	"io"
 	"net/http"
 
-	models "github.com/nocodeleaks/quepasa/models"
-	whatsapp "github.com/nocodeleaks/quepasa/whatsapp"
+	models "github.com/inteliagenciadigital/quepasa/models"
+	whatsapp "github.com/inteliagenciadigital/quepasa/whatsapp"
 )
 
 //region CONTROLLER - USER INFO

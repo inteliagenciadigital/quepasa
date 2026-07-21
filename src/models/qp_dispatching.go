@@ -8,12 +8,12 @@ import (
 	"reflect"
 	"time"
 
-	dispatchservice "github.com/nocodeleaks/quepasa/dispatch/service"
-	environment "github.com/nocodeleaks/quepasa/environment"
-	events "github.com/nocodeleaks/quepasa/events"
-	library "github.com/nocodeleaks/quepasa/library"
-	whatsapp "github.com/nocodeleaks/quepasa/whatsapp"
-	log "github.com/nocodeleaks/quepasa/qplog"
+	dispatchservice "github.com/inteliagenciadigital/quepasa/dispatch/service"
+	environment "github.com/inteliagenciadigital/quepasa/environment"
+	events "github.com/inteliagenciadigital/quepasa/events"
+	library "github.com/inteliagenciadigital/quepasa/library"
+	whatsapp "github.com/inteliagenciadigital/quepasa/whatsapp"
+	log "github.com/inteliagenciadigital/quepasa/qplog"
 )
 
 // Dispatching types

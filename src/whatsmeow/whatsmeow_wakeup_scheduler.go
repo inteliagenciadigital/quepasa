@@ -7,8 +7,8 @@ import (
 	"sync"
 	"time"
 
-	environment "github.com/nocodeleaks/quepasa/environment"
-	log "github.com/nocodeleaks/quepasa/qplog"
+	environment "github.com/inteliagenciadigital/quepasa/environment"
+	log "github.com/inteliagenciadigital/quepasa/qplog"
 	"go.mau.fi/whatsmeow/types"
 )
 

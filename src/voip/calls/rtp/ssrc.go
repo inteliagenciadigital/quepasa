@@ -4,8 +4,8 @@ import (
 	"encoding/binary"
 	"strings"
 
-	"github.com/nocodeleaks/quepasa/voip/calls/util"
-	qplog "github.com/nocodeleaks/quepasa/qplog"
+	"github.com/inteliagenciadigital/quepasa/voip/calls/util"
+	qplog "github.com/inteliagenciadigital/quepasa/qplog"
 )
 
 // SSRC derivation and participant-LID helpers for E2E HKDF info.

@@ -3,8 +3,8 @@ package whatsmeow
 import (
 	"context"
 
-	library "github.com/nocodeleaks/quepasa/library"
-	whatsapp "github.com/nocodeleaks/quepasa/whatsapp"
+	library "github.com/inteliagenciadigital/quepasa/library"
+	whatsapp "github.com/inteliagenciadigital/quepasa/whatsapp"
 	whatsmeow "go.mau.fi/whatsmeow"
 	types "go.mau.fi/whatsmeow/types"
 )

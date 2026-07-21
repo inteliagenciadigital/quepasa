@@ -2,7 +2,7 @@ package form
 
 import (
 	"github.com/go-chi/jwtauth"
-	environment "github.com/nocodeleaks/quepasa/environment"
+	environment "github.com/inteliagenciadigital/quepasa/environment"
 )
 
 // Token of authentication / encryption

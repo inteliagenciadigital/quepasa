@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"net/http"
 
-	api "github.com/nocodeleaks/quepasa/api"
+	api "github.com/inteliagenciadigital/quepasa/api"
 )
 
 // HandlerRegistry maps controller function names to actual handlers

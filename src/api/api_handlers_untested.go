@@ -3,7 +3,7 @@ package api
 import (
 	"net/http"
 
-	apiModels "github.com/nocodeleaks/quepasa/api/models"
+	apiModels "github.com/inteliagenciadigital/quepasa/api/models"
 )
 
 // SendDocumentFromBinary sends a document from binary data in the request body

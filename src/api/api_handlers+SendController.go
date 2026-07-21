@@ -7,11 +7,11 @@ import (
 	"strings"
 	"time"
 
-	apiModels "github.com/nocodeleaks/quepasa/api/models"
-	library "github.com/nocodeleaks/quepasa/library"
-	models "github.com/nocodeleaks/quepasa/models"
-	runtime "github.com/nocodeleaks/quepasa/runtime"
-	whatsapp "github.com/nocodeleaks/quepasa/whatsapp"
+	apiModels "github.com/inteliagenciadigital/quepasa/api/models"
+	library "github.com/inteliagenciadigital/quepasa/library"
+	models "github.com/inteliagenciadigital/quepasa/models"
+	runtime "github.com/inteliagenciadigital/quepasa/runtime"
+	whatsapp "github.com/inteliagenciadigital/quepasa/whatsapp"
 )
 
 // -------------------------- PUBLIC METHODS
@@ -22,12 +22,12 @@ import (
 //	@Summary		Send any type of message (text, file, poll, base64 content, location, contact, sticker)
 //	@Description	Endpoint to send messages via WhatsApp. Accepts sending of:
 //	@Description	- Plain text (field "text")
-//	@Description	- Files by URL (field "url") — server will download and send as attachment
-//	@Description	- Base64 content (field "content") — use format data:<mime>;base64,<data>
-//	@Description	- Polls (field "poll") — send the poll JSON in the "poll" field
-//	@Description	- Location (field "location") — send location with latitude/longitude in the "location" object
-//	@Description	- Contact (field "contact") — send contact with phone/name in the "contact" object
-//	@Description	- Sticker (field "sticker") — send a sticker from URL or base64 content; auto-converted to WebP 512×512 via FFmpeg
+//	@Description	- Files by URL (field "url") â€” server will download and send as attachment
+//	@Description	- Base64 content (field "content") â€” use format data:<mime>;base64,<data>
+//	@Description	- Polls (field "poll") â€” send the poll JSON in the "poll" field
+//	@Description	- Location (field "location") â€” send location with latitude/longitude in the "location" object
+//	@Description	- Contact (field "contact") â€” send contact with phone/name in the "contact" object
+//	@Description	- Sticker (field "sticker") â€” send a sticker from URL or base64 content; auto-converted to WebP 512Ã—512 via FFmpeg
 //	@Description
 //	@Description	Main fields:
 //	@Description	- chatId: chat identifier (can be WID, LID or number with suffix @s.whatsapp.net)
@@ -55,7 +55,7 @@ import (
 //	@Description	Sticker object fields:
 //	@Description	- url (string): Public URL of the sticker image/video to download and convert
 //	@Description	- content (string): Base64-encoded content or data URI (e.g.: data:image/png;base64,...)
-//	@Description	Note: images and videos are automatically converted to WebP 512×512 using FFmpeg.
+//	@Description	Note: images and videos are automatically converted to WebP 512Ã—512 using FFmpeg.
 //	@Description	Animated formats (video, gif, apng) produce animated WebP stickers (max 10s, 15fps).
 //	@Description	Static images produce static WebP stickers.
 //	@Description
@@ -85,7 +85,7 @@ import (
 //	@Description	"location": {
 //	@Description	"latitude": -23.550520,
 //	@Description	"longitude": -46.633308,
-//	@Description	"name": "Avenida Paulista, São Paulo"
+//	@Description	"name": "Avenida Paulista, SÃ£o Paulo"
 //	@Description	}
 //	@Description	}
 //	@Description	```

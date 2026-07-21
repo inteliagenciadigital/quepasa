@@ -3,7 +3,7 @@ package models
 import (
 	"testing"
 
-	whatsapp "github.com/nocodeleaks/quepasa/whatsapp"
+	whatsapp "github.com/inteliagenciadigital/quepasa/whatsapp"
 )
 
 // mockRabbitMQClient is a minimal test double for RabbitMQPublisherClient.

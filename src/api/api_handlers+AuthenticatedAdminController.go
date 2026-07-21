@@ -8,9 +8,9 @@ import (
 
 	"github.com/go-chi/chi/v5"
 	"github.com/nbutton23/zxcvbn-go"
-	environment "github.com/nocodeleaks/quepasa/environment"
-	library "github.com/nocodeleaks/quepasa/library"
-	runtime "github.com/nocodeleaks/quepasa/runtime"
+	environment "github.com/inteliagenciadigital/quepasa/environment"
+	library "github.com/inteliagenciadigital/quepasa/library"
+	runtime "github.com/inteliagenciadigital/quepasa/runtime"
 )
 
 type authenticatedUserCreateRequest struct {

@@ -3,7 +3,7 @@ package runtime
 import (
 	"testing"
 
-	"github.com/nocodeleaks/quepasa/models"
+	"github.com/inteliagenciadigital/quepasa/models"
 )
 
 func TestChooseSpamSectionTokenUsesLowestReadyPriority(t *testing.T) {

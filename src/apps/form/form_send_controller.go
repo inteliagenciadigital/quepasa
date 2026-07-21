@@ -7,13 +7,13 @@ import (
 	"strconv"
 	"strings"
 
-	log "github.com/nocodeleaks/quepasa/qplog"
+	log "github.com/inteliagenciadigital/quepasa/qplog"
 
-	api "github.com/nocodeleaks/quepasa/api"
-	viewmodel "github.com/nocodeleaks/quepasa/apps/form/viewmodel"
-	media "github.com/nocodeleaks/quepasa/media"
-	models "github.com/nocodeleaks/quepasa/models"
-	whatsapp "github.com/nocodeleaks/quepasa/whatsapp"
+	api "github.com/inteliagenciadigital/quepasa/api"
+	viewmodel "github.com/inteliagenciadigital/quepasa/apps/form/viewmodel"
+	media "github.com/inteliagenciadigital/quepasa/media"
+	models "github.com/inteliagenciadigital/quepasa/models"
+	whatsapp "github.com/inteliagenciadigital/quepasa/whatsapp"
 )
 
 func FormSendController(w http.ResponseWriter, r *http.Request) {

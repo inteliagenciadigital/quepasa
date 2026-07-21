@@ -6,11 +6,11 @@ import (
 	"strings"
 
 	_ "github.com/mattn/go-sqlite3"
-	log "github.com/nocodeleaks/quepasa/qplog"
+	log "github.com/inteliagenciadigital/quepasa/qplog"
 	"google.golang.org/protobuf/proto"
 
-	library "github.com/nocodeleaks/quepasa/library"
-	whatsapp "github.com/nocodeleaks/quepasa/whatsapp"
+	library "github.com/inteliagenciadigital/quepasa/library"
+	whatsapp "github.com/inteliagenciadigital/quepasa/whatsapp"
 	whatsmeow "go.mau.fi/whatsmeow"
 	"go.mau.fi/whatsmeow/proto/waCompanionReg"
 	"go.mau.fi/whatsmeow/proto/waE2E"

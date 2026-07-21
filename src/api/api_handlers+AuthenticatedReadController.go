@@ -11,11 +11,11 @@ import (
 	"time"
 
 	"github.com/go-chi/jwtauth"
-	apiModels "github.com/nocodeleaks/quepasa/api/models"
-	models "github.com/nocodeleaks/quepasa/models"
-	"github.com/nocodeleaks/quepasa/oauth"
-	runtime "github.com/nocodeleaks/quepasa/runtime"
-	whatsapp "github.com/nocodeleaks/quepasa/whatsapp"
+	apiModels "github.com/inteliagenciadigital/quepasa/api/models"
+	models "github.com/inteliagenciadigital/quepasa/models"
+	"github.com/inteliagenciadigital/quepasa/oauth"
+	runtime "github.com/inteliagenciadigital/quepasa/runtime"
+	whatsapp "github.com/inteliagenciadigital/quepasa/whatsapp"
 	"github.com/skip2/go-qrcode"
 )
 

@@ -7,7 +7,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/nocodeleaks/quepasa/whatsapp"
+	"github.com/inteliagenciadigital/quepasa/whatsapp"
 )
 
 func TestDispatchingWebhookBlockedAfterSequentialFailures(t *testing.T) {

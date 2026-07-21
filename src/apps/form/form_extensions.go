@@ -9,14 +9,14 @@ import (
 
 	"github.com/go-chi/jwtauth"
 	websocket "github.com/gorilla/websocket"
-	log "github.com/nocodeleaks/quepasa/qplog"
+	log "github.com/inteliagenciadigital/quepasa/qplog"
 
-	api "github.com/nocodeleaks/quepasa/api"
-	viewmodel "github.com/nocodeleaks/quepasa/apps/form/viewmodel"
-	environment "github.com/nocodeleaks/quepasa/environment"
-	library "github.com/nocodeleaks/quepasa/library"
-	models "github.com/nocodeleaks/quepasa/models"
-	runtime "github.com/nocodeleaks/quepasa/runtime"
+	api "github.com/inteliagenciadigital/quepasa/api"
+	viewmodel "github.com/inteliagenciadigital/quepasa/apps/form/viewmodel"
+	environment "github.com/inteliagenciadigital/quepasa/environment"
+	library "github.com/inteliagenciadigital/quepasa/library"
+	models "github.com/inteliagenciadigital/quepasa/models"
+	runtime "github.com/inteliagenciadigital/quepasa/runtime"
 )
 
 func loginRedirectEndpointForRequest(r *http.Request) string {

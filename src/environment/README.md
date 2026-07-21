@@ -2,7 +2,7 @@
 
 This document describes all environment variables used by the QuePasa application, organized by category. **Total: 65 variables across 12 categories**.
 
-## 📡 SIP Proxy Configuration
+## ðŸ“¡ SIP Proxy Configuration
 
 ### Core Settings
 - **`SIPPROXY_HOST`** - SIP server hostname (e.g., `sip.provider.com`)
@@ -29,7 +29,7 @@ This document describes all environment variables used by the QuePasa applicatio
 - **`SIPPROXY_PROTOCOL`** - SIP server protocol (default: `UDP`)
 - **`SIPPROXY_SDPSESSIONNAME`** - SDP session name
 
-## 🔗 API/Web Server Configuration
+## ðŸ”— API/Web Server Configuration
 
 - **`WEBAPIHOST`** - Web server bind host *(deprecated, use WEBSERVER_HOST)*
 - **`WEBAPIPORT`** - Web server port (default: `31000`) *(deprecated, use WEBSERVER_PORT)*
@@ -49,7 +49,7 @@ This document describes all environment variables used by the QuePasa applicatio
 
 ### Database User Seeding (First Startup Only)
 
-**⚠️ Currently only used during initial database seeding** - These variables control the default user created when the database is empty on first startup:
+**âš ï¸ Currently only used during initial database seeding** - These variables control the default user created when the database is empty on first startup:
 
 - **`USER`** - Default username/email for initial database seeding
   - **Default behavior**: If not set, uses `"default@quepasa.io"` with **empty password** (INSECURE!)
@@ -70,7 +70,7 @@ This document describes all environment variables used by the QuePasa applicatio
 - Empty password is only allowed for legacy `default@quepasa.io` user (NOT recommended)
 - For new users via `USER` variable, password validation is **mandatory**
 
-## 💾 Database Configuration
+## ðŸ’¾ Database Configuration
 
 These `DB*` variables configure the **single shared database** holding both the
 QuePasa application tables (`quepasa_*`) and the Whatsmeow store tables
@@ -102,9 +102,9 @@ consolidated into the shared database automatically:
 
 **postgres/mysql:** these drivers apply to the Whatsmeow store only. The
 application tables are sqlite-only and keep living in the local `quepasa.sqlite`
-database, exactly as in previous releases — no data movement happens.
+database, exactly as in previous releases â€” no data movement happens.
 
-## 📱 WhatsApp Configuration
+## ðŸ“± WhatsApp Configuration
 
 - **`READUPDATE`** - Global: Mark chat as read when receiving messages (default: `false`). Can be overridden per server.
 - **`READRECEIPTS`** - Dispatch read receipt events to webhooks/RabbitMQ (default: `false`)
@@ -124,13 +124,13 @@ Each server can override global settings for `READUPDATE`, `GROUPS`, `CALLS`, `R
 - Set to `false` or `-1` to disable for this specific server  
 - Leave unset to use global environment variable value
 
-## 📋 Logging Configuration
+## ðŸ“‹ Logging Configuration
 
 - **`LOGLEVEL`** - General log level
 - **`WHATSMEOW_LOGLEVEL`** - Whatsmeow library log level
 - **`WHATSMEOW_DBLOGLEVEL`** - Whatsmeow database log level
 
-## ⚙️ General Application Settings
+## âš™ï¸ General Application Settings
 
 - **`MIGRATIONS`** - Enable database migrations (default: `true`)
 - **`APP_TITLE`** - Application title for WhatsApp device list
@@ -144,7 +144,7 @@ Each server can override global settings for `READUPDATE`, `GROUPS`, `CALLS`, `R
 - **`ACCOUNTSETUP`** - Enable account creation (default: `true`)
 - **`TESTING`** - Testing mode (default: `false`)
 
-## 🗃️ Cache Backend Configuration
+## ðŸ—ƒï¸ Cache Backend Configuration
 
 - **`CACHE_BACKEND`** - Message cache backend implementation: `memory`, `disk`, or `redis` (default: `memory`)
 - **`CACHE_DISK_PATH`** - Base path for the disk cache backend (default fallback: `.dist/cache/messages`)
@@ -155,19 +155,19 @@ The message cache now uses a modular backend selected by environment:
 - `disk` persists cached messages on the local filesystem
 - `redis` stores cached messages in Redis for distributed/shared runtimes
 
-## 📋 Form/Web Interface Configuration
+## ðŸ“‹ Form/Web Interface Configuration
 
 - **`FORM`** - Enable/disable web form interface (default: `true`)
 - **`FORM_PREFIX`** - Form endpoint path prefix (default: `form`)
 
-## 📊 Metrics Configuration
+## ðŸ“Š Metrics Configuration
 
 - **`METRICS`** - Enable/disable metrics endpoint (default: `true`)
 - **`METRICS_PREFIX`** - Metrics endpoint path prefix (default: `metrics`)
 - **`METRICS_DASHBOARD`** - Enable/disable metrics dashboard endpoint (default: `true`)
 - **`METRICS_DASHBOARD_PREFIX`** - Metrics dashboard endpoint path prefix (default: `dashboard`)
 
-## 🐰 RabbitMQ Configuration
+## ðŸ° RabbitMQ Configuration
 
 - **`RABBITMQ_QUEUE`** - RabbitMQ queue name
 - **`RABBITMQ_CONNECTIONSTRING`** - RabbitMQ connection string
@@ -181,7 +181,7 @@ The RabbitMQ reconnect buffer now uses the same modular cache approach:
 - `disk` persists retry items locally on disk
 - `redis` stores retry items in Redis for shared/distributed runtimes
 
-## 🔴 Redis Configuration
+## ðŸ”´ Redis Configuration
 
 - **`REDIS_HOST`** - Redis hostname or IP address
 - **`REDIS_PORT`** - Redis TCP port (default: `6379`)
@@ -199,26 +199,26 @@ Enable distributed cache by combining:
 - `CACHE_BACKEND=redis`
 - `REDIS_HOST=<your redis host>`
 
-## 📖 Swagger Configuration
+## ðŸ“– Swagger Configuration
 
 - **`SWAGGER`** - Enable/disable Swagger UI (default: `true`)
 - **`SWAGGER_PREFIX`** - Swagger UI path prefix (default: `swagger`)
 
-## 🌐 WebServer Configuration
+## ðŸŒ WebServer Configuration
 
 - **`WEBSERVER_HOST`** - Web server bind host (fallback: `WEBAPIHOST`)
 - **`WEBSERVER_PORT`** - Web server port (default: `31000`, fallback: `WEBAPIPORT`)
 - **`WEBSERVER_LOGS`** - Enable web server HTTP logs (default: `false`, fallback: `HTTPLOGS`)
 - **`QUEPASA_DEFAULT_APP`** - Optional redirect target for `/`, normalized under `/apps/`. Examples: `vuejs`, `console`, `/apps/form/account`.
 
-## 📱 Whatsmeow Configuration
+## ðŸ“± Whatsmeow Configuration
 
 - **`DISPATCHUNHANDLED`** - Dispatch unhandled messages (default: `false`)
 - **`WHATSMEOW_LOGLEVEL`** - Whatsmeow library log level
 - **`WHATSMEOW_DBLOGLEVEL`** - Whatsmeow database log level
 - **`WHATSMEOW_USE_RETRY_MESSAGE_STORE`** - Persist outgoing messages in database for retry receipts after process restarts (default: `false`)
 
-## 📋 Current Working Configuration
+## ðŸ“‹ Current Working Configuration
 
 Based on our successful NAT traversal tests with `sip.provider.com:5060`:
 
@@ -235,39 +235,39 @@ SIPPROXY_TIMEOUT=30
 SIPPROXY_RETRIES=3
 ```
 
-## 🧪 Testing Instructions
+## ðŸ§ª Testing Instructions
 
 ### Official Go Testing Convention
 
 This package follows **official Go testing conventions**. We **NO longer use** separate `tests/` folders.
 
-#### ✅ Correct Approach (Go Standard)
+#### âœ… Correct Approach (Go Standard)
 ```bash
 # Run tests from project root where environment variables are available
 cd /path/to/quepasa/src
-go test -v github.com/nocodeleaks/quepasa/environment
+go test -v github.com/inteliagenciadigital/quepasa/environment
 
 # Or run tests from environment directory
 cd environment
 go test -v
 ```
 
-#### 📁 Test File Naming Convention
+#### ðŸ“ Test File Naming Convention
 - **`*_test.go`** - Standard Go test files
 - **`TestFunctionName`** - Test function names must start with `Test`
 - **Example:** `environment_test.go`, `sipproxy_test.go`
 
-#### 🔧 VS Code Integration
+#### ðŸ”§ VS Code Integration
 The environment package automatically loads `.env` files when running via:
 - **F5 Debug** - Uses `launch.json` configuration with `envFile: "${workspaceFolder}/.env"`
 - **Build Tasks** - Automatically copies `.env` to `.dist/` folder
 
-#### 🚀 Build Tasks Available
+#### ðŸš€ Build Tasks Available
 1. **`Build and run`** - Standard Go build (default task)
 2. **`Build and copy env`** - Build + automatically copy `.env` to `.dist/`
 3. **`Copy env to dist`** - Just copy `.env` to distribution folder
 
-#### 📅 Environment File Versioning
+#### ðŸ“… Environment File Versioning
 The `.env` file includes automatic versioning headers:
 ```env
 # ================================================================
@@ -281,20 +281,20 @@ The `.env` file includes automatic versioning headers:
 # ================================================================
 ```
 
-#### 📁 File Structure
+#### ðŸ“ File Structure
 ```
 project/
-├── .env                    # ← Root .env (VS Code loads this)
-├── .dist/
-│   ├── .env               # ← Copied during build
-│   └── quepasa.exe        # ← Compiled executable
-└── environment/
-    ├── environment.go     # ← Main environment package
-    ├── *_test.go         # ← Test files (Go standard)
-    └── README.md         # ← This documentation
+â”œâ”€â”€ .env                    # â† Root .env (VS Code loads this)
+â”œâ”€â”€ .dist/
+â”‚   â”œâ”€â”€ .env               # â† Copied during build
+â”‚   â””â”€â”€ quepasa.exe        # â† Compiled executable
+â””â”€â”€ environment/
+    â”œâ”€â”€ environment.go     # â† Main environment package
+    â”œâ”€â”€ *_test.go         # â† Test files (Go standard)
+    â””â”€â”€ README.md         # â† This documentation
 ```
 
-#### 📝 Test Categories Available
+#### ðŸ“ Test Categories Available
 1. **`TestEnvironmentPackageStructure`** - Verifies all environment files exist
 2. **`TestEnvironmentVariablesDefault`** - Tests default values
 3. **`TestEnvironmentVariablesFromSystem`** - Tests real environment loading
@@ -302,7 +302,7 @@ project/
 5. **`TestEnvironmentSettingsSingleton`** - Tests Settings initialization
 6. **`TestEnvironmentVariablesCoverage`** - Tests all 47 environment variables
 
-#### 🎯 Running Specific Tests
+#### ðŸŽ¯ Running Specific Tests
 ```bash
 # Run specific test
 go test -v -run TestSIPProxyActivationLogic
@@ -314,13 +314,13 @@ go test -v -timeout=30s
 go test -v -cover
 ```
 
-#### ⚠️ Important Notes
+#### âš ï¸ Important Notes
 - Environment variables are loaded from VS Code's `.env` injection when debugging
 - When running via `go test` in terminal, default values are used
 - SIP Proxy activation depends on `SIPPROXY_HOST` being set
 - All 47 environment variables are tested for accessibility
 
-## 💡 Usage Examples
+## ðŸ’¡ Usage Examples
 
 ```go
 // Check if SIP Proxy is active

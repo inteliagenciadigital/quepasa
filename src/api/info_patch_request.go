@@ -1,6 +1,6 @@
 package api
 
-import whatsapp "github.com/nocodeleaks/quepasa/whatsapp"
+import whatsapp "github.com/inteliagenciadigital/quepasa/whatsapp"
 
 // InfoPatchRequest represents the request body for partial session updates.
 type InfoPatchRequest struct {

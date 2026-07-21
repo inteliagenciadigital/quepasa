@@ -2,17 +2,17 @@ package voip
 
 // VoIP Bridge Audio: VoipBridgeSink and VoipBridgeSource adapt between the calls module
 // audio contract (16 kHz mono float32, 960 samples / 60 ms frame) and the SIP
-// side (G.711 μ-law 8 kHz RTP datagrams).
+// side (G.711 Î¼-law 8 kHz RTP datagrams).
 //
 // VoipBridgeSink implements calls.AudioSink:
 //   - receives 16 kHz float32 frames from the WhatsApp call
-//   - decimates to 8 kHz, μ-law encodes, builds an RTP packet
+//   - decimates to 8 kHz, Î¼-law encodes, builds an RTP packet
 //   - writes the RTP packet to the SIP-bound UDP socket
 //
 // VoipBridgeSource implements calls.AudioSource:
 //   - reads RTP packets from the SIP-side UDP socket
 //   - validates and parses the RTP header
-//   - μ-law decodes the payload to 16 kHz float32
+//   - Î¼-law decodes the payload to 16 kHz float32
 //   - passes through a jitter buffer for smooth playback
 //
 // Both types are driven by the VoIPBridge orchestrator (bridge.go).
@@ -23,21 +23,21 @@ import (
 	"sync"
 	"time"
 
-	qplog "github.com/nocodeleaks/quepasa/qplog"
-	calls "github.com/nocodeleaks/quepasa/voip/calls"
+	qplog "github.com/inteliagenciadigital/quepasa/qplog"
+	calls "github.com/inteliagenciadigital/quepasa/voip/calls"
 )
 
 // ErrVoipBridgeSourceClosed is returned when the bridge source has been closed.
 var ErrVoipBridgeSourceClosed = errors.New("voip bridge: source closed")
 
 // ---------------------------------------------------------------------------
-// sipPeer — symmetric-RTP learned remote address
+// sipPeer â€” symmetric-RTP learned remote address
 // ---------------------------------------------------------------------------
 //
 // The SIP RTP session uses ONE UDP socket. VoipBridgeSource learns the SIP
 // server's RTP source address from the first inbound packet (symmetric RTP /
 // rport) and stores it here; VoipBridgeSink reads it to know where to send the
-// WhatsApp→SIP audio. This avoids depending on the SDP answer's c=/m= address,
+// WhatsAppâ†’SIP audio. This avoids depending on the SDP answer's c=/m= address,
 // which may be a private/NAT IP.
 type sipPeer struct {
 	mu   sync.RWMutex
@@ -59,16 +59,16 @@ func (p *sipPeer) get() *net.UDPAddr {
 }
 
 // ---------------------------------------------------------------------------
-// VoipBridgeSink — WhatsApp audio → SIP RTP
+// VoipBridgeSink â€” WhatsApp audio â†’ SIP RTP
 // ---------------------------------------------------------------------------
 
 // VoipBridgeSink implements calls.AudioSink. Each WriteFrame call converts the
-// 16 kHz float32 frame to G.711 μ-law and sends an RTP packet over UDP to the
+// 16 kHz float32 frame to G.711 Î¼-law and sends an RTP packet over UDP to the
 // SIP server.
 type VoipBridgeSink struct {
 	conn       *net.UDPConn // SIP RTP socket (shared with VoipBridgeSource)
 	peer       *sipPeer     // learned SIP server RTP address (symmetric RTP)
-	builder    *VoipRTPBuilder  // RTP packet builder for WA→SIP direction
+	builder    *VoipRTPBuilder  // RTP packet builder for WAâ†’SIP direction
 	encScratch []byte       // reusable buffer for L16 encoding
 	queue      chan []byte  // 20 ms L16 payloads awaiting paced send
 	stop       chan struct{}
@@ -78,7 +78,7 @@ type VoipBridgeSink struct {
 
 // NewVoipBridgeSink creates an AudioSink that sends L16/16000 RTP to the SIP server
 // over conn, addressed to the peer learned by the paired VoipBridgeSource. L16 is
-// full-rate 16 kHz linear PCM so no fidelity is lost on the QuePasa↔asterisk
+// full-rate 16 kHz linear PCM so no fidelity is lost on the QuePasaâ†”asterisk
 // leg; asterisk transcodes to the destination endpoint's codec.
 //
 // Outbound packets are PACED: WhatsApp delivers a 60 ms frame at a time, but
@@ -100,7 +100,7 @@ func NewVoipBridgeSink(conn *net.UDPConn, peer *sipPeer, ssrc uint32) *VoipBridg
 
 // l16PacketBytes is the L16 payload size per RTP packet: 640 bytes = 320 samples
 // = 20 ms at 16 kHz (matches a=ptime:20), and 640+12 = 652 bytes fits the MTU.
-// A 60 ms WhatsApp frame (960 samples → 1920 L16 bytes) is emitted as three
+// A 60 ms WhatsApp frame (960 samples â†’ 1920 L16 bytes) is emitted as three
 // 20 ms packets so asterisk's jitter buffer and timing behave correctly.
 const l16PacketBytes = 640
 
@@ -132,7 +132,7 @@ func (s *VoipBridgeSink) WriteFrame(frame []float32) error {
 		select {
 		case s.queue <- chunk:
 		default:
-			// Queue full — drop to avoid latency build-up / blocking.
+			// Queue full â€” drop to avoid latency build-up / blocking.
 		}
 	}
 	return nil
@@ -185,7 +185,7 @@ func (s *VoipBridgeSink) Close() error {
 }
 
 // ---------------------------------------------------------------------------
-// VoipBridgeSource — SIP RTP → WhatsApp audio
+// VoipBridgeSource â€” SIP RTP â†’ WhatsApp audio
 // ---------------------------------------------------------------------------
 
 // VoipBridgeSource implements calls.AudioSource as a sequence-aware jitter buffer.
@@ -268,7 +268,7 @@ func (s *VoipBridgeSource) readLoop() {
 		}
 
 		// Learn the SIP server's RTP address (symmetric RTP) so VoipBridgeSink
-		// knows where to send the WhatsApp→SIP direction.
+		// knows where to send the WhatsAppâ†’SIP direction.
 		s.peer.set(src)
 
 		info, err := ParseRTP(buf[:n])
@@ -276,7 +276,7 @@ func (s *VoipBridgeSource) readLoop() {
 			continue // drop malformed packets
 		}
 
-		// Decode L16/16000 to 16 kHz float32 (own buffer — it is stored).
+		// Decode L16/16000 to 16 kHz float32 (own buffer â€” it is stored).
 		decoded := L16Decode(info.Payload, nil)
 
 		s.mu.Lock()

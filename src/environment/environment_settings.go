@@ -7,7 +7,7 @@ import (
 	"strings"
 
 	"github.com/joho/godotenv"
-	qplog "github.com/nocodeleaks/quepasa/qplog"
+	qplog "github.com/inteliagenciadigital/quepasa/qplog"
 )
 
 // EnvironmentSettings provides centralized access to all environment configurations.

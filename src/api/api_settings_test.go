@@ -6,7 +6,7 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	models "github.com/nocodeleaks/quepasa/models"
+	models "github.com/inteliagenciadigital/quepasa/models"
 )
 
 // TestCanonicalSettingsRequiresMasterKey: missing/invalid master key -> 401 (unlike env, /settings rejects).

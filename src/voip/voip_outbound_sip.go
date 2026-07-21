@@ -8,8 +8,8 @@ import (
 	"sync"
 	"time"
 
-	sipproxy "github.com/nocodeleaks/quepasa/sipproxy"
-	calls "github.com/nocodeleaks/quepasa/voip/calls"
+	sipproxy "github.com/inteliagenciadigital/quepasa/sipproxy"
+	calls "github.com/inteliagenciadigital/quepasa/voip/calls"
 )
 
 var outboundManagers sync.Map // map[string]*VoipManager, keyed by section id and session token

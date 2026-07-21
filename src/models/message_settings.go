@@ -3,7 +3,7 @@ package models
 import (
 	"time"
 
-	"github.com/nocodeleaks/quepasa/environment"
+	"github.com/inteliagenciadigital/quepasa/environment"
 )
 
 const storeRetentionNone = -1
@@ -18,7 +18,7 @@ type ResolvedMessageSettings struct {
 
 func (r ResolvedMessageSettings) Store() bool { return r.RetentionDays != storeRetentionNone }
 
-// ExpiryFor returns the record ExpiresAt: zero (never-expire → NULL in postgres)
+// ExpiryFor returns the record ExpiresAt: zero (never-expire â†’ NULL in postgres)
 // for forever, now+N days otherwise. Not meaningful when !Store().
 func (r ResolvedMessageSettings) ExpiryFor() time.Time {
 	if r.RetentionDays <= 0 {

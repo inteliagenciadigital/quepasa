@@ -7,8 +7,8 @@ import (
 	"net/http"
 	"time"
 
-	whatsapp "github.com/nocodeleaks/quepasa/whatsapp"
-	log "github.com/nocodeleaks/quepasa/qplog"
+	whatsapp "github.com/inteliagenciadigital/quepasa/whatsapp"
+	log "github.com/inteliagenciadigital/quepasa/qplog"
 )
 
 // WebhookRequest is the outbound HTTP contract used by the dispatch module

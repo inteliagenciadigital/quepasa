@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"strings"
 
-	cache "github.com/nocodeleaks/quepasa/cache"
+	cache "github.com/inteliagenciadigital/quepasa/cache"
 	redis "github.com/redis/go-redis/v9"
 )
 

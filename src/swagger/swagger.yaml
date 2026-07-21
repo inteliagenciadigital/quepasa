@@ -1257,7 +1257,7 @@ definitions:
   models.RestoreReport:
     properties:
       errors:
-        description: Errors contains token→error pairs for any linking attempt that
+        description: Errors contains tokenâ†’error pairs for any linking attempt that
           failed.
         items:
           $ref: '#/definitions/models.RestoreError'
@@ -1271,7 +1271,7 @@ definitions:
         type: array
       restored:
         description: |-
-          Restored contains the token→JID pairs that were successfully linked
+          Restored contains the tokenâ†’JID pairs that were successfully linked
           during an actual restore (empty during a dry-run).
         items:
           $ref: '#/definitions/models.RestoreResult'
@@ -1699,13 +1699,13 @@ definitions:
 info:
   contact:
     name: QuePasa Support
-    url: https://github.com/nocodeleaks/quepasa
+    url: https://github.com/inteliagenciadigital/quepasa
   description: QuePasa is a Go-based WhatsApp bot platform that exposes HTTP APIs
     for WhatsApp messaging integration
   license:
     name: GNU Affero General Public License v3.0
-    url: https://github.com/nocodeleaks/quepasa/blob/main/LICENSE.md
-  termsOfService: https://github.com/nocodeleaks/quepasa
+    url: https://github.com/inteliagenciadigital/quepasa/blob/main/LICENSE.md
+  termsOfService: https://github.com/inteliagenciadigital/quepasa
   title: QuePasa WhatsApp API
   version: 5.26.0625.0
 paths:
@@ -3537,12 +3537,12 @@ paths:
       description: |-
         Endpoint to send messages via WhatsApp. Accepts sending of:
         - Plain text (field "text")
-        - Files by URL (field "url") — server will download and send as attachment
-        - Base64 content (field "content") — use format data:<mime>;base64,<data>
-        - Polls (field "poll") — send the poll JSON in the "poll" field
-        - Location (field "location") — send location with latitude/longitude in the "location" object
-        - Contact (field "contact") — send contact with phone/name in the "contact" object
-        - Sticker (field "sticker") — send a sticker from URL or base64 content; auto-converted to WebP 512×512 via FFmpeg
+        - Files by URL (field "url") â€” server will download and send as attachment
+        - Base64 content (field "content") â€” use format data:<mime>;base64,<data>
+        - Polls (field "poll") â€” send the poll JSON in the "poll" field
+        - Location (field "location") â€” send location with latitude/longitude in the "location" object
+        - Contact (field "contact") â€” send contact with phone/name in the "contact" object
+        - Sticker (field "sticker") â€” send a sticker from URL or base64 content; auto-converted to WebP 512Ã—512 via FFmpeg
 
         Main fields:
         - chatId: chat identifier (can be WID, LID or number with suffix @s.whatsapp.net)
@@ -3570,7 +3570,7 @@ paths:
         Sticker object fields:
         - url (string): Public URL of the sticker image/video to download and convert
         - content (string): Base64-encoded content or data URI (e.g.: data:image/png;base64,...)
-        Note: images and videos are automatically converted to WebP 512×512 using FFmpeg.
+        Note: images and videos are automatically converted to WebP 512Ã—512 using FFmpeg.
         Animated formats (video, gif, apng) produce animated WebP stickers (max 10s, 15fps).
         Static images produce static WebP stickers.
 
@@ -3600,7 +3600,7 @@ paths:
         "location": {
         "latitude": -23.550520,
         "longitude": -46.633308,
-        "name": "Avenida Paulista, São Paulo"
+        "name": "Avenida Paulista, SÃ£o Paulo"
         }
         }
         ```

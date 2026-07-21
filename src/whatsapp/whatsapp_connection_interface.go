@@ -4,7 +4,7 @@ import (
 	"context"
 	"time"
 
-	log "github.com/nocodeleaks/quepasa/qplog"
+	log "github.com/inteliagenciadigital/quepasa/qplog"
 )
 
 type IWhatsappConnection interface {

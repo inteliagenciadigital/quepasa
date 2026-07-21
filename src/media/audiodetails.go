@@ -3,7 +3,7 @@ package media
 import (
 	"fmt"
 
-	whatsapp "github.com/nocodeleaks/quepasa/whatsapp"
+	whatsapp "github.com/inteliagenciadigital/quepasa/whatsapp"
 )
 
 type AudioDetails struct {

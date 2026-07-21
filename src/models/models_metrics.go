@@ -1,7 +1,7 @@
 package models
 
 import (
-	metrics "github.com/nocodeleaks/quepasa/metrics"
+	metrics "github.com/inteliagenciadigital/quepasa/metrics"
 )
 
 // Models-specific metrics initialized directly using generic factory functions

@@ -6,12 +6,12 @@ import (
 	"sync"
 	"time"
 
-	"github.com/nocodeleaks/quepasa/cache"
-	cache_disk "github.com/nocodeleaks/quepasa/cache/disk"
-	cache_memory "github.com/nocodeleaks/quepasa/cache/memory"
-	cache_postgres "github.com/nocodeleaks/quepasa/cache/postgres"
-	cache_redis "github.com/nocodeleaks/quepasa/cache/redis"
-	environment "github.com/nocodeleaks/quepasa/environment"
+	"github.com/inteliagenciadigital/quepasa/cache"
+	cache_disk "github.com/inteliagenciadigital/quepasa/cache/disk"
+	cache_memory "github.com/inteliagenciadigital/quepasa/cache/memory"
+	cache_postgres "github.com/inteliagenciadigital/quepasa/cache/postgres"
+	cache_redis "github.com/inteliagenciadigital/quepasa/cache/redis"
+	environment "github.com/inteliagenciadigital/quepasa/environment"
 )
 
 // CacheService is the centralized cache service for the entire application.

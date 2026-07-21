@@ -1,6 +1,6 @@
 package mlow
 
-import qplog "github.com/nocodeleaks/quepasa/qplog"
+import qplog "github.com/inteliagenciadigital/quepasa/qplog"
 
 // SmplTOC is the decoded first byte of an inbound MLow frame: how to interpret
 // the rest of the frame, or that it is a standard Opus packet to route elsewhere.

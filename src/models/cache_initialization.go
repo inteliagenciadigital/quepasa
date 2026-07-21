@@ -3,7 +3,7 @@ package models
 import (
 	"log"
 
-	cacheservice "github.com/nocodeleaks/quepasa/cache/service"
+	cacheservice "github.com/inteliagenciadigital/quepasa/cache/service"
 )
 
 // InitializeCacheService initializes the global cache service and injects backends

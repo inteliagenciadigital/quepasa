@@ -2,10 +2,10 @@ package metrics
 
 import (
 	"github.com/go-chi/chi/v5"
-	environment "github.com/nocodeleaks/quepasa/environment"
-	webserver "github.com/nocodeleaks/quepasa/webserver"
+	environment "github.com/inteliagenciadigital/quepasa/environment"
+	webserver "github.com/inteliagenciadigital/quepasa/webserver"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
-	log "github.com/nocodeleaks/quepasa/qplog"
+	log "github.com/inteliagenciadigital/quepasa/qplog"
 )
 
 func init() {

@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strings"
 
-	environment "github.com/nocodeleaks/quepasa/environment"
+	environment "github.com/inteliagenciadigital/quepasa/environment"
 )
 
 // OAuthProvider abstracts the external OAuth/OIDC identity provider. QuePasa

@@ -1,7 +1,7 @@
 package api
 
 import (
-	legacy "github.com/nocodeleaks/quepasa/api/legacy"
+	legacy "github.com/inteliagenciadigital/quepasa/api/legacy"
 )
 
 func legacyHandlers() legacy.Handlers {

@@ -4,8 +4,8 @@ import (
 	"errors"
 	"net/http"
 
-	apiModels "github.com/nocodeleaks/quepasa/api/models"
-	"github.com/nocodeleaks/quepasa/runtime"
+	apiModels "github.com/inteliagenciadigital/quepasa/api/models"
+	"github.com/inteliagenciadigital/quepasa/runtime"
 )
 
 var errSpamMasterKeyRequired = errors.New("master key required for spam endpoint")

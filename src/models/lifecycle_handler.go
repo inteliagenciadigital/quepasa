@@ -5,8 +5,8 @@ import (
 	"time"
 
 	"github.com/google/uuid"
-	events "github.com/nocodeleaks/quepasa/events"
-	whatsapp "github.com/nocodeleaks/quepasa/whatsapp"
+	events "github.com/inteliagenciadigital/quepasa/events"
+	whatsapp "github.com/inteliagenciadigital/quepasa/whatsapp"
 )
 
 // LifecycleHandler manages WhatsApp session lifecycle events (connected, disconnected, logged out, etc).

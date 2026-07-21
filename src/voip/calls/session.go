@@ -1,15 +1,15 @@
 package calls
 
 import (
-	qplog "github.com/nocodeleaks/quepasa/qplog"
+	qplog "github.com/inteliagenciadigital/quepasa/qplog"
 	"go.mau.fi/whatsmeow/types"
 
-	"github.com/nocodeleaks/quepasa/voip/calls/rtp"
-	"github.com/nocodeleaks/quepasa/voip/calls/srtp"
+	"github.com/inteliagenciadigital/quepasa/voip/calls/rtp"
+	"github.com/inteliagenciadigital/quepasa/voip/calls/srtp"
 )
 
-// Call state machine and the media-pipeline composition (Opus payload → RTP WARP
-// header → E2E-SRTP protect, and the reverse). The byte-level crypto/framing lives
+// Call state machine and the media-pipeline composition (Opus payload â†’ RTP WARP
+// header â†’ E2E-SRTP protect, and the reverse). The byte-level crypto/framing lives
 // in the rtp/srtp packages; this stitches it together.
 
 // CallDirection is the originating direction of a call.

@@ -5,8 +5,8 @@ import (
 	"encoding/hex"
 	"fmt"
 
-	models "github.com/nocodeleaks/quepasa/models"
-	log "github.com/nocodeleaks/quepasa/qplog"
+	models "github.com/inteliagenciadigital/quepasa/models"
+	log "github.com/inteliagenciadigital/quepasa/qplog"
 )
 
 // FindOrCreateUser resolves an OAuth-authenticated user to a local QuePasa account.

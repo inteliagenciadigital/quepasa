@@ -3,7 +3,7 @@ package whatsmeow
 import (
 	"fmt"
 
-	whatsapp "github.com/nocodeleaks/quepasa/whatsapp"
+	whatsapp "github.com/inteliagenciadigital/quepasa/whatsapp"
 	"go.mau.fi/whatsmeow/store"
 )
 

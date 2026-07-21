@@ -23,7 +23,7 @@ WebSocket connections.
 
 ### Configuration Access
 ```go
-import "github.com/nocodeleaks/quepasa/environment"
+import "github.com/inteliagenciadigital/quepasa/environment"
 
 // Access centralized settings
 port := environment.Settings.WebServer.Port

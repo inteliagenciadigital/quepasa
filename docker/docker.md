@@ -11,7 +11,7 @@
 
 1. **Clone or download the project**
    ```bash
-   git clone https://github.com/nocodeleaks/quepasa.git
+   git clone https://github.com/inteliagenciadigital/quepasa.git
    cd quepasa
    ```
 
@@ -95,14 +95,14 @@ The `.env` file contains all necessary configurations organized in sections:
 
 ---
 
-## Versão em Português
+## VersÃ£o em PortuguÃªs
 
-### Pré-requisitos
+### PrÃ©-requisitos
 - Docker e Docker Compose instalados
-- Conhecimento básico de variáveis de ambiente
-- Acesso para configurar seu domínio/rede
+- Conhecimento bÃ¡sico de variÃ¡veis de ambiente
+- Acesso para configurar seu domÃ­nio/rede
 
-### Passos de Instalação
+### Passos de InstalaÃ§Ã£o
 
 1. **Clone ou baixe o projeto**
    ```bash
@@ -110,37 +110,37 @@ The `.env` file contains all necessary configurations organized in sections:
    cd quepasa
    ```
 
-2. **Configure as variáveis de ambiente**
+2. **Configure as variÃ¡veis de ambiente**
    ```bash
    cd docker
    cp .env.example .env
-   # Edite o arquivo .env com suas configurações específicas
+   # Edite o arquivo .env com suas configuraÃ§Ãµes especÃ­ficas
    ```
 
-3. **Edite o arquivo `.env` com suas configurações**
-   - **DOMAIN**: Configure seu domínio (ex: `quepasa.seudominio.com`)
+3. **Edite o arquivo `.env` com suas configuraÃ§Ãµes**
+   - **DOMAIN**: Configure seu domÃ­nio (ex: `quepasa.seudominio.com`)
    - **EMAIL**: Defina seu email de administrador
-   - **MASTERKEY**: Altere a chave mestra padrão por segurança
+   - **MASTERKEY**: Altere a chave mestra padrÃ£o por seguranÃ§a
    - **PASSWORD**: Defina uma senha forte
-   - **DBDRIVER** / **DBDATABASE**: Definem o **banco de dados único compartilhado** (tabelas quepasa_* da aplicação + tabelas whatsmeow_* do store)
+   - **DBDRIVER** / **DBDATABASE**: Definem o **banco de dados Ãºnico compartilhado** (tabelas quepasa_* da aplicaÃ§Ã£o + tabelas whatsmeow_* do store)
    - **DBPASSWORD**: Defina uma senha segura apenas quando usar PostgreSQL/MySQL (`DBDRIVER=postgres` ou `mysql`)
-   - **SIGNING_SECRET**: Altere o segredo de assinatura padrão
+   - **SIGNING_SECRET**: Altere o segredo de assinatura padrÃ£o
    - **WEBSOCKETSSL**: Defina como `true` se usar HTTPS/SSL
-   - **LOGLEVEL**: Ajuste o nível de log (ERROR, WARN, INFO, DEBUG, TRACE)
-   - **TZ**: Defina seu fuso horário
+   - **LOGLEVEL**: Ajuste o nÃ­vel de log (ERROR, WARN, INFO, DEBUG, TRACE)
+   - **TZ**: Defina seu fuso horÃ¡rio
 
 4. **Opcional: Revise o docker-compose.yml**
-   - O arquivo compose agora usa variáveis de ambiente do `.env`
-   - Inclui serviço PostgreSQL para o store do Whatsmeow
-   - Mantenha as variáveis `DB*` alinhadas com o serviço do compose quando `DBDRIVER=postgres`
-   - O banco interno do QuePasa continua local no código atual
+   - O arquivo compose agora usa variÃ¡veis de ambiente do `.env`
+   - Inclui serviÃ§o PostgreSQL para o store do Whatsmeow
+   - Mantenha as variÃ¡veis `DB*` alinhadas com o serviÃ§o do compose quando `DBDRIVER=postgres`
+   - O banco interno do QuePasa continua local no cÃ³digo atual
 
 5. **Construa e execute o container**
    ```bash
-   # Opção 1: Construir e executar em um comando
+   # OpÃ§Ã£o 1: Construir e executar em um comando
    docker-compose up -d --build
    
-   # Opção 2: Construir primeiro, depois executar
+   # OpÃ§Ã£o 2: Construir primeiro, depois executar
    docker-compose build
    docker-compose up -d
    
@@ -148,7 +148,7 @@ The `.env` file contains all necessary configurations organized in sections:
    docker compose up -d --build
    ```
 
-6. **Verifique a instalação**
+6. **Verifique a instalaÃ§Ã£o**
    ```bash
    # Verificar status do container
    docker-compose ps
@@ -157,34 +157,34 @@ The `.env` file contains all necessary configurations organized in sections:
    docker-compose logs -f quepasa
    ```
 
-### Notas Importantes de Configuração
+### Notas Importantes de ConfiguraÃ§Ã£o
 
-- **Arquivo de Ambiente**: Todas as configurações estão no arquivo `.env` para melhor gestão
-- **Banco de Dados**: Serviço PostgreSQL incluído com configuração automática
-- **Primeira Configuração**: Defina `ACCOUNTSETUP=true` para configuração inicial
-- **Segurança**: Altere todas as senhas e segredos padrão no `.env`
+- **Arquivo de Ambiente**: Todas as configuraÃ§Ãµes estÃ£o no arquivo `.env` para melhor gestÃ£o
+- **Banco de Dados**: ServiÃ§o PostgreSQL incluÃ­do com configuraÃ§Ã£o automÃ¡tica
+- **Primeira ConfiguraÃ§Ã£o**: Defina `ACCOUNTSETUP=true` para configuraÃ§Ã£o inicial
+- **SeguranÃ§a**: Altere todas as senhas e segredos padrÃ£o no `.env`
 - **SSL**: Defina `WEBSOCKETSSL=true` se usar HTTPS
 - **Rede**: Usa rede interna do Docker `quepasa_network`
-- **Portas**: Porta padrão 31000, configurável via `QUEPASA_EXTERNAL_PORT`
+- **Portas**: Porta padrÃ£o 31000, configurÃ¡vel via `QUEPASA_EXTERNAL_PORT`
 
-### Visão Geral das Variáveis de Ambiente
+### VisÃ£o Geral das VariÃ¡veis de Ambiente
 
-O arquivo `.env` contém todas as configurações necessárias organizadas em seções:
-- **Configuração Básica**: Domínio, flags de setup, chave mestra
-- **Autenticação**: Email, senhas, configurações de auth
+O arquivo `.env` contÃ©m todas as configuraÃ§Ãµes necessÃ¡rias organizadas em seÃ§Ãµes:
+- **ConfiguraÃ§Ã£o BÃ¡sica**: DomÃ­nio, flags de setup, chave mestra
+- **AutenticaÃ§Ã£o**: Email, senhas, configuraÃ§Ãµes de auth
 - **Recursos WhatsApp**: Grupos, broadcasts, chamadas, recibos
-- **Logging**: Níveis de log para aplicação e WhatsApp
-- **Banco de Dados**: Configurações de conexão PostgreSQL
-- **Performance**: Cache, memória, configurações de sync
-- **Debug**: Várias opções de debugging
+- **Logging**: NÃ­veis de log para aplicaÃ§Ã£o e WhatsApp
+- **Banco de Dados**: ConfiguraÃ§Ãµes de conexÃ£o PostgreSQL
+- **Performance**: Cache, memÃ³ria, configuraÃ§Ãµes de sync
+- **Debug**: VÃ¡rias opÃ§Ãµes de debugging
 
 ---
 
-## Troubleshooting / Solução de Problemas
+## Troubleshooting / SoluÃ§Ã£o de Problemas
 
 ### Common Issues / Problemas Comuns
 
-#### Database Connection Issues / Problemas de Conexão com Banco
+#### Database Connection Issues / Problemas de ConexÃ£o com Banco
 ```bash
 # Check database container
 docker-compose ps
@@ -193,7 +193,7 @@ docker-compose ps
 docker-compose logs db
 ```
 
-#### Permission Issues / Problemas de Permissão
+#### Permission Issues / Problemas de PermissÃ£o
 ```bash
 # Fix volume permissions
 docker-compose down
@@ -206,7 +206,7 @@ docker-compose up -d
 - Modify `QUEPASA_EXTERNAL_PORT` in .env file
 - Update docker-compose.yml port mappings
 
-#### Container Won't Start / Container Não Inicia
+#### Container Won't Start / Container NÃ£o Inicia
 ```bash
 # Check detailed logs
 docker-compose logs --details quepasa
@@ -216,7 +216,7 @@ docker-compose build --no-cache
 docker-compose up -d
 ```
 
-### Useful Commands / Comandos Úteis
+### Useful Commands / Comandos Ãšteis
 
 ```bash
 # Stop all services
@@ -235,7 +235,7 @@ docker-compose exec quepasa sh
 docker-compose logs -f --tail=100 quepasa
 ```
 
-### Health Check / Verificação de Saúde
+### Health Check / VerificaÃ§Ã£o de SaÃºde
 
 The container includes a health check endpoint:
 ```

@@ -7,11 +7,11 @@ import (
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/jwtauth"
-	environment "github.com/nocodeleaks/quepasa/environment"
-	events "github.com/nocodeleaks/quepasa/events"
-	library "github.com/nocodeleaks/quepasa/library"
-	models "github.com/nocodeleaks/quepasa/models"
-	runtime "github.com/nocodeleaks/quepasa/runtime"
+	environment "github.com/inteliagenciadigital/quepasa/environment"
+	events "github.com/inteliagenciadigital/quepasa/events"
+	library "github.com/inteliagenciadigital/quepasa/library"
+	models "github.com/inteliagenciadigital/quepasa/models"
+	runtime "github.com/inteliagenciadigital/quepasa/runtime"
 )
 
 // authenticatedTokenAuth reuses the same signing secret as the form login flow so a browser

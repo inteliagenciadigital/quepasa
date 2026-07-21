@@ -8,7 +8,7 @@ import (
 	"time"
 
 	jwt "github.com/dgrijalva/jwt-go"
-	"github.com/nocodeleaks/quepasa/oauth"
+	"github.com/inteliagenciadigital/quepasa/oauth"
 )
 
 func TestOAuthResourceProxyForwardsWithStoredAccessToken(t *testing.T) {

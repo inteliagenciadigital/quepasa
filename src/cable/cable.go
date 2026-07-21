@@ -4,8 +4,8 @@ import (
 	"net/http"
 
 	"github.com/go-chi/chi/v5"
-	dispatchservice "github.com/nocodeleaks/quepasa/dispatch/service"
-	webserver "github.com/nocodeleaks/quepasa/webserver"
+	dispatchservice "github.com/inteliagenciadigital/quepasa/dispatch/service"
+	webserver "github.com/inteliagenciadigital/quepasa/webserver"
 )
 
 // CableHub is the singleton websocket cable hub used by the application.

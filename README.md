@@ -10,10 +10,10 @@
 </p>
 
 <p align="center">
-	<a href="https://github.com/nocodeleaks/quepasa-/actions/workflows/go.yml"><img src="https://github.com/nocodeleaks/quepasa-/actions/workflows/go.yml/badge.svg" alt="Go Build" /></a>
-	<a href="https://github.com/nocodeleaks/quepasa-/actions/workflows/docker.yml"><img src="https://github.com/nocodeleaks/quepasa-/actions/workflows/docker.yml/badge.svg" alt="Docker Publish" /></a>
-	<a href="https://github.com/nocodeleaks/quepasa-/releases/latest"><img src="https://img.shields.io/github/v/release/nocodeleaks/quepasa-" alt="Latest Release" /></a>
-	<a href="https://hub.docker.com/r/codeleaks/quepasa"><img src="https://img.shields.io/docker/pulls/codeleaks/quepasa" alt="Docker Pulls" /></a>
+	<a href="https://github.com/inteliagenciadigital/quepasa-/actions/workflows/go.yml"><img src="https://github.com/inteliagenciadigital/quepasa-/actions/workflows/go.yml/badge.svg" alt="Go Build" /></a>
+	<a href="https://github.com/inteliagenciadigital/quepasa-/actions/workflows/docker.yml"><img src="https://github.com/inteliagenciadigital/quepasa-/actions/workflows/docker.yml/badge.svg" alt="Docker Publish" /></a>
+	<a href="https://github.com/inteliagenciadigital/quepasa-/releases/latest"><img src="https://img.shields.io/github/v/release/nosrwarez/quepasa-" alt="Latest Release" /></a>
+	<a href="https://hub.docker.com/r/srwarez/quepasa"><img src="https://img.shields.io/docker/pulls/srwarez/quepasa" alt="Docker Pulls" /></a>
 	<a href="LICENSE.md"><img src="https://img.shields.io/badge/License-AGPL%203.0-lightgrey.svg" alt="License GNU AGPL v3.0" /></a>
 </p>
 
@@ -26,26 +26,26 @@
 ## Quick Start
 
 ```bash
-git clone https://github.com/nocodeleaks/quepasa-.git
+git clone https://github.com/inteliagenciadigital/quepasa-.git
 cd quepasa-/docker
 cp .env.example .env
 docker-compose up -d --build
 ```
 
-Web interface: `http://localhost:31000` · Docker image: **[codeleaks/quepasa](https://hub.docker.com/r/codeleaks/quepasa)**
+Web interface: `http://localhost:31000` Â· Docker image: **[srwarez/quepasa](https://hub.docker.com/r/srwarez/quepasa)**
 
-Also mirrored P2P on **[Radicle](https://radicle.xyz)** — no account needed: `rad clone rad:z4N4hVxiroGtMpgB5AyzvfcptdfgD`
+Also mirrored P2P on **[Radicle](https://radicle.xyz)** â€” no account needed: `rad clone rad:z4N4hVxiroGtMpgB5AyzvfcptdfgD`
 
 ## Features
 
 QuePasa provides a simple HTTP API to integrate WhatsApp messaging into your applications:
 
-- 📱 QR Code authentication — easy WhatsApp Web connection setup
-- 💾 Persistent sessions — account data and keys stored securely
-- 🔗 HTTP API for sending messages, media & documents, receiving via webhooks, downloading attachments, managing contacts/groups
-- 🔄 Webhook support — real-time message notifications
-- 📊 Message history sync — configurable retrieval window
-- 🎯 Read receipts, message reactions, broadcasts, call handling, presence management
+- ðŸ“± QR Code authentication â€” easy WhatsApp Web connection setup
+- ðŸ’¾ Persistent sessions â€” account data and keys stored securely
+- ðŸ”— HTTP API for sending messages, media & documents, receiving via webhooks, downloading attachments, managing contacts/groups
+- ðŸ”„ Webhook support â€” real-time message notifications
+- ðŸ“Š Message history sync â€” configurable retrieval window
+- ðŸŽ¯ Read receipts, message reactions, broadcasts, call handling, presence management
 
 ## Documentation
 
@@ -68,15 +68,15 @@ Deeper architecture notes (ADRs, package maps, roadmap) live under [`docs/`](doc
 
 ## License
 
-QuePasa is free software licensed under **AGPL-3.0** — see [Community & Support](docs/guide/community/README.md#license) for details.
+QuePasa is free software licensed under **AGPL-3.0** â€” see [Community & Support](docs/guide/community/README.md#license) for details.
 
 ---
 
 <p align="center">
 	<img src="https://telegram.org/favicon.ico" alt="Telegram-logo" width="20" />
-	<a href="https://t.me/quepasa_api">Telegram Group</a> ·
+	<a href="https://t.me/quepasa_api">Telegram Group</a> Â·
 	<a href="https://t.me/quepasa_channel">Telegram Channel</a>
 </p>
 <p align="center">
-	<sub>Logo by <a href="https://agenciaoctos.com.br">Lukas Prais</a> · Made with ❤️ by the QuePasa Community</sub>
+	<sub>Logo by <a href="https://agenciaoctos.com.br">Lukas Prais</a> Â· Made with â¤ï¸ by the QuePasa Community</sub>
 </p>

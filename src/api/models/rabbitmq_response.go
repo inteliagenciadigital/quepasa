@@ -1,6 +1,6 @@
 package api
 
-import models "github.com/nocodeleaks/quepasa/models"
+import models "github.com/inteliagenciadigital/quepasa/models"
 
 // RabbitMQResponse is the API transport shape for RabbitMQ configuration endpoints.
 type RabbitMQResponse struct {

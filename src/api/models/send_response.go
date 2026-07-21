@@ -1,6 +1,6 @@
 package api
 
-import models "github.com/nocodeleaks/quepasa/models"
+import models "github.com/inteliagenciadigital/quepasa/models"
 
 // SendResponseMessage is the nested payload returned after a successful send.
 type SendResponseMessage struct {

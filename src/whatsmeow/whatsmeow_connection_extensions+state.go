@@ -1,7 +1,7 @@
 package whatsmeow
 
 import (
-	whatsapp "github.com/nocodeleaks/quepasa/whatsapp"
+	whatsapp "github.com/inteliagenciadigital/quepasa/whatsapp"
 )
 
 func IsConnected(source *WhatsmeowConnection) bool {

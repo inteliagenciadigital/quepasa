@@ -4,18 +4,18 @@ import (
 	"errors"
 	"math"
 
-	qplog "github.com/nocodeleaks/quepasa/qplog"
+	qplog "github.com/inteliagenciadigital/quepasa/qplog"
 )
 
 // MLow ENCODER (module #16, outbound counterpart of mlow/decoder).
 //
 // This file holds the voiced/unvoiced classifier (smpl_signal_mode.rs) and the
-// entropy coder (EncodeSmplFrame — the exact inverse of the byte-exact decoder).
+// entropy coder (EncodeSmplFrame â€” the exact inverse of the byte-exact decoder).
 // The classifier folds five voicing strengths (pitch correlation, VAD, spectral
 // tilt, harmonicity, short lag) plus a per-stream hysteresis into a single
 // voicing_strength; the encoder codes a frame voiced when that is positive and the
-// packet is coded-as-active. The full PCM→wire path (MlowEncoder.Encode) drives the
-// analysis front-end (analysis.go: LPC, perc, pitch, CELP, bitrate) → EncodeSmplFrame
+// packet is coded-as-active. The full PCMâ†’wire path (MlowEncoder.Encode) drives the
+// analysis front-end (analysis.go: LPC, perc, pitch, CELP, bitrate) â†’ EncodeSmplFrame
 // and round-trips a tone through the decoder (TestEncodeRoundTripsATone, corr 0.89).
 //
 // Source of truth: https://github.com/oxidezap/whatsapp-rust/blob/ed12f359a086b28e807ba236f0977af1000859fe/wacore/src/voip/mlow/smpl_signal_mode.rs#L1-L222
@@ -247,7 +247,7 @@ func SmplGetSignalMode(
 // --- entropy encoder (the exact inverse of the byte-exact decoder) ----------
 
 // ErrEncodeUnimplemented marks the parts of the encode path that are not yet built.
-var ErrEncodeUnimplemented = errors.New("mlow encode: analysis front-end (pcm→params) not yet implemented")
+var ErrEncodeUnimplemented = errors.New("mlow encode: analysis front-end (pcmâ†’params) not yet implemented")
 
 // SmplRawSym is one uniform raw-symbol write (encode(sym, sym+1, 1<<nbits)).
 type SmplRawSym struct {
@@ -621,7 +621,7 @@ func (e *MlowEncoder) Reset() {
 }
 
 // Encode turns one 60 ms frame (exactly 960 samples) into a wire MLow frame:
-// sanitize (NaN→0, clamp [-1,1]) → analysis (PCM → SmplFrameParams) → entropy code.
+// sanitize (NaNâ†’0, clamp [-1,1]) â†’ analysis (PCM â†’ SmplFrameParams) â†’ entropy code.
 func (e *MlowEncoder) Encode(pcm []float32) ([]byte, error) {
 	// Source of truth: https://github.com/oxidezap/whatsapp-rust/blob/ed12f359a086b28e807ba236f0977af1000859fe/wacore/src/voip/mlow/encode.rs#L46-L57
 	if len(pcm) != opusFrameSamps {

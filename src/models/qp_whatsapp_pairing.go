@@ -4,9 +4,9 @@ import (
 	"context"
 
 	"github.com/google/uuid"
-	library "github.com/nocodeleaks/quepasa/library"
-	whatsapp "github.com/nocodeleaks/quepasa/whatsapp"
-	log "github.com/nocodeleaks/quepasa/qplog"
+	library "github.com/inteliagenciadigital/quepasa/library"
+	whatsapp "github.com/inteliagenciadigital/quepasa/whatsapp"
+	log "github.com/inteliagenciadigital/quepasa/qplog"
 )
 
 type QpWhatsappPairing struct {

@@ -7,12 +7,12 @@ import (
 	"time"
 
 	"github.com/google/uuid"
-	library "github.com/nocodeleaks/quepasa/library"
-	whatsapp "github.com/nocodeleaks/quepasa/whatsapp"
-	log "github.com/nocodeleaks/quepasa/qplog"
+	library "github.com/inteliagenciadigital/quepasa/library"
+	whatsapp "github.com/inteliagenciadigital/quepasa/whatsapp"
+	log "github.com/inteliagenciadigital/quepasa/qplog"
 )
 
-// Serviço que controla os servidores / bots individuais do whatsapp
+// ServiÃ§o que controla os servidores / bots individuais do whatsapp
 type QPWhatsappService struct {
 	Servers     map[string]*QpWhatsappServer `json:"-"`
 	DB          *QpDatabase                  `json:"-"`
@@ -56,8 +56,8 @@ func QPWhatsappStart(logentry log.Logger) error {
 	return nil
 }
 
-// Inclui um novo servidor em um serviço já em andamento
-// *Usado quando se passa pela verificação do QRCode
+// Inclui um novo servidor em um serviÃ§o jÃ¡ em andamento
+// *Usado quando se passa pela verificaÃ§Ã£o do QRCode
 // *Usado quando se inicializa o sistema
 func (source *QPWhatsappService) AppendNewServer(info *QpServer) (server *QpWhatsappServer, err error) {
 	logentry := source.GetLogger()
@@ -306,7 +306,7 @@ func (source *QPWhatsappService) Initialize() (err error) {
 	return
 }
 
-// Função privada que irá iniciar todos os servidores apartir do banco de dados
+// FunÃ§Ã£o privada que irÃ¡ iniciar todos os servidores apartir do banco de dados
 func (service *QPWhatsappService) GetServersForUser(username string) (servers map[string]*QpWhatsappServer) {
 	servers = make(map[string]*QpWhatsappServer)
 	for _, server := range service.Servers {

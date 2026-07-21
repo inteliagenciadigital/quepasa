@@ -1,7 +1,7 @@
 package api
 
 import (
-	models "github.com/nocodeleaks/quepasa/models"
+	models "github.com/inteliagenciadigital/quepasa/models"
 )
 
 // GetOwnedSessionRecord returns the persisted session record for a token and ensures

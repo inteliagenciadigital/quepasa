@@ -3,7 +3,7 @@ package api
 import (
 	"testing"
 
-	whatsapp "github.com/nocodeleaks/quepasa/whatsapp"
+	whatsapp "github.com/inteliagenciadigital/quepasa/whatsapp"
 )
 
 func TestBuildSessionConfigurationPatchFromCreateRequest(t *testing.T) {

@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"strings"
 
-	whatsapp "github.com/nocodeleaks/quepasa/whatsapp"
+	whatsapp "github.com/inteliagenciadigital/quepasa/whatsapp"
 )
 
 // handle message deliver to individual dispatching distribution

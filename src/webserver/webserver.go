@@ -12,8 +12,8 @@ import (
 	"strings"
 	"time"
 
-	environment "github.com/nocodeleaks/quepasa/environment"
-	log "github.com/nocodeleaks/quepasa/qplog"
+	environment "github.com/inteliagenciadigital/quepasa/environment"
+	log "github.com/inteliagenciadigital/quepasa/qplog"
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"

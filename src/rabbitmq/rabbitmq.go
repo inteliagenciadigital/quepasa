@@ -1,7 +1,7 @@
 package rabbitmq
 
 import (
-	environment "github.com/nocodeleaks/quepasa/environment"
+	environment "github.com/inteliagenciadigital/quepasa/environment"
 )
 
 // Automatically registers the RabbitMQ configuration

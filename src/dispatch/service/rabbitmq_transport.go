@@ -5,9 +5,9 @@ import (
 	"errors"
 	"time"
 
-	rabbitmq "github.com/nocodeleaks/quepasa/rabbitmq"
-	whatsapp "github.com/nocodeleaks/quepasa/whatsapp"
-	log "github.com/nocodeleaks/quepasa/qplog"
+	rabbitmq "github.com/inteliagenciadigital/quepasa/rabbitmq"
+	whatsapp "github.com/inteliagenciadigital/quepasa/whatsapp"
+	log "github.com/inteliagenciadigital/quepasa/qplog"
 )
 
 // RabbitMQRequest is the outbound AMQP contract used by the dispatch module

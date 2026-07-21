@@ -1,28 +1,28 @@
 package voip
 
-// VoIP VoipManager: orchestrates the full inbound WhatsApp-call → SIP bridge.
+// VoIP VoipManager: orchestrates the full inbound WhatsApp-call â†’ SIP bridge.
 //
 // The manager ties together three layers:
 //
-//   1. calls.Client (src/calls)   — native WhatsApp call signaling, SRTP/RTP,
+//   1. calls.Client (src/calls)   â€” native WhatsApp call signaling, SRTP/RTP,
 //                                    MLOW codec, and 16 kHz mono float32 audio.
-//   2. sipproxy.SIPProxyManager   — SIP proxy that sends INVITE to a configured
+//   2. sipproxy.SIPProxyManager   â€” SIP proxy that sends INVITE to a configured
 //                                    SIP server and exposes an RTP stream.
-//   3. VoipBridgeSink / VoipBridgeSource  — audio adapters between the calls module
+//   3. VoipBridgeSink / VoipBridgeSource  â€” audio adapters between the calls module
 //                                    audio contract (16 kHz float32) and the
-//                                    SIP side (G.711 μ-law 8 kHz RTP).
+//                                    SIP side (G.711 Î¼-law 8 kHz RTP).
 //
 // Flow (inbound WhatsApp call):
 //
 //   whatsmeow fires CallOffer
-//     → CallMessage checks source.voip != nil
-//     → VoIPManager.OnIncomingCall is invoked by calls.Client
-//     → VoipManager answers the WhatsApp call natively
-//     → VoipManager calls sipproxy.BridgeInboundWhatsAppCall
-//     → VoipManager calls sipproxy.SendSIPInvite (INVITE → SIP server)
-//     → On call.OnReady (media path up):
-//         - VoipBridgeSource reads μ-law RTP from SIP side → feeds calls AudioSource
-//         - VoipBridgeSink receives 16 kHz float32 → encodes μ-law → sends to SIP side
+//     â†’ CallMessage checks source.voip != nil
+//     â†’ VoIPManager.OnIncomingCall is invoked by calls.Client
+//     â†’ VoipManager answers the WhatsApp call natively
+//     â†’ VoipManager calls sipproxy.BridgeInboundWhatsAppCall
+//     â†’ VoipManager calls sipproxy.SendSIPInvite (INVITE â†’ SIP server)
+//     â†’ On call.OnReady (media path up):
+//         - VoipBridgeSource reads Î¼-law RTP from SIP side â†’ feeds calls AudioSource
+//         - VoipBridgeSink receives 16 kHz float32 â†’ encodes Î¼-law â†’ sends to SIP side
 
 import (
 	"context"
@@ -33,12 +33,12 @@ import (
 	"time"
 
 	"github.com/emiago/sipgo/sip"
-	environment "github.com/nocodeleaks/quepasa/environment"
-	"github.com/nocodeleaks/quepasa/library"
-	qplog "github.com/nocodeleaks/quepasa/qplog"
-	sipproxy "github.com/nocodeleaks/quepasa/sipproxy"
-	calls "github.com/nocodeleaks/quepasa/voip/calls"
-	whatsapp "github.com/nocodeleaks/quepasa/whatsapp"
+	environment "github.com/inteliagenciadigital/quepasa/environment"
+	"github.com/inteliagenciadigital/quepasa/library"
+	qplog "github.com/inteliagenciadigital/quepasa/qplog"
+	sipproxy "github.com/inteliagenciadigital/quepasa/sipproxy"
+	calls "github.com/inteliagenciadigital/quepasa/voip/calls"
+	whatsapp "github.com/inteliagenciadigital/quepasa/whatsapp"
 	"go.mau.fi/whatsmeow"
 	types "go.mau.fi/whatsmeow/types"
 )
@@ -51,7 +51,7 @@ import (
 const EnvVoIPEnabled = "VOIP_ENABLED"
 
 // VoipManager wraps a connected whatsmeow client, a calls.Client, and the
-// sipproxy.SIPProxyManager to provide full WhatsApp → SIP call bridging.
+// sipproxy.SIPProxyManager to provide full WhatsApp â†’ SIP call bridging.
 //
 // Lifecycle:
 //   - Construct with NewVoipManager(client) right after the whatsmeow client is
@@ -77,7 +77,7 @@ type VoipManager struct {
 	// answer (200 OK) before considering the call failed (exclusive mode).
 	sipAcceptTimeout time.Duration
 
-	// activeCalls maps call-id → *bridgeContext for tear-down.
+	// activeCalls maps call-id â†’ *bridgeContext for tear-down.
 	activeCalls sync.Map // map[string]*bridgeContext
 
 	// sectionID identifies the WhatsApp section routed by SIP gateways. It is
@@ -206,7 +206,7 @@ func (m *VoipManager) handleIncoming(call *calls.Call) {
 	m.log.InfoE().
 		Str("call_id", callID).
 		Str("peer", peer.String()).
-		Msg("VoipManager: handleIncoming — incoming call")
+		Msg("VoipManager: handleIncoming â€” incoming call")
 
 	// Extract phone numbers for SIP routing.
 	fromPhone := jidToPhone(peer)
@@ -243,7 +243,7 @@ func (m *VoipManager) handleIncoming(call *calls.Call) {
 // answers within sipAcceptTimeout, the WhatsApp call is hung up so it is NOT
 // left marked as "answered".
 func (m *VoipManager) handleExclusive(call *calls.Call, callID, fromPhone, toPhone string, sipMeta callSIPMetadata) {
-	// Register OnReady BEFORE answering — OnReady fires on the first inbound
+	// Register OnReady BEFORE answering â€” OnReady fires on the first inbound
 	// RTP frame and may arrive immediately after Answer() returns.
 	call.OnReady(func() {
 		m.log.InfoE().
@@ -506,8 +506,8 @@ func (m *VoipManager) wireSIPBridge(call *calls.Call, callID, fromPhone, toPhone
 
 	// The SIP RTP session uses a SINGLE UDP socket (stream.WhatsAppConn): the
 	// SDP offer advertises its port, asterisk sends its RTP there, and we send
-	// the WhatsApp→SIP direction back from the same socket (symmetric RTP). The
-	// SDP MUST advertise this exact port or asterisk's RTP is lost — register
+	// the WhatsAppâ†’SIP direction back from the same socket (symmetric RTP). The
+	// SDP MUST advertise this exact port or asterisk's RTP is lost â€” register
 	// it before sending the INVITE.
 	sipConn := stream.WhatsAppConn
 	if sipConn == nil {
@@ -551,7 +551,7 @@ func (m *VoipManager) wireSIPBridge(call *calls.Call, callID, fromPhone, toPhone
 		}
 	}()
 
-	// VoipBridgeSource: SIP (L16 RTP) → WhatsApp audio (16 kHz float32).
+	// VoipBridgeSource: SIP (L16 RTP) â†’ WhatsApp audio (16 kHz float32).
 	bridgeSource := NewVoipBridgeSource(sipConn, peer)
 	bridgeSource.SetLogger(m.log)
 	bridgeSource.StartReadLoop()
@@ -561,8 +561,8 @@ func (m *VoipManager) wireSIPBridge(call *calls.Call, callID, fromPhone, toPhone
 	call.Subscribe(player)
 	player.Play(bridgeSource)
 
-	// VoipBridgeSink: WhatsApp audio (16 kHz float32) → SIP (μ-law RTP).
-	bridgeSink := NewVoipBridgeSink(sipConn, peer, 0) // SSRC 0 — VoipRTPBuilder assigns
+	// VoipBridgeSink: WhatsApp audio (16 kHz float32) â†’ SIP (Î¼-law RTP).
+	bridgeSink := NewVoipBridgeSink(sipConn, peer, 0) // SSRC 0 â€” VoipRTPBuilder assigns
 	call.Receive(bridgeSink)
 
 	// Store context for cleanup.
@@ -621,7 +621,7 @@ func (m *VoipManager) cleanupCall(callID string) {
 	}
 	ctx := val.(*bridgeContext)
 
-	// The WhatsApp leg ended — tear down the SIP leg too by sending a BYE to the
+	// The WhatsApp leg ended â€” tear down the SIP leg too by sending a BYE to the
 	// SIP server. Without this the asterisk call stays up after the WhatsApp
 	// caller hangs up. Safe/no-op if the SIP call was already removed.
 	if m.proxy != nil {
@@ -844,10 +844,10 @@ func MaybeEnableManager(client *whatsmeow.Client, mode whatsapp.VoIPMode, sessio
 		sipSettings := adaptSIPProxySettings(envSettings)
 		proxy := sipproxy.GetSIPProxyManager(sipSettings)
 		if err := proxy.Start(); err != nil {
-			// "already running" is not a real error — the singleton proxy was
+			// "already running" is not a real error â€” the singleton proxy was
 			// already started by a previous connection and is fully functional.
 			// We must still wire SetSIPProxy so this manager can use it.
-			if strings.Contains(err.Error(), "já está rodando") {
+			if strings.Contains(err.Error(), "jÃ¡ estÃ¡ rodando") {
 				mgr.SetSIPProxy(proxy)
 				mgr.log.InfoE().
 					Str("sip_host", envSettings.Host).
@@ -872,7 +872,7 @@ func MaybeEnableManager(client *whatsmeow.Client, mode whatsapp.VoIPMode, sessio
 	}
 
 	registerOutboundManager(mgr)
-	mgr.log.InfoE().Msg("VoipManager: VoIP VoipManager enabled (WhatsApp → SIP bridging)")
+	mgr.log.InfoE().Msg("VoipManager: VoIP VoipManager enabled (WhatsApp â†’ SIP bridging)")
 	return mgr, nil
 }
 

@@ -7,9 +7,9 @@ import (
 	"strings"
 
 	"github.com/go-chi/chi/v5"
-	models "github.com/nocodeleaks/quepasa/models"
-	runtime "github.com/nocodeleaks/quepasa/runtime"
-	"github.com/nocodeleaks/quepasa/voip"
+	models "github.com/inteliagenciadigital/quepasa/models"
+	runtime "github.com/inteliagenciadigital/quepasa/runtime"
+	"github.com/inteliagenciadigital/quepasa/voip"
 )
 
 func registerAuthenticatedVoIPRoutes(r chi.Router) {

@@ -5,8 +5,8 @@ import (
 	"net/http"
 
 	"github.com/nbutton23/zxcvbn-go"
-	library "github.com/nocodeleaks/quepasa/library"
-	runtime "github.com/nocodeleaks/quepasa/runtime"
+	library "github.com/inteliagenciadigital/quepasa/library"
+	runtime "github.com/inteliagenciadigital/quepasa/runtime"
 )
 
 func renderSetupForm(w http.ResponseWriter, data FormSetupData) {

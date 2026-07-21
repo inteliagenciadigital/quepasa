@@ -12,9 +12,9 @@ import (
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/jwtauth"
-	v5 "github.com/nocodeleaks/quepasa/api/v5"
-	events "github.com/nocodeleaks/quepasa/events"
-	models "github.com/nocodeleaks/quepasa/models"
+	v5 "github.com/inteliagenciadigital/quepasa/api/v5"
+	events "github.com/inteliagenciadigital/quepasa/events"
+	models "github.com/inteliagenciadigital/quepasa/models"
 )
 
 // CurrentCanonicalAPIVersion identifies the latest family-based canonical API.

@@ -3,7 +3,7 @@ package cable
 import (
 	"testing"
 
-	models "github.com/nocodeleaks/quepasa/models"
+	models "github.com/inteliagenciadigital/quepasa/models"
 )
 
 func TestQueueFrameIgnoresClosedClientWithoutPanic(t *testing.T) {

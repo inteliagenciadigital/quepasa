@@ -11,8 +11,8 @@ import (
 	_ "github.com/lib/pq"
 	"github.com/redis/go-redis/v9"
 
-	"github.com/nocodeleaks/quepasa/cache"
-	"github.com/nocodeleaks/quepasa/library"
+	"github.com/inteliagenciadigital/quepasa/cache"
+	"github.com/inteliagenciadigital/quepasa/library"
 )
 
 const schema = `

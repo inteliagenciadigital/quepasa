@@ -3,7 +3,7 @@ package library
 import (
 	"reflect"
 
-	qplog "github.com/nocodeleaks/quepasa/qplog"
+	qplog "github.com/inteliagenciadigital/quepasa/qplog"
 )
 
 const LogLevelDefault = qplog.ErrorLevel

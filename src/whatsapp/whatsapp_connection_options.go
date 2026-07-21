@@ -3,8 +3,8 @@ package whatsapp
 import (
 	"reflect"
 
-	"github.com/nocodeleaks/quepasa/library"
-	log "github.com/nocodeleaks/quepasa/qplog"
+	"github.com/inteliagenciadigital/quepasa/library"
+	log "github.com/inteliagenciadigital/quepasa/qplog"
 )
 
 // Used only as parameters for start a new connection, wont propagate

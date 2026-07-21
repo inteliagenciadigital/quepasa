@@ -4,8 +4,8 @@ import (
 	"testing"
 	"time"
 
-	models "github.com/nocodeleaks/quepasa/models"
-	whatsapp "github.com/nocodeleaks/quepasa/whatsapp"
+	models "github.com/inteliagenciadigital/quepasa/models"
+	whatsapp "github.com/inteliagenciadigital/quepasa/whatsapp"
 )
 
 func TestRecoverAPIValueReturnsFallbackOnPanic(t *testing.T) {

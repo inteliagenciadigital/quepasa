@@ -3,7 +3,7 @@ package mcp
 import (
 	"encoding/json"
 
-	runtime "github.com/nocodeleaks/quepasa/runtime"
+	runtime "github.com/inteliagenciadigital/quepasa/runtime"
 )
 
 // ListServersTool lists all available WhatsApp servers

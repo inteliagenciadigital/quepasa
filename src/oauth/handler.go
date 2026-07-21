@@ -12,7 +12,7 @@ import (
 	"time"
 
 	jwt "github.com/dgrijalva/jwt-go"
-	log "github.com/nocodeleaks/quepasa/qplog"
+	log "github.com/inteliagenciadigital/quepasa/qplog"
 )
 
 var globalProvider OAuthProvider
@@ -306,7 +306,7 @@ func generateState() (string, error) {
 // Returns: (code_verifier, code_challenge, error)
 func generatePKCE() (string, string, error) {
 	// code_verifier: 43-128 chars of [A-Z][a-z][0-9]-._~ (RFC 7636).
-	// We generate 32 random bytes → 43 base64url chars (no padding).
+	// We generate 32 random bytes â†’ 43 base64url chars (no padding).
 	b := make([]byte, 32)
 	if _, err := rand.Read(b); err != nil {
 		return "", "", err

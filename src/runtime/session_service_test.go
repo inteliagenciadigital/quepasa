@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"testing"
 
-	models "github.com/nocodeleaks/quepasa/models"
-	whatsapp "github.com/nocodeleaks/quepasa/whatsapp"
+	models "github.com/inteliagenciadigital/quepasa/models"
+	whatsapp "github.com/inteliagenciadigital/quepasa/whatsapp"
 )
 
 func TestStartSessionNilReturnsError(t *testing.T) {

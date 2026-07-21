@@ -3,7 +3,7 @@ package models
 import (
 	"strings"
 
-	whatsapp "github.com/nocodeleaks/quepasa/whatsapp"
+	whatsapp "github.com/inteliagenciadigital/quepasa/whatsapp"
 )
 
 func CloneAndEnrichMessageForServer(server *QpWhatsappServer, message *whatsapp.WhatsappMessage) *whatsapp.WhatsappMessage {

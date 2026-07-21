@@ -3,7 +3,7 @@ package mcp
 import (
 	"encoding/json"
 
-	models "github.com/nocodeleaks/quepasa/models"
+	models "github.com/inteliagenciadigital/quepasa/models"
 )
 
 // MCPToolContext holds the authentication context for tool execution

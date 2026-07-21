@@ -14,7 +14,7 @@ import (
 	_ "image/png"
 
 	"github.com/nfnt/resize"
-	log "github.com/nocodeleaks/quepasa/qplog"
+	log "github.com/inteliagenciadigital/quepasa/qplog"
 )
 
 // ThumbnailConfig holds configuration for thumbnail generation.

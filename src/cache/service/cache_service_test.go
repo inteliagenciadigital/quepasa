@@ -7,9 +7,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/nocodeleaks/quepasa/cache"
-	cache_disk "github.com/nocodeleaks/quepasa/cache/disk"
-	cache_memory "github.com/nocodeleaks/quepasa/cache/memory"
+	"github.com/inteliagenciadigital/quepasa/cache"
+	cache_disk "github.com/inteliagenciadigital/quepasa/cache/disk"
+	cache_memory "github.com/inteliagenciadigital/quepasa/cache/memory"
 )
 
 // TestCacheServiceSingleton verifies that CacheService returns the same instance.

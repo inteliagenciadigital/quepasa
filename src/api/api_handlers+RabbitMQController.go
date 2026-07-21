@@ -7,9 +7,9 @@ import (
 	"net/http"
 	"net/url"
 
-	apiModels "github.com/nocodeleaks/quepasa/api/models"
-	models "github.com/nocodeleaks/quepasa/models"
-	rabbitmq "github.com/nocodeleaks/quepasa/rabbitmq"
+	apiModels "github.com/inteliagenciadigital/quepasa/api/models"
+	models "github.com/inteliagenciadigital/quepasa/models"
+	rabbitmq "github.com/inteliagenciadigital/quepasa/rabbitmq"
 )
 
 //region CONTROLLER - RABBITMQ
@@ -132,12 +132,12 @@ func RabbitMQWithServer(w http.ResponseWriter, r *http.Request, server *models.Q
 		// Tentar obter da query string primeiro
 		connectionString = r.URL.Query().Get("connection_string")
 
-		// Se não veio da query string, tentar do body
+		// Se nÃ£o veio da query string, tentar do body
 		if connectionString == "" && rabbitmqConfig != nil {
 			connectionString = rabbitmqConfig.ConnectionString
 		}
 
-		// Se ainda não temos connection_string, retornar erro
+		// Se ainda nÃ£o temos connection_string, retornar erro
 		if connectionString == "" {
 			response.ParseError(fmt.Errorf("connection_string is required for delete operation"))
 			RespondInterface(w, response)
@@ -197,7 +197,7 @@ func RabbitMQWithServer(w http.ResponseWriter, r *http.Request, server *models.Q
 		}
 		return
 	default:
-		// GET - listar todas as configurações RabbitMQ
+		// GET - listar todas as configuraÃ§Ãµes RabbitMQ
 		response.RabbitMQ = server.GetRabbitMQConfigs()
 		response.ParseSuccess("getting all RabbitMQ configurations (all use fixed QuePasa Exchange)")
 		RespondSuccess(w, response)

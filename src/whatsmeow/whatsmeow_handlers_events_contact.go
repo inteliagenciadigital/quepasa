@@ -5,8 +5,8 @@ import (
 	"fmt"
 
 	slug "github.com/gosimple/slug"
-	library "github.com/nocodeleaks/quepasa/library"
-	whatsapp "github.com/nocodeleaks/quepasa/whatsapp"
+	library "github.com/inteliagenciadigital/quepasa/library"
+	whatsapp "github.com/inteliagenciadigital/quepasa/whatsapp"
 	"go.mau.fi/whatsmeow/types/events"
 )
 

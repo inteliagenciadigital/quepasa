@@ -5,8 +5,8 @@ import (
 	"encoding/binary"
 	"errors"
 
-	"github.com/nocodeleaks/quepasa/voip/calls/util"
-	qplog "github.com/nocodeleaks/quepasa/qplog"
+	"github.com/inteliagenciadigital/quepasa/voip/calls/util"
+	qplog "github.com/inteliagenciadigital/quepasa/qplog"
 )
 
 // errBadHbhKeyLen is returned when the hop-by-hop key is not exactly 30 bytes,
@@ -104,7 +104,7 @@ func aesICMKey30(aesKey, salt []byte) [30]byte {
 
 // aesICMCrypt is libsrtp AES-ICM: counter = (salt padded to 16) XOR iv, keystream =
 // AES(counter), counter increments byte 15 with a single carry into byte 14 (2-level,
-// NOT a 128-bit CTR — this divergence is faithful to libsrtp and load-bearing).
+// NOT a 128-bit CTR â€” this divergence is faithful to libsrtp and load-bearing).
 func aesICMCrypt(key30, iv16, data []byte) ([]byte, error) {
 	// Source of truth: https://github.com/oxidezap/whatsapp-rust/blob/41095d4e6ba4610e054e9ede3af1d5e88a83faee/wacore/src/voip/hbh_srtp.rs#L96-L121
 	aesKey := key30[:16]

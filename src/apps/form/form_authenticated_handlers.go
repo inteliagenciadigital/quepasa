@@ -8,14 +8,14 @@ import (
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/jwtauth"
 
-	api "github.com/nocodeleaks/quepasa/api"
-	viewmodel "github.com/nocodeleaks/quepasa/apps/form/viewmodel"
-	environment "github.com/nocodeleaks/quepasa/environment"
-	library "github.com/nocodeleaks/quepasa/library"
-	models "github.com/nocodeleaks/quepasa/models"
-	signalr "github.com/nocodeleaks/quepasa/signalr"
-	whatsapp "github.com/nocodeleaks/quepasa/whatsapp"
-	whatsmeow "github.com/nocodeleaks/quepasa/whatsmeow"
+	api "github.com/inteliagenciadigital/quepasa/api"
+	viewmodel "github.com/inteliagenciadigital/quepasa/apps/form/viewmodel"
+	environment "github.com/inteliagenciadigital/quepasa/environment"
+	library "github.com/inteliagenciadigital/quepasa/library"
+	models "github.com/inteliagenciadigital/quepasa/models"
+	signalr "github.com/inteliagenciadigital/quepasa/signalr"
+	whatsapp "github.com/inteliagenciadigital/quepasa/whatsapp"
+	whatsmeow "github.com/inteliagenciadigital/quepasa/whatsmeow"
 )
 
 // GetFormEndpointPrefix returns the configured prefix for form endpoints

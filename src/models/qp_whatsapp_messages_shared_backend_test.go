@@ -14,8 +14,8 @@ import (
 	"testing"
 	"time"
 
-	cache_memory "github.com/nocodeleaks/quepasa/cache/memory"
-	whatsapp "github.com/nocodeleaks/quepasa/whatsapp"
+	cache_memory "github.com/inteliagenciadigital/quepasa/cache/memory"
+	whatsapp "github.com/inteliagenciadigital/quepasa/whatsapp"
 	"go.mau.fi/whatsmeow/proto/waE2E"
 	"google.golang.org/protobuf/proto"
 )
@@ -52,7 +52,7 @@ func newMessages(backend *cache_memory.MessagesBackend, token string) *QpWhatsap
 //
 // Two servers share one backend (as in production with Redis or disk).
 // Both receive the same group message (same ID, same text).
-// Each must return true from Append — i.e. each must trigger its own publish.
+// Each must return true from Append â€” i.e. each must trigger its own publish.
 func TestSharedBackend_TwoWIDsSameGroupMessage(t *testing.T) {
 	t.Parallel()
 
@@ -60,7 +60,7 @@ func TestSharedBackend_TwoWIDsSameGroupMessage(t *testing.T) {
 	defer backend.Close()
 
 	const msgID = "3EB0863201A3FCE4B25C61"
-	const msgText = "o seu numero não ta disparando o rabbitmq"
+	const msgText = "o seu numero nÃ£o ta disparando o rabbitmq"
 
 	wid1 := newMessages(backend, "tokenWID1")
 	wid2 := newMessages(backend, "tokenWID2")
@@ -68,13 +68,13 @@ func TestSharedBackend_TwoWIDsSameGroupMessage(t *testing.T) {
 	// WID1 receives the message first.
 	ok1, _ := wid1.Append(newGroupMsg(msgID, msgText, "555180124284:27@s.whatsapp.net"), "live")
 	if !ok1 {
-		t.Fatal("WID1: Append() returned false — first receiver must always trigger")
+		t.Fatal("WID1: Append() returned false â€” first receiver must always trigger")
 	}
 
 	// WID2 receives the same message ~80 ms later (as observed in production logs).
 	ok2, _ := wid2.Append(newGroupMsg(msgID, msgText, "555192508186:28@s.whatsapp.net"), "live")
 	if !ok2 {
-		t.Fatal("WID2: Append() returned false — different WID must trigger independently, not be silenced as duplicate")
+		t.Fatal("WID2: Append() returned false â€” different WID must trigger independently, not be silenced as duplicate")
 	}
 }
 
@@ -97,7 +97,7 @@ func TestSharedBackend_SameWIDSameMessageIsDeduped(t *testing.T) {
 		t.Fatal("first Append() must succeed")
 	}
 
-	// Exact same message arriving again on the same WID — must be suppressed.
+	// Exact same message arriving again on the same WID â€” must be suppressed.
 	ok2, _ := wid.Append(newGroupMsg(msgID, msgText, "555180124284:27@s.whatsapp.net"), "live")
 	if ok2 {
 		t.Fatal("second Append() of identical content on same WID must return false (dedup)")
@@ -131,7 +131,7 @@ func TestSharedBackend_KeyIsolation(t *testing.T) {
 }
 
 // TestSharedBackend_ThreeWIDsSameGroupMessage covers the case where three
-// numbers are subscribed to the same group — all three must publish.
+// numbers are subscribed to the same group â€” all three must publish.
 func TestSharedBackend_ThreeWIDsSameGroupMessage(t *testing.T) {
 	t.Parallel()
 
@@ -148,7 +148,7 @@ func TestSharedBackend_ThreeWIDsSameGroupMessage(t *testing.T) {
 		m := newMessages(backend, token)
 		ok, _ := m.Append(newGroupMsg(msgID, msgText, wids[i]), "live")
 		if !ok {
-			t.Fatalf("WID %s (token %s): Append() returned false — every connected number must trigger independently", wids[i], token)
+			t.Fatalf("WID %s (token %s): Append() returned false â€” every connected number must trigger independently", wids[i], token)
 		}
 	}
 }
@@ -164,9 +164,9 @@ func TestSharedBackend_WithoutPrefixCollides(t *testing.T) {
 	defer backend.Close()
 
 	const msgID = "3EB0COLLISION00000001"
-	const msgText = "colisão de cache"
+	const msgText = "colisÃ£o de cache"
 
-	// No SetKeyPrefix — both share the raw message ID as key.
+	// No SetKeyPrefix â€” both share the raw message ID as key.
 	wid1 := &QpWhatsappMessages{}
 	wid1.SetBackend(backend)
 
@@ -179,7 +179,7 @@ func TestSharedBackend_WithoutPrefixCollides(t *testing.T) {
 	}
 
 	ok2, _ := wid2.Append(newGroupMsg(msgID, msgText, "555222@s.whatsapp.net"), "live")
-	// Without prefix isolation this returns false — document that here.
+	// Without prefix isolation this returns false â€” document that here.
 	if ok2 {
 		t.Log("NOTE: without key prefix, second WID was NOT suppressed (backend may have changed behaviour)")
 	} else {

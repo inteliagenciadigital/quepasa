@@ -6,7 +6,7 @@ import (
 	"time"
 
 	"github.com/pion/stun"
-	qplog "github.com/nocodeleaks/quepasa/qplog"
+	qplog "github.com/inteliagenciadigital/quepasa/qplog"
 )
 
 // SIPProxySTUNManager handles public IP discovery via STUN servers with fallback support

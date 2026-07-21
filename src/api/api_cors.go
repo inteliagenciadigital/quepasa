@@ -3,7 +3,7 @@ package api
 import (
 	"net/http"
 
-	environment "github.com/nocodeleaks/quepasa/environment"
+	environment "github.com/inteliagenciadigital/quepasa/environment"
 )
 
 // corsDefaultHeaders lists the request headers the API accepts cross-origin when
@@ -17,7 +17,7 @@ const corsAllowMethods = "GET, POST, PUT, PATCH, DELETE, OPTIONS"
 // the CORS_ALLOWED_ORIGINS environment variable.
 //
 //   - empty list (default): no CORS headers are emitted and OPTIONS is left to
-//     the router — the API stays same-origin only, which is the safe default for
+//     the router â€” the API stays same-origin only, which is the safe default for
 //     multi-tenant deployments.
 //   - a literal "*" entry: allow any origin, WITHOUT credentials (the browser
 //     forbids credentialed wildcard responses).
@@ -30,7 +30,7 @@ func APICORSMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		origins := environment.Settings.API.AllowedOrigins
 
-		// CORS disabled → preserve original behaviour exactly (no headers, no
+		// CORS disabled â†’ preserve original behaviour exactly (no headers, no
 		// preflight short-circuit).
 		if len(origins) == 0 {
 			next.ServeHTTP(w, r)

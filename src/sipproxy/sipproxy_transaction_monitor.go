@@ -6,13 +6,13 @@ import (
 
 	"github.com/emiago/sipgo"
 	"github.com/emiago/sipgo/sip"
-	qplog "github.com/nocodeleaks/quepasa/qplog"
+	qplog "github.com/inteliagenciadigital/quepasa/qplog"
 )
 
-// SIPCallAcceptedCallback é chamado quando uma chamada SIP é aceita (200 OK)
+// SIPCallAcceptedCallback Ã© chamado quando uma chamada SIP Ã© aceita (200 OK)
 type SIPCallAcceptedCallback func(callID, fromPhone, toPhone string, response *sip.Response)
 
-// SIPCallRejectedCallback é chamado quando uma chamada SIP é rejeitada (>=400)
+// SIPCallRejectedCallback Ã© chamado quando uma chamada SIP Ã© rejeitada (>=400)
 type SIPCallRejectedCallback func(callID, fromPhone, toPhone string, response *sip.Response)
 
 // SIPTransactionMonitor handles monitoring of SIP transactions and responses
@@ -69,9 +69,9 @@ func (stm *SIPTransactionMonitor) MonitorTransaction(callID, fromPhone, toPhone,
 	stm.activeSessions[callID] = session
 	stm.mutex.Unlock()
 
-	stm.logger.Infof("🔍 Monitoring SIP transaction for call %s", callID)
-	stm.logger.Infof("🔍🔍🔍 DEBUG: Starting transaction monitoring goroutine for call %s", callID)
-	stm.logger.Infof("🔍 Transaction state: %s", transactionID)
+	stm.logger.Infof("ðŸ” Monitoring SIP transaction for call %s", callID)
+	stm.logger.Infof("ðŸ”ðŸ”ðŸ” DEBUG: Starting transaction monitoring goroutine for call %s", callID)
+	stm.logger.Infof("ðŸ” Transaction state: %s", transactionID)
 
 	// Start monitoring in a separate goroutine
 	go stm.monitorTransactionResponses(callID)
@@ -95,7 +95,7 @@ func (stm *SIPTransactionMonitor) monitorTransactionResponses(callID string) {
 				stm.mutex.RUnlock()
 
 				if exists {
-					stm.logger.Warnf("⏰ Transaction timeout for call %s after %d seconds (received %d responses)",
+					stm.logger.Warnf("â° Transaction timeout for call %s after %d seconds (received %d responses)",
 						callID, int(timeout.Seconds()), session.ResponseCount)
 
 					stm.mutex.Lock()
@@ -126,7 +126,7 @@ func (stm *SIPTransactionMonitor) checkForResponses(callID string) {
 	// Log periodic status
 	elapsed := time.Since(session.StartTime)
 	if int(elapsed.Seconds())%10 == 0 { // Log every 10 seconds
-		stm.logger.Infof("🔍 Transaction %s still active after %d seconds (responses: %d)",
+		stm.logger.Infof("ðŸ” Transaction %s still active after %d seconds (responses: %d)",
 			callID, int(elapsed.Seconds()), session.ResponseCount)
 	}
 }
@@ -142,24 +142,24 @@ func (stm *SIPTransactionMonitor) HandleResponse(response *sip.Response, callID,
 	stm.mutex.Unlock()
 
 	statusCode := int(response.StatusCode)
-	stm.logger.Infof("📞 SIP Response received for call %s: %d %s", callID, statusCode, response.Reason)
+	stm.logger.Infof("ðŸ“ž SIP Response received for call %s: %d %s", callID, statusCode, response.Reason)
 
 	// Handle different response types
 	if statusCode >= 200 && statusCode < 300 {
 		// Success responses (call accepted)
-		stm.logger.Infof("✅ Call %s ACCEPTED with status %d", callID, statusCode)
+		stm.logger.Infof("âœ… Call %s ACCEPTED with status %d", callID, statusCode)
 		if stm.callAcceptedHandler != nil {
 			stm.callAcceptedHandler(callID, fromPhone, toPhone, response)
 		}
 	} else if statusCode >= 400 {
 		// Error responses (call rejected)
-		stm.logger.Infof("❌ Call %s REJECTED with status %d", callID, statusCode)
+		stm.logger.Infof("âŒ Call %s REJECTED with status %d", callID, statusCode)
 		if stm.callRejectedHandler != nil {
 			stm.callRejectedHandler(callID, fromPhone, toPhone, response)
 		}
 	} else if statusCode >= 100 && statusCode < 200 {
 		// Provisional responses (call progress)
-		stm.logger.Infof("📞 Call %s PROGRESS with status %d", callID, statusCode)
+		stm.logger.Infof("ðŸ“ž Call %s PROGRESS with status %d", callID, statusCode)
 	}
 
 	// Remove from active sessions if final response
@@ -167,7 +167,7 @@ func (stm *SIPTransactionMonitor) HandleResponse(response *sip.Response, callID,
 		stm.mutex.Lock()
 		delete(stm.activeSessions, callID)
 		stm.mutex.Unlock()
-		stm.logger.Infof("🔍 Transaction monitoring completed for call %s", callID)
+		stm.logger.Infof("ðŸ” Transaction monitoring completed for call %s", callID)
 	}
 }
 
@@ -176,7 +176,7 @@ func (stm *SIPTransactionMonitor) RemoveActiveCall(callID string) {
 	stm.mutex.Lock()
 	delete(stm.activeSessions, callID)
 	stm.mutex.Unlock()
-	stm.logger.Infof("📞 Call %s removed from active monitoring", callID)
+	stm.logger.Infof("ðŸ“ž Call %s removed from active monitoring", callID)
 }
 
 // GetActiveSessionsCount returns the number of active sessions
@@ -191,7 +191,7 @@ func (stm *SIPTransactionMonitor) Stop() {
 	stm.mutex.Lock()
 	defer stm.mutex.Unlock()
 
-	stm.logger.Infof("🛑 Stopping SIP Transaction Monitor...")
+	stm.logger.Infof("ðŸ›‘ Stopping SIP Transaction Monitor...")
 	stm.activeSessions = make(map[string]*TransactionSession)
-	stm.logger.Infof("✅ SIP Transaction Monitor stopped")
+	stm.logger.Infof("âœ… SIP Transaction Monitor stopped")
 }

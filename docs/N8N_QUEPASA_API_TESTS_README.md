@@ -1,4 +1,4 @@
-# N8N ↔ QuePasa API v4 Unit Tests
+# N8N â†” QuePasa API v4 Unit Tests
 
 ## Overview
 
@@ -8,9 +8,9 @@ Comprehensive unit test suite for all HTTP requests made from n8n workflows to t
 
 ### 1. `src/api/api_n8n_quepasa_integration_test.go`
 Main integration test file covering:
-- **29 test cases** - All passing ✅
+- **29 test cases** - All passing âœ…
 - **~1100 lines** of test code
-- **Complete coverage** of n8n→QuePasa request patterns
+- **Complete coverage** of n8nâ†’QuePasa request patterns
 
 #### Test Categories
 
@@ -90,7 +90,7 @@ go test -v ./api -run "TestN8n_" -timeout 60s
 ## Test Results Summary
 
 **Total Tests**: 29  
-**Status**: ✅ All PASSING  
+**Status**: âœ… All PASSING  
 **Execution Time**: ~0.365s  
 **Coverage**: Main API patterns for n8n workflows
 
@@ -110,7 +110,7 @@ go test -v ./api -run "TestN8n_" -timeout 60s
 [... 23 more tests ...]
 
 PASS
-ok      github.com/nocodeleaks/quepasa/api      0.365s
+ok      github.com/inteliagenciadigital/quepasa/api      0.365s
 ```
 
 ## Tested API Endpoints (v4 Implicit)
@@ -127,78 +127,78 @@ ok      github.com/nocodeleaks/quepasa/api      0.365s
 
 ## n8n Workflow Coverage
 
-### 1. QuepasaChatControl.json ✅
+### 1. QuepasaChatControl.json âœ…
 - Send text messages to contacts/groups
 - Retrieve group invite links
 - Integration with Chatwoot API
 
-### 2. PostToChatwoot.json ✅
+### 2. PostToChatwoot.json âœ…
 - Download media from QuePasa
 - Post to Chatwoot conversations
 - Handle attachment metadata
 
-### 3. ChatwootProfileUpdate.json ✅
+### 3. ChatwootProfileUpdate.json âœ…
 - Get contact profile pictures
 - Update Chatwoot contact avatars
 - Metadata retrieval
 
-### 4. QuepasaInboxControl_typebot.json ✅
+### 4. QuepasaInboxControl_typebot.json âœ…
 - Register webhooks
 - Event-based automation
 - TypeBot integration
 
-### 5. PostToWebCallBack.json ✅
+### 5. PostToWebCallBack.json âœ…
 - Send messages via webhook callbacks
 - External integration responses
 
-### 6. QuepasaQrcode.json ✅
+### 6. QuepasaQrcode.json âœ…
 - QR code generation
 - Session pairing
 
 ## Authentication Methods Tested
 
-✅ **X-QUEPASA-TOKEN** (Session Token)
+âœ… **X-QUEPASA-TOKEN** (Session Token)
 - Per-session authentication
 - Scoped to specific session
 
-✅ **X-QUEPASA-MASTERKEY** (Master Key)
+âœ… **X-QUEPASA-MASTERKEY** (Master Key)
 - System-wide authentication
 - Bootstrap operations
 
-✅ **Token Priority** (when both present)
+âœ… **Token Priority** (when both present)
 - Session token takes precedence
 - Fallback to master key
 
 ## Request Validation Coverage
 
-✅ **ChatID Formats**
+âœ… **ChatID Formats**
 - Individual: `5511988887777@s.whatsapp.net`
 - Group: `5511988887777@g.us`
 - LID: `121281638842371@lid`
 - Empty/Invalid rejection
 
-✅ **Message Content**
-- Unicode characters (中文)
-- Emoji support (👋)
+âœ… **Message Content**
+- Unicode characters (ä¸­æ–‡)
+- Emoji support (ðŸ‘‹)
 - Line breaks (`\n`)
 - Special characters (`!@#$%^&*()`)
 - Long messages (100+ chars)
 
-✅ **URL Validation**
+âœ… **URL Validation**
 - HTTPS URLs required
 - HTTP localhost allowed
 - Invalid protocols rejected
 - Incomplete URLs rejected
 - Minimum length validation
 
-✅ **Request Body**
+âœ… **Request Body**
 - Required fields validation
 - Empty field rejection
 - Format compliance
 
 ## Response Format Validation
 
-✅ **Success Responses**
+âœ… **Success Responses**
 ```json
 {
   "success": true,
@@ -207,7 +207,7 @@ ok      github.com/nocodeleaks/quepasa/api      0.365s
 }
 ```
 
-✅ **Error Responses**
+âœ… **Error Responses**
 ```json
 {
   "success": false,
@@ -218,23 +218,23 @@ ok      github.com/nocodeleaks/quepasa/api      0.365s
 
 ## HTTP Status Codes Tested
 
-- ✅ `200 OK` - Successful request
-- ✅ `201 Created` - Resource created
-- ✅ `400 Bad Request` - Invalid input
-- ✅ `401 Unauthorized` - Auth failed
-- ✅ `404 Not Found` - Resource not found
-- ✅ `500 Internal Server Error` - Server error
+- âœ… `200 OK` - Successful request
+- âœ… `201 Created` - Resource created
+- âœ… `400 Bad Request` - Invalid input
+- âœ… `401 Unauthorized` - Auth failed
+- âœ… `404 Not Found` - Resource not found
+- âœ… `500 Internal Server Error` - Server error
 
 ## Integration Scenarios Validated
 
 ### Scenario 1: QuepasaChatControl Full Flow
-1. Get group invite link → `/control/invite`
-2. Send message with link → `/messages/sendtext`
+1. Get group invite link â†’ `/control/invite`
+2. Send message with link â†’ `/messages/sendtext`
 3. Validate message delivery
 
 ### Scenario 2: PostToChatwoot Full Flow
-1. Download media → `/download/:messageid`
-2. Get picture info → `/picinfo/:chatid`
+1. Download media â†’ `/download/:messageid`
+2. Get picture info â†’ `/picinfo/:chatid`
 3. Post to Chatwoot API
 
 ## Notes

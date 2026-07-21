@@ -24,8 +24,8 @@ import (
 	"testing"
 	"time"
 
-	library "github.com/nocodeleaks/quepasa/library"
-	log "github.com/nocodeleaks/quepasa/qplog"
+	library "github.com/inteliagenciadigital/quepasa/library"
+	log "github.com/inteliagenciadigital/quepasa/qplog"
 )
 
 // newTestServer builds a minimal QpWhatsappServer with a properly wired

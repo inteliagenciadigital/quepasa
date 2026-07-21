@@ -1,14 +1,14 @@
-module github.com/nocodeleaks/quepasa
+module github.com/inteliagenciadigital/quepasa
 
 go 1.26.0
 
 replace github.com/mattn/go-sqlite3 => github.com/mattn/go-sqlite3 v1.14.42
 
-replace github.com/nocodeleaks/quepasa/environment => ./environment
+replace github.com/inteliagenciadigital/quepasa/environment => ./environment
 
-replace github.com/nocodeleaks/quepasa/whatsapp => ./whatsapp
+replace github.com/inteliagenciadigital/quepasa/whatsapp => ./whatsapp
 
-replace github.com/nocodeleaks/quepasa/library => ./library
+replace github.com/inteliagenciadigital/quepasa/library => ./library
 
 require (
 	github.com/cettoana/go-waveform v0.0.0-20210107122202-35aaec2de427

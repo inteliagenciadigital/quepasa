@@ -96,7 +96,7 @@
           "string": [
             {
               "name": "text",
-              "value": "={{ $env['C8Q_MSGFOR_CALL_CONTENT'] ?? '\\u2699 O usuário requisitou uma chamada de voz !' }}\n____________________________________________________\n✉ {{ $json.status ?? $json.message }}"
+              "value": "={{ $env['C8Q_MSGFOR_CALL_CONTENT'] ?? '\\u2699 O usuÃ¡rio requisitou uma chamada de voz !' }}\n____________________________________________________\nâœ‰ {{ $json.status ?? $json.message }}"
             }
           ],
           "boolean": [
@@ -1058,7 +1058,7 @@
           "string": [
             {
               "name": "body.extra.cwhost",
-              "value": "={{ $json.body.extra.cwhost ?? $env[\"C8Q_CW_HOST\"] ?? \"http://127.0.0.1:3000\" }}"
+              "value": "={{ $json.body.extra.cwhost ?? $env[\"C8Q_CW_HOST\"] ?? \"http://127.0.0.1:3000\"Â }}"
             },
             {
               "name": "params",
@@ -1117,7 +1117,7 @@
             {
               "id": "c33fd1c7-4d17-44b0-81b0-2af7580171d0",
               "name": "body.text",
-              "value": "=⚠ **Mensagem de Anuncio!**\n&nbsp;\nTexto Anuncio: {{ $json.body.ads.title }}\nURL: {{ $json.body.ads.sourceurl }}\n&nbsp;\n**Informações**\n- **SourceID:** {{ $json.body.ads.sourceid }}\n- **Fonte:** {{ $json.body.ads.app.toUpperCase() }}\n- **ID:** {{ $json.body.ads.id }}\n- **Tipo:** {{ $if($json.body.ads.type = \"ad\", \"Anuncio\", $json.body.ads.type) }}\n&nbsp;\n**Resposta do contato:** {{ $json.body.text }}",
+              "value": "=âš  **Mensagem de Anuncio!**\n&nbsp;\nTexto Anuncio: {{ $json.body.ads.title }}\nURL: {{ $json.body.ads.sourceurl }}\n&nbsp;\n**InformaÃ§Ãµes**\n- **SourceID:** {{ $json.body.ads.sourceid }}\n- **Fonte:** {{ $json.body.ads.app.toUpperCase() }}\n- **ID:** {{ $json.body.ads.id }}\n- **Tipo:** {{ $if($json.body.ads.type = \"ad\", \"Anuncio\", $json.body.ads.type) }}\n&nbsp;\n**Resposta do contato:** {{ $json.body.text }}",
               "type": "string"
             },
             {
@@ -1979,7 +1979,7 @@
       "createdAt": "2023-05-19T22:54:38.266Z",
       "updatedAt": "2023-05-19T22:54:38.266Z",
       "id": "13",
-      "name": "github.com/nocodeleaks"
+      "name": "github.com/inteliagenciadigital"
     }
   ]
 }

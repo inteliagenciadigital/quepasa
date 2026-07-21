@@ -3,7 +3,7 @@ package rabbitmq
 import (
 	"log"
 
-	cacheservice "github.com/nocodeleaks/quepasa/cache/service"
+	cacheservice "github.com/inteliagenciadigital/quepasa/cache/service"
 )
 
 // InjectCacheBackendIntoClient injects the cache backend into a RabbitMQClient.

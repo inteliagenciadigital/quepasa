@@ -5,7 +5,7 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	environment "github.com/nocodeleaks/quepasa/environment"
+	environment "github.com/inteliagenciadigital/quepasa/environment"
 )
 
 func withAllowedOrigins(t *testing.T, origins []string) func() {
@@ -22,7 +22,7 @@ func okHandler() http.Handler {
 	})
 }
 
-// TestCORSDisabledByDefault: with no allow-list, the middleware must be a no-op —
+// TestCORSDisabledByDefault: with no allow-list, the middleware must be a no-op â€”
 // no CORS headers and OPTIONS is NOT short-circuited (left to the router).
 func TestCORSDisabledByDefault(t *testing.T) {
 	defer withAllowedOrigins(t, nil)()

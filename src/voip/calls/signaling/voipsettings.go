@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"strconv"
 
-	qplog "github.com/nocodeleaks/quepasa/qplog"
+	qplog "github.com/inteliagenciadigital/quepasa/qplog"
 )
 
 // VoipSettings is the codec-relevant subset of the server's <voip_settings> JSON
@@ -14,7 +14,7 @@ import (
 // offer. calls reads it to choose the per-call audio codec.
 //
 // This is calls-original glue: the whatsapp-rust reference does not parse
-// voip_settings to pick a codec — it steers onto RFC Opus by advertising only
+// voip_settings to pick a codec â€” it steers onto RFC Opus by advertising only
 // <audio rate=8000> (see BuildAccept's audio_rates). Reading use_mlow_codec_v1 is
 // a calls-specific lever, so the parser carries no // Source of truth: port.
 type VoipSettings struct {

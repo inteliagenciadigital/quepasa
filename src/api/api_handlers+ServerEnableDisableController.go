@@ -4,9 +4,9 @@ import (
 	"net/http"
 	"time"
 
-	models "github.com/nocodeleaks/quepasa/models"
-	runtime "github.com/nocodeleaks/quepasa/runtime"
-	whatsapp "github.com/nocodeleaks/quepasa/whatsapp"
+	models "github.com/inteliagenciadigital/quepasa/models"
+	runtime "github.com/inteliagenciadigital/quepasa/runtime"
+	whatsapp "github.com/inteliagenciadigital/quepasa/whatsapp"
 )
 
 // AuthenticatedServerEnableController starts a server through the authenticated HTTP surface.

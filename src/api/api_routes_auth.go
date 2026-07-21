@@ -2,7 +2,7 @@ package api
 
 import (
 	"github.com/go-chi/chi/v5"
-	"github.com/nocodeleaks/quepasa/oauth"
+	"github.com/inteliagenciadigital/quepasa/oauth"
 )
 
 func registerCanonicalPublicAuthRoutes(r chi.Router) {

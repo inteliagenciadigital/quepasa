@@ -3,8 +3,8 @@ package api
 import (
 	"net/http"
 
-	models "github.com/nocodeleaks/quepasa/models"
-	runtime "github.com/nocodeleaks/quepasa/runtime"
+	models "github.com/inteliagenciadigital/quepasa/models"
+	runtime "github.com/inteliagenciadigital/quepasa/runtime"
 )
 
 // GetSession returns the live WhatsApp session associated with the token in the request.

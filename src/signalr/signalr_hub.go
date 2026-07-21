@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/nocodeleaks/quepasa/environment"
-	whatsapp "github.com/nocodeleaks/quepasa/whatsapp"
+	"github.com/inteliagenciadigital/quepasa/environment"
+	whatsapp "github.com/inteliagenciadigital/quepasa/whatsapp"
 	signalr "github.com/philippseith/signalr"
 )
 

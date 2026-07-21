@@ -9,8 +9,8 @@ import (
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
-	environment "github.com/nocodeleaks/quepasa/environment"
-	webserver "github.com/nocodeleaks/quepasa/webserver"
+	environment "github.com/inteliagenciadigital/quepasa/environment"
+	webserver "github.com/inteliagenciadigital/quepasa/webserver"
 )
 
 var viewsBasePath string

@@ -1,6 +1,6 @@
 package signalr
 
-import dispatchservice "github.com/nocodeleaks/quepasa/dispatch/service"
+import dispatchservice "github.com/inteliagenciadigital/quepasa/dispatch/service"
 
 type realtimeDispatchPublisher struct{}
 

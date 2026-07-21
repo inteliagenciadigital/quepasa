@@ -6,7 +6,7 @@ import (
 	"io"
 	"net/http"
 
-	runtime "github.com/nocodeleaks/quepasa/runtime"
+	runtime "github.com/inteliagenciadigital/quepasa/runtime"
 )
 
 // restoreManualRequest is the payload expected by POST /restore/manual.
@@ -30,7 +30,7 @@ type restoreManualRequest struct {
 //
 // Authentication: master key required.
 //
-// This endpoint never modifies any data — use POST /restore/auto or
+// This endpoint never modifies any data â€” use POST /restore/auto or
 // POST /restore/manual to apply actual changes.
 //
 // Response shape:

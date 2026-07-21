@@ -4,8 +4,8 @@ import (
 	"html/template"
 	"net/http"
 
-	api "github.com/nocodeleaks/quepasa/api"
-	models "github.com/nocodeleaks/quepasa/models"
+	api "github.com/inteliagenciadigital/quepasa/api"
+	models "github.com/inteliagenciadigital/quepasa/models"
 )
 
 type indexData struct {

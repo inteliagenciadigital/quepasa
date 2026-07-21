@@ -10,7 +10,7 @@ import (
 	"sync"
 	"time"
 
-	log "github.com/nocodeleaks/quepasa/qplog"
+	log "github.com/inteliagenciadigital/quepasa/qplog"
 	"golang.org/x/net/html"
 )
 

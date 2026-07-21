@@ -10,10 +10,10 @@ import (
 	"sync/atomic"
 	"time"
 
-	qpevents "github.com/nocodeleaks/quepasa/events"
-	library "github.com/nocodeleaks/quepasa/library"
-	log "github.com/nocodeleaks/quepasa/qplog"
-	whatsapp "github.com/nocodeleaks/quepasa/whatsapp"
+	qpevents "github.com/inteliagenciadigital/quepasa/events"
+	library "github.com/inteliagenciadigital/quepasa/library"
+	log "github.com/inteliagenciadigital/quepasa/qplog"
+	whatsapp "github.com/inteliagenciadigital/quepasa/whatsapp"
 	"go.mau.fi/whatsmeow/appstate"
 	"go.mau.fi/whatsmeow/proto/waE2E"
 	types "go.mau.fi/whatsmeow/types"
@@ -370,7 +370,7 @@ func (source *WhatsmeowHandlers) onAppStateSyncCompleteEvent(evt *events.AppStat
 }
 
 // Define os diferentes tipos de eventos a serem reconhecidos
-// Aqui se define se vamos processar mensagens | confirmações de leitura | etc
+// Aqui se define se vamos processar mensagens | confirmaÃ§Ãµes de leitura | etc
 func (source *WhatsmeowHandlers) EventsHandler(rawEvt interface{}) {
 	if source == nil {
 		return
@@ -569,7 +569,7 @@ func (handler *WhatsmeowHandlers) PopulateChatAndParticipant(message *whatsapp.W
 	*/
 }
 
-// Aqui se processar um evento de recebimento de uma mensagem genérica
+// Aqui se processar um evento de recebimento de uma mensagem genÃ©rica
 func (handler *WhatsmeowHandlers) Message(evt events.Message, from string) {
 	logentry := handler.GetLogger()
 	logentry.Trace("event message received")
@@ -784,7 +784,7 @@ func (source *WhatsmeowHandlers) CallMessage(evt types.BasicCallMeta) {
 		go source.WAHandlers.Message(message, "call")
 	}
 
-	// should reject this call — UNLESS the VoIP Manager is enabled on this
+	// should reject this call â€” UNLESS the VoIP Manager is enabled on this
 	// connection, in which case the calls stack owns the call lifecycle and will
 	// answer natively and bridge to SIP. Rejecting here would race the calls
 	// and kill the call before it can be answered.

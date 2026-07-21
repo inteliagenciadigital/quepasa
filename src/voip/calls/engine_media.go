@@ -10,10 +10,10 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/nocodeleaks/quepasa/voip/calls/mlow"
-	"github.com/nocodeleaks/quepasa/voip/calls/relay"
-	"github.com/nocodeleaks/quepasa/voip/calls/rtp"
-	"github.com/nocodeleaks/quepasa/voip/calls/stun"
+	"github.com/inteliagenciadigital/quepasa/voip/calls/mlow"
+	"github.com/inteliagenciadigital/quepasa/voip/calls/relay"
+	"github.com/inteliagenciadigital/quepasa/voip/calls/rtp"
+	"github.com/inteliagenciadigital/quepasa/voip/calls/stun"
 )
 
 // The live-relay media loop: connect+allocate to the elected relay, then run the
@@ -22,7 +22,7 @@ import (
 // relay packets, unprotects+decodes RTP, and writes to the Call's sink.
 
 // maybeStartMedia launches the media loop for callID once both the callKey and the relay
-// endpoint are known. It is idempotent — the loop starts exactly once per call.
+// endpoint are known. It is idempotent â€” the loop starts exactly once per call.
 func (e *engine) maybeStartMedia(callID string) {
 	e.mu.Lock()
 	m := e.calls[callID]
@@ -122,8 +122,8 @@ func (e *engine) connectAndAllocate(ctx context.Context, rd *relayData) (*relay.
 }
 
 // runMedia runs the per-frame media loop over the relay DataChannel: the Player's frames
-// (or silence) → MLow → E2E-SRTP protect → DataChannel, and DataChannel → classify →
-// unprotect → MLow decode → the Call's sink. A 1 Hz allocate+ping keepalive holds the
+// (or silence) â†’ MLow â†’ E2E-SRTP protect â†’ DataChannel, and DataChannel â†’ classify â†’
+// unprotect â†’ MLow decode â†’ the Call's sink. A 1 Hz allocate+ping keepalive holds the
 // relay's consent freshness; the relay's binding-requests are answered with
 // binding-success. The working recipe is preserved exactly: a consent ping (0x0801) goes
 // out with the allocate at t+0, BEFORE any RTP; no STUN binding-requests are ever sent.
@@ -138,7 +138,7 @@ func (e *engine) runMedia(ctx context.Context, callID string, call *Call, callKe
 	defer ch.Close()
 
 	// Send a consent ping (0x0801) immediately, together with the allocate and BEFORE any
-	// RTP. The relay won't forward the peer's media until consent (ping → pong) is
+	// RTP. The relay won't forward the peer's media until consent (ping â†’ pong) is
 	// established; RTP sent before the first ping is dropped and the relay never bridges.
 	{
 		var ptx [12]byte
@@ -208,7 +208,7 @@ func (e *engine) runMedia(ctx context.Context, callID string, call *Call, callKe
 	}()
 
 	// Keepalive: re-send the Allocate AND a WhatsApp ping (0x0801) ~1 Hz. This matches the
-	// working capture exactly — allocate+ping every second, NO STUN binding-requests at
+	// working capture exactly â€” allocate+ping every second, NO STUN binding-requests at
 	// all; the relay answers allocate-success + pong and bridges the peer's media.
 	// Binding-requests instead flip the relay into ICE-consent mode and the bridge never
 	// forms.
@@ -238,7 +238,7 @@ func (e *engine) runMedia(ctx context.Context, callID string, call *Call, callKe
 	}()
 
 	// Send loop: frame-paced from connect, NOT gated on the Player. WhatsApp starts media
-	// on relay connection and the relay learns our SSRC from our FIRST RTP — it won't
+	// on relay connection and the relay learns our SSRC from our FIRST RTP â€” it won't
 	// bridge the peer's media until it sees our stream. So we send silence frames until the
 	// Player has real audio (nextFrame() == nil means send silence).
 	frameInterval := time.Duration(FrameSamples) * time.Second / SampleRate
@@ -282,7 +282,7 @@ func (e *engine) runMedia(ctx context.Context, callID string, call *Call, callKe
 		}
 	}()
 
-	// Receive: DataChannel → classify. RTP → unprotect → decode → sink. A non-RTP STUN
+	// Receive: DataChannel â†’ classify. RTP â†’ unprotect â†’ decode â†’ sink. A non-RTP STUN
 	// binding request gets a binding-success reply (ICE consent freshness, RFC 7675);
 	// without it the relay drops the binding and the peer's call fails.
 	buf := make([]byte, 1500)

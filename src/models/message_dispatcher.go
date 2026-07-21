@@ -4,9 +4,9 @@ import (
 	"sync"
 	"time"
 
-	dispatchservice "github.com/nocodeleaks/quepasa/dispatch/service"
-	library "github.com/nocodeleaks/quepasa/library"
-	whatsapp "github.com/nocodeleaks/quepasa/whatsapp"
+	dispatchservice "github.com/inteliagenciadigital/quepasa/dispatch/service"
+	library "github.com/inteliagenciadigital/quepasa/library"
+	whatsapp "github.com/inteliagenciadigital/quepasa/whatsapp"
 )
 
 // MessageDispatcher manages message triggering and subscriber orchestration.

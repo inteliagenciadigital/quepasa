@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"math/rand"
 
-	"github.com/nocodeleaks/quepasa/models"
-	"github.com/nocodeleaks/quepasa/whatsapp"
+	"github.com/inteliagenciadigital/quepasa/models"
+	"github.com/inteliagenciadigital/quepasa/whatsapp"
 )
 
 // GetSpamSession returns the section that should send a /spam request.

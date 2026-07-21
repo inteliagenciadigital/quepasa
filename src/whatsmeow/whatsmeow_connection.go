@@ -11,12 +11,12 @@ import (
 	"time"
 	"unicode"
 
-	log "github.com/nocodeleaks/quepasa/qplog"
+	log "github.com/inteliagenciadigital/quepasa/qplog"
 	"google.golang.org/protobuf/proto"
 
-	library "github.com/nocodeleaks/quepasa/library"
-	voip "github.com/nocodeleaks/quepasa/voip"
-	whatsapp "github.com/nocodeleaks/quepasa/whatsapp"
+	library "github.com/inteliagenciadigital/quepasa/library"
+	voip "github.com/inteliagenciadigital/quepasa/voip"
+	whatsapp "github.com/inteliagenciadigital/quepasa/whatsapp"
 	whatsmeow "go.mau.fi/whatsmeow"
 	"go.mau.fi/whatsmeow/proto/waE2E"
 	types "go.mau.fi/whatsmeow/types"
@@ -34,7 +34,7 @@ type WhatsmeowConnection struct {
 	WakeUpScheduler *WakeUpScheduler         // composition for scheduled presence wake-ups
 	// call managers intentionally omitted per request (do not include CallManager / SIPCallManager)
 
-	// voipManager holds the full VoIP Manager (WhatsApp → SIP bridge) when
+	// voipManager holds the full VoIP Manager (WhatsApp â†’ SIP bridge) when
 	// enabled via the VOIP_ENABLED environment variable. Nil when disabled.
 	voipManager *voip.VoipManager
 
@@ -267,16 +267,16 @@ func isASCII(s string) bool {
 // region error 463
 //
 // Error 463 (NackCallerReachoutTimelocked) is a server-side rate-limit enforced by WhatsApp/Meta
-// when a message is sent to a "cold contact" — someone who has never initiated a conversation with
+// when a message is sent to a "cold contact" â€” someone who has never initiated a conversation with
 // the sending number. The WhatsApp server expects the outgoing node to carry the same privacy
 // tokens the official client sends (tctoken and/or cstoken); messages without them are counted
 // more aggressively as unsolicited outreach and rejected with 463.
 //
 // IMPORTANT (2026-06-02): whatsmeow now ships a native privacy-token lifecycle, and the version we
 // pin already includes it. The send path (whatsmeow/send.go) automatically:
-//   - attaches a stored tctoken when one exists (whatsmeow_privacy_tokens, per our_jid↔their_jid,
+//   - attaches a stored tctoken when one exists (whatsmeow_privacy_tokens, per our_jidâ†”their_jid,
 //     ~28-day rolling window), else falls back to a locally derived cstoken
-//     (HMAC-SHA256(NCTSalt, recipientLID)) for new chats — no prior relationship required, but it
+//     (HMAC-SHA256(NCTSalt, recipientLID)) for new chats â€” no prior relationship required, but it
 //     needs a server-provisioned NCTSalt and a resolvable recipient LID;
 //   - issues a trusted_contact token TO the recipient after send (privacy IQ) on bucket boundaries.
 //
@@ -285,18 +285,18 @@ func isASCII(s string) bool {
 //
 // Key findings from production investigation (2026-06-01):
 //   - SubscribePresence without an existing token logs "without privacy token" and is ignored by
-//     the server — it does NOT create a token for truly cold contacts. There is no presence-based
+//     the server â€” it does NOT create a token for truly cold contacts. There is no presence-based
 //     token-fetch path in whatsmeow.
 //   - Privacy tokens discovered from other connected numbers (e.g. via shared groups) are NOT
-//     usable by a different sender — tokens are strictly per our_jid.
+//     usable by a different sender â€” tokens are strictly per our_jid.
 //   - Once the recipient sends any message to us, the token is issued and subsequent sends succeed
-//     without any retry — the WhatsApp server already has the context.
+//     without any retry â€” the WhatsApp server already has the context.
 //   - For a truly cold first send with no NCTSalt/LID context, there is still no guaranteed
 //     client-side fix; the reliable workaround is to have the contact message us first.
 //
 // TODO: The pre-warm + signal-reset retry below is now ineffective (see findings) and hasPrivacyToken
 //
-//	only checks the stored tctoken — it is blind to the on-the-fly cstoken. Consider dropping the
+//	only checks the stored tctoken â€” it is blind to the on-the-fly cstoken. Consider dropping the
 //	pre-warm/signal-reset stage and revisiting the cold-contact short-circuit.
 //	References: docs/ISSUE-error-463-reachout-timelock.md
 func isSendError463(err error) bool {
@@ -668,7 +668,7 @@ func (source *WhatsmeowConnection) Send(msg *whatsapp.WhatsappMessage) (whatsapp
 			if resolvedRetryJID, ok := source.resolveLIDRetryJID(jid); ok {
 				retryJID = resolvedRetryJID
 
-				// No point trying the LID if it has no privacy token either — cold contact.
+				// No point trying the LID if it has no privacy token either â€” cold contact.
 				// hasPrivacyToken checks both the LID JID and the phone equivalent, because
 				// the token may be stored under either key depending on how the contact first
 				// interacted with us. See docs/ISSUE-error-463-reachout-timelock.md.
@@ -699,7 +699,7 @@ func (source *WhatsmeowConnection) Send(msg *whatsapp.WhatsappMessage) (whatsapp
 				finalJID = retryJID
 			}
 
-			// If the target LID has no privacy token, the server will never accept the message —
+			// If the target LID has no privacy token, the server will never accept the message â€”
 			// this is a cold contact with Meta restrictions. Skip the expensive retries.
 			if finalJID.Server == types.HiddenUserServer && !source.hasPrivacyToken(finalJID) {
 				logentry.Warnf("skipping pre-warm + signal reset retry for %s: no privacy token (cold contact)", finalJID)
@@ -1499,7 +1499,7 @@ func (conn *WhatsmeowConnection) initializeHandlers(waOptions *whatsapp.Whatsapp
 		conn.GetLogger().Errorf("failed to enable VoIP Manager: %s", err.Error())
 	} else if mgr != nil {
 		conn.voipManager = mgr
-		conn.GetLogger().Infof("VoIP Manager enabled (mode=%s, WhatsApp → SIP bridging)", voipMode.String())
+		conn.GetLogger().Infof("VoIP Manager enabled (mode=%s, WhatsApp â†’ SIP bridging)", voipMode.String())
 	}
 
 	return conn.Handlers.Register()

@@ -6,8 +6,8 @@ import (
 	"encoding/binary"
 	"errors"
 
-	"github.com/nocodeleaks/quepasa/voip/calls/util"
-	qplog "github.com/nocodeleaks/quepasa/qplog"
+	"github.com/inteliagenciadigital/quepasa/voip/calls/util"
+	qplog "github.com/inteliagenciadigital/quepasa/qplog"
 )
 
 // errBadCallKeyLen is returned when the call key is not exactly 32 bytes, the only

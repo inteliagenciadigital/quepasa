@@ -7,7 +7,7 @@ import (
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
-	events "github.com/nocodeleaks/quepasa/events"
+	events "github.com/inteliagenciadigital/quepasa/events"
 )
 
 // APIEventMiddleware emits one non-blocking internal event for each HTTP request.

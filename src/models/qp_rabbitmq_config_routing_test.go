@@ -3,7 +3,7 @@ package models
 import (
 	"testing"
 
-	whatsapp "github.com/nocodeleaks/quepasa/whatsapp"
+	whatsapp "github.com/inteliagenciadigital/quepasa/whatsapp"
 )
 
 // resetRoutingKeyGlobals restores the default routing key values after each test.

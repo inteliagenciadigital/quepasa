@@ -7,7 +7,7 @@ import (
 	"sync"
 	"time"
 
-	cache "github.com/nocodeleaks/quepasa/cache"
+	cache "github.com/inteliagenciadigital/quepasa/cache"
 	amqp "github.com/rabbitmq/amqp091-go"
 )
 
@@ -17,7 +17,7 @@ type RabbitMQClient struct {
 	conn    *amqp.Connection
 	channel *amqp.Channel
 	mu      sync.RWMutex // Protects conn/channel during reconnection (read = publish path, write = connect/disconnect)
-	publishMu sync.Mutex // Serializes channel.Publish calls — amqp.Channel is not concurrency-safe
+	publishMu sync.Mutex // Serializes channel.Publish calls â€” amqp.Channel is not concurrency-safe
 
 	notify chan *amqp.Error // Channel for AMQP connection/channel close notifications
 	closed chan struct{}    // Signals that the client should stop
@@ -354,7 +354,7 @@ func (r *RabbitMQClient) PublishMessageToExchange(exchangeName, routingKey strin
 		RoutingKey: routingKey,
 	}
 
-	// Marshal before acquiring any lock — JSON encoding can be slow and
+	// Marshal before acquiring any lock â€” JSON encoding can be slow and
 	// must not block the reconnection path.
 	body, err := json.Marshal(msg)
 	if err != nil {

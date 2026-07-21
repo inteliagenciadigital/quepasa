@@ -1,7 +1,7 @@
 package whatsmeow
 
 import (
-	"github.com/nocodeleaks/quepasa/metrics"
+	"github.com/inteliagenciadigital/quepasa/metrics"
 )
 
 // WhatsMeow-specific metrics initialized directly using generic factory functions

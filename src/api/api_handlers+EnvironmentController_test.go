@@ -6,7 +6,7 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	api "github.com/nocodeleaks/quepasa/api/models"
+	api "github.com/inteliagenciadigital/quepasa/api/models"
 )
 
 // Helper function to mask sensitive strings

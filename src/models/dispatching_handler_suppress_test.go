@@ -3,7 +3,7 @@ package models
 import (
 	"testing"
 
-	whatsapp "github.com/nocodeleaks/quepasa/whatsapp"
+	whatsapp "github.com/inteliagenciadigital/quepasa/whatsapp"
 )
 
 func TestShouldSuppressRevoke(t *testing.T) {
@@ -33,7 +33,7 @@ func TestShouldSuppressReaction(t *testing.T) {
 		Id:         "3EB09807FC425F4804388E",
 		Type:       whatsapp.TextMessageType,
 		InReaction: true,
-		Text:       "👍",
+		Text:       "ðŸ‘",
 	}
 	if !shouldSuppressFromCreateWebhook(msg) {
 		t.Fatal("expected REACTION to be suppressed from create webhook")

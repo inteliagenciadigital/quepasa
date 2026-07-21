@@ -3,8 +3,8 @@ package models
 import (
 	"fmt"
 
-	"github.com/nocodeleaks/quepasa/ports"
-	whatsapp "github.com/nocodeleaks/quepasa/whatsapp"
+	"github.com/inteliagenciadigital/quepasa/ports"
+	whatsapp "github.com/inteliagenciadigital/quepasa/whatsapp"
 )
 
 // Compile-time check to ensure QpContactManager implements whatsapp.WhatsappContactManagerInterface

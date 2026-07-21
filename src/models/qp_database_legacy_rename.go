@@ -26,7 +26,7 @@ import (
 	"fmt"
 
 	"github.com/jmoiron/sqlx"
-	log "github.com/nocodeleaks/quepasa/qplog"
+	log "github.com/inteliagenciadigital/quepasa/qplog"
 )
 
 // PrefixRenameMigrationId is the ledger id of the table prefix rename.

@@ -8,8 +8,8 @@ import (
 	"sync"
 	"time"
 
-	cache "github.com/nocodeleaks/quepasa/cache"
-	environment "github.com/nocodeleaks/quepasa/environment"
+	cache "github.com/inteliagenciadigital/quepasa/cache"
+	environment "github.com/inteliagenciadigital/quepasa/environment"
 	redis "github.com/redis/go-redis/v9"
 )
 

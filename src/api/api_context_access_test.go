@@ -9,7 +9,7 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"github.com/nocodeleaks/quepasa/models"
+	"github.com/inteliagenciadigital/quepasa/models"
 )
 
 func TestAuthenticatedContextSessionsListsSharedContextSessions(t *testing.T) {

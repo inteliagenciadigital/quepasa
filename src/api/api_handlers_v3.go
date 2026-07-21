@@ -5,9 +5,9 @@ import (
 	"net/http"
 
 	"github.com/go-chi/chi/v5"
-	legacy "github.com/nocodeleaks/quepasa/api/legacy"
+	legacy "github.com/inteliagenciadigital/quepasa/api/legacy"
 
-	api "github.com/nocodeleaks/quepasa/api/models"
+	api "github.com/inteliagenciadigital/quepasa/api/models"
 )
 
 const APIVersion3 string = "v3"

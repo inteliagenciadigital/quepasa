@@ -4,7 +4,7 @@ import (
 	"crypto/hkdf"
 	"crypto/sha256"
 
-	qplog "github.com/nocodeleaks/quepasa/qplog"
+	qplog "github.com/inteliagenciadigital/quepasa/qplog"
 )
 
 // HKDFSHA256 derives length bytes of key material from ikm using HKDF-SHA256

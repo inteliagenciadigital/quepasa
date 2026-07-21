@@ -8,9 +8,9 @@ import (
 	"strings"
 
 	"github.com/go-chi/chi/v5"
-	"github.com/nocodeleaks/quepasa/library"
-	"github.com/nocodeleaks/quepasa/models"
-	"github.com/nocodeleaks/quepasa/runtime"
+	"github.com/inteliagenciadigital/quepasa/library"
+	"github.com/inteliagenciadigital/quepasa/models"
+	"github.com/inteliagenciadigital/quepasa/runtime"
 )
 
 type contextAccessRequest struct {

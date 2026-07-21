@@ -5,7 +5,7 @@ import (
 	"testing"
 	"time"
 
-	cache_memory "github.com/nocodeleaks/quepasa/cache/memory"
+	cache_memory "github.com/inteliagenciadigital/quepasa/cache/memory"
 )
 
 // TestRabbitMQClientSetCacheBackend verifies backend injection works.

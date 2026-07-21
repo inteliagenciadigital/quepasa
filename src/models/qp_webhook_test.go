@@ -7,7 +7,7 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"github.com/nocodeleaks/quepasa/whatsapp"
+	"github.com/inteliagenciadigital/quepasa/whatsapp"
 )
 
 // TestWebhookRetrySuccess tests successful webhook delivery on first attempt

@@ -6,7 +6,7 @@ import (
 
 	"github.com/huin/goupnp/dcps/internetgateway1"
 	"github.com/huin/goupnp/dcps/internetgateway2"
-	qplog "github.com/nocodeleaks/quepasa/qplog"
+	qplog "github.com/inteliagenciadigital/quepasa/qplog"
 )
 
 // UPnPManager handles automatic port forwarding via UPnP
@@ -28,58 +28,58 @@ func NewUPnPManager(logger qplog.Logger) *UPnPManager {
 
 // Setup configures UPnP for automatic port forwarding
 func (um *UPnPManager) Setup() error {
-	um.logger.Infof("🔌 Setting up UPnP for automatic port forwarding")
-	um.logger.Infof("📡 Note: UPnP is optional - SIP proxy will work without it")
+	um.logger.Infof("ðŸ”Œ Setting up UPnP for automatic port forwarding")
+	um.logger.Infof("ðŸ“¡ Note: UPnP is optional - SIP proxy will work without it")
 
 	// Descobrir dispositivos UPnP na rede - IGDv2 primeiro
 	clients, _, err := internetgateway2.NewWANIPConnection1Clients()
 	if err != nil {
-		um.logger.Warnf("⚠️ UPnP IGDv2 discovery failed: %v", err)
+		um.logger.Warnf("âš ï¸ UPnP IGDv2 discovery failed: %v", err)
 
 		// Tentar IGDv1 se IGDv2 falhar
-		um.logger.Infof("🔄 Trying UPnP IGDv1 as fallback...")
+		um.logger.Infof("ðŸ”„ Trying UPnP IGDv1 as fallback...")
 		clients1, _, err1 := internetgateway1.NewWANIPConnection1Clients()
 		if err1 != nil {
-			um.logger.Warnf("⚠️ UPnP IGDv1 discovery also failed: %v", err1)
-			um.logger.Infof("💡 This is normal if:")
+			um.logger.Warnf("âš ï¸ UPnP IGDv1 discovery also failed: %v", err1)
+			um.logger.Infof("ðŸ’¡ This is normal if:")
 			um.logger.Infof("   - Your router doesn't support UPnP")
 			um.logger.Infof("   - UPnP is disabled in router settings")
 			um.logger.Infof("   - You're behind multiple NAT layers")
 			um.logger.Infof("   - Using a corporate/restricted network")
-			um.logger.Infof("📡 SIP proxy will continue without automatic port forwarding")
+			um.logger.Infof("ðŸ“¡ SIP proxy will continue without automatic port forwarding")
 			return fmt.Errorf("no UPnP IGD devices found (IGDv2: %v, IGDv1: %v)", err, err1)
 		}
 
-		// IGDv1 encontrado mas não implementamos suporte ainda
+		// IGDv1 encontrado mas nÃ£o implementamos suporte ainda
 		if len(clients1) > 0 {
-			um.logger.Infof("🔌 Found IGDv1 device but compatibility not implemented yet")
-			um.logger.Infof("💡 Consider upgrading router firmware to IGDv2 for automatic port forwarding")
-			um.logger.Infof("📡 SIP proxy will continue without automatic port forwarding")
+			um.logger.Infof("ðŸ”Œ Found IGDv1 device but compatibility not implemented yet")
+			um.logger.Infof("ðŸ’¡ Consider upgrading router firmware to IGDv2 for automatic port forwarding")
+			um.logger.Infof("ðŸ“¡ SIP proxy will continue without automatic port forwarding")
 			return fmt.Errorf("IGDv1 found but not supported yet - manual port forwarding required")
 		}
 	}
 
 	if len(clients) == 0 {
-		um.logger.Warnf("⚠️ No UPnP IGDv2 devices found on network")
-		um.logger.Infof("💡 This means automatic port forwarding is not available")
-		um.logger.Infof("📋 To enable UPnP (if desired):")
+		um.logger.Warnf("âš ï¸ No UPnP IGDv2 devices found on network")
+		um.logger.Infof("ðŸ’¡ This means automatic port forwarding is not available")
+		um.logger.Infof("ðŸ“‹ To enable UPnP (if desired):")
 		um.logger.Infof("   1. Check router admin panel for UPnP settings")
 		um.logger.Infof("   2. Enable UPnP/IGDv2 if disabled")
 		um.logger.Infof("   3. Restart router and try again")
-		um.logger.Infof("📡 SIP proxy will continue without automatic port forwarding")
+		um.logger.Infof("ðŸ“¡ SIP proxy will continue without automatic port forwarding")
 		return fmt.Errorf("no UPnP IGDv2 devices found - manual port forwarding required")
 	}
 
 	um.client = clients[0]
-	um.logger.Infof("✅ UPnP IGDv2 device found and configured")
+	um.logger.Infof("âœ… UPnP IGDv2 device found and configured")
 
 	// Descobrir IP externo via UPnP
 	externalIP, err := um.client.GetExternalIPAddress()
 	if err != nil {
-		um.logger.Warnf("⚠️ Failed to get external IP via UPnP: %v", err)
+		um.logger.Warnf("âš ï¸ Failed to get external IP via UPnP: %v", err)
 	} else {
 		um.externalIP = externalIP
-		um.logger.Infof("🌐 UPnP discovered external IP: %s", um.externalIP)
+		um.logger.Infof("ðŸŒ UPnP discovered external IP: %s", um.externalIP)
 	}
 
 	return nil
@@ -92,7 +92,7 @@ func (um *UPnPManager) OpenPort(port int, protocol string) error {
 	}
 
 	localIP := um.getLocalIP()
-	um.logger.Infof("🔌 Opening UPnP port %d/%s for local IP %s", port, protocol, localIP)
+	um.logger.Infof("ðŸ”Œ Opening UPnP port %d/%s for local IP %s", port, protocol, localIP)
 
 	// Mapear porta (externa = interna)
 	externalPort := uint16(port)
@@ -116,7 +116,7 @@ func (um *UPnPManager) OpenPort(port int, protocol string) error {
 	um.portMapped = true
 	um.mappedPort = port
 	um.mappedProtocol = protocol
-	um.logger.Infof("✅ UPnP port %d/%s opened successfully", port, protocol)
+	um.logger.Infof("âœ… UPnP port %d/%s opened successfully", port, protocol)
 
 	return nil
 }
@@ -127,16 +127,16 @@ func (um *UPnPManager) ClosePort() error {
 		return nil
 	}
 
-	um.logger.Infof("🔌 Closing UPnP port %d/%s", um.mappedPort, um.mappedProtocol)
+	um.logger.Infof("ðŸ”Œ Closing UPnP port %d/%s", um.mappedPort, um.mappedProtocol)
 
 	err := um.client.DeletePortMapping("", uint16(um.mappedPort), um.mappedProtocol)
 	if err != nil {
-		um.logger.Warnf("⚠️ Failed to close UPnP port: %v", err)
+		um.logger.Warnf("âš ï¸ Failed to close UPnP port: %v", err)
 		return err
 	}
 
 	um.portMapped = false
-	um.logger.Infof("✅ UPnP port %d/%s closed successfully", um.mappedPort, um.mappedProtocol)
+	um.logger.Infof("âœ… UPnP port %d/%s closed successfully", um.mappedPort, um.mappedProtocol)
 
 	return nil
 }
@@ -151,7 +151,7 @@ func (um *UPnPManager) GetExternalIP() string {
 	return um.externalIP
 }
 
-// getLocalIP obtém o IP local da máquina
+// getLocalIP obtÃ©m o IP local da mÃ¡quina
 func (um *UPnPManager) getLocalIP() string {
 	// Tentar conectar ao Google DNS para descobrir IP local
 	conn, err := net.Dial("udp", "8.8.8.8:80")

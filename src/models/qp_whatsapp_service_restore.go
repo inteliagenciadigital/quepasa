@@ -3,8 +3,8 @@ package models
 import (
 	"fmt"
 
-	library "github.com/nocodeleaks/quepasa/library"
-	"github.com/nocodeleaks/quepasa/ports"
+	library "github.com/inteliagenciadigital/quepasa/library"
+	"github.com/inteliagenciadigital/quepasa/ports"
 )
 
 // WhatsmeowOrphanDevice represents a device registered in the whatsmeow database
@@ -45,15 +45,15 @@ type RestoreReport struct {
 	// meaning the session has never been paired or was cleared.
 	UnlinkedServers []string `json:"unlinked_servers"`
 
-	// Restored contains the token→JID pairs that were successfully linked
+	// Restored contains the tokenâ†’JID pairs that were successfully linked
 	// during an actual restore (empty during a dry-run).
 	Restored []RestoreResult `json:"restored,omitempty"`
 
-	// Errors contains token→error pairs for any linking attempt that failed.
+	// Errors contains tokenâ†’error pairs for any linking attempt that failed.
 	Errors []RestoreError `json:"errors,omitempty"`
 }
 
-// RestoreResult records a successful token↔JID link performed by RestoreOrphaned.
+// RestoreResult records a successful tokenâ†”JID link performed by RestoreOrphaned.
 type RestoreResult struct {
 	// Token is the QuePasa server token that was linked.
 	Token string `json:"token"`
@@ -73,7 +73,7 @@ type RestoreError struct {
 //  1. Whatsmeow device sessions that have no matching QuePasa server (orphan devices).
 //  2. QuePasa server records that have no wid set (unlinked servers).
 //
-// This method is read-only — it never modifies any data. Use it to inspect the
+// This method is read-only â€” it never modifies any data. Use it to inspect the
 // current state before deciding to call RestoreOrphaned.
 //
 // Returns a RestoreReport with OrphanDevices and UnlinkedServers populated.
@@ -87,7 +87,7 @@ func (source *QPWhatsappService) DiagnoseOrphaned() (*RestoreReport, error) {
 		UnlinkedServers: make([]string, 0),
 	}
 
-	// ── Step 1: Read all device sessions from whatsmeow ──────────────────────
+	// â”€â”€ Step 1: Read all device sessions from whatsmeow â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 	// The whatsmeow container holds all WhatsApp session keys. Each entry in
 	// whatsmeow_device corresponds to one phone-number+device-slot pair that
 	// was once successfully paired via QR code or pair code.
@@ -102,7 +102,7 @@ func (source *QPWhatsappService) DiagnoseOrphaned() (*RestoreReport, error) {
 	logentry.Infof("found %d device(s) in whatsmeow database", len(wmDevices))
 
 	// Build a set of wids that are already claimed by a QuePasa server so that
-	// the inner loop below runs in O(n) instead of O(n²).
+	// the inner loop below runs in O(n) instead of O(nÂ²).
 	dbServers := source.DB.Servers.FindAll()
 	claimedWids := make(map[string]struct{}, len(dbServers))
 	for _, srv := range dbServers {
@@ -116,11 +116,11 @@ func (source *QPWhatsappService) DiagnoseOrphaned() (*RestoreReport, error) {
 	}
 	logentry.Infof("found %d unlinked server(s) in quepasa database", len(report.UnlinkedServers))
 
-	// ── Step 2: Find whatsmeow devices not claimed by any server ─────────────
+	// â”€â”€ Step 2: Find whatsmeow devices not claimed by any server â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 	for _, dev := range wmDevices {
 		jid := dev.JID
 		if _, claimed := claimedWids[jid]; claimed {
-			// This device is already linked to a QuePasa server — skip it.
+			// This device is already linked to a QuePasa server â€” skip it.
 			continue
 		}
 
@@ -147,13 +147,13 @@ func (source *QPWhatsappService) DiagnoseOrphaned() (*RestoreReport, error) {
 //  1. If there is exactly one orphan device and exactly one unlinked server,
 //     they are linked automatically.
 //  2. Any ambiguous cases (multiple orphan devices and/or multiple unlinked
-//     servers) are listed in the report but left unchanged — never force-linked.
+//     servers) are listed in the report but left unchanged â€” never force-linked.
 //
 // After linking, each matched server is saved to the database and re-initialised
 // in the runtime cache so it can immediately resume receiving messages.
 //
 // Returns a RestoreReport with the Restored and Errors fields populated.
-// Always returns a report even when errors occurred — partial restores are
+// Always returns a report even when errors occurred â€” partial restores are
 // preserved so the caller can inspect what worked and retry failures manually.
 func (source *QPWhatsappService) RestoreOrphaned() (*RestoreReport, error) {
 	logentry := source.GetLogger()
@@ -200,7 +200,7 @@ func (source *QPWhatsappService) RestoreOrphaned() (*RestoreReport, error) {
 	return report, nil
 }
 
-// RestoreManual performs a direct token↔JID link without any automatic
+// RestoreManual performs a direct tokenâ†”JID link without any automatic
 // matching heuristics. Use this when the automatic restore cannot disambiguate
 // and you know exactly which server token should be paired to which whatsmeow
 // device JID.
@@ -234,13 +234,13 @@ func (source *QPWhatsappService) RestoreManual(token string, jid string) error {
 	return source.linkAndRestore(token, jid)
 }
 
-// ── Private helpers ───────────────────────────────────────────────────────────
+// â”€â”€ Private helpers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 // linkAndRestore updates the server record with the given wid, persists the
 // change to the database, and re-initialises the server in the runtime cache.
 //
 // This is the single point of mutation used by all restore paths so the logic
-// stays consistent regardless of how the token↔JID pair was found.
+// stays consistent regardless of how the tokenâ†”JID pair was found.
 func (source *QPWhatsappService) linkAndRestore(token string, jid string) error {
 	logentry := source.GetLogger()
 	logentry.Infof("linking token=%s to jid=%s", token, jid)
@@ -271,7 +271,7 @@ func (source *QPWhatsappService) linkAndRestore(token string, jid string) error 
 	// immediately without waiting for a full service restart.
 	server, err := source.AppendNewServer(info)
 	if err != nil {
-		// Cache update failure is not fatal — the DB record is already correct.
+		// Cache update failure is not fatal â€” the DB record is already correct.
 		// Log the error but do not return it so the caller sees a partial success
 		// and can inspect the runtime state separately.
 		logentry.Warnf("server %s saved to DB but cache update failed: %v", token, err)

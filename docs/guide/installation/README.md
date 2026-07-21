@@ -11,7 +11,7 @@ The fastest way to get QuePasa running.
 
 ```bash
 # Clone the repository
-git clone https://github.com/nocodeleaks/quepasa-.git
+git clone https://github.com/inteliagenciadigital/quepasa-.git
 cd quepasa-/docker
 
 # Configure environment
@@ -24,31 +24,31 @@ docker-compose up -d --build
 
 Web interface: `http://localhost:31000`
 
-Images are published to Docker Hub: **[codeleaks/quepasa](https://hub.docker.com/r/codeleaks/quepasa)**
+Images are published to Docker Hub: **[srwarez/quepasa](https://hub.docker.com/r/srwarez/quepasa)**
 
 ```bash
-docker pull codeleaks/quepasa:latest
+docker pull srwarez/quepasa:latest
 ```
 
 Tags:
-- `latest` — last build from `main`
-- `<version>` (e.g. `5.26.0702.1713`) — pinned release version, built from `main`
-- `dev-latest` / `dev-<version>` — builds from `develop`, for testing unreleased changes
+- `latest` â€” last build from `main`
+- `<version>` (e.g. `5.26.0702.1713`) â€” pinned release version, built from `main`
+- `dev-latest` / `dev-<version>` â€” builds from `develop`, for testing unreleased changes
 
-📖 **[Complete Docker Setup Guide](../../../docker/docker.md)** — full configuration options, `.env` reference, troubleshooting.
+ðŸ“– **[Complete Docker Setup Guide](../../../docker/docker.md)** â€” full configuration options, `.env` reference, troubleshooting.
 
 ## Local Development
 
 For development or custom installations.
 
 ### Prerequisites
-- **Go 1.20+** — [Download here](https://golang.org/dl/)
-- **PostgreSQL** (optional) — only needed if you point the Whatsmeow store at `postgres`/`mysql`
+- **Go 1.20+** â€” [Download here](https://golang.org/dl/)
+- **PostgreSQL** (optional) â€” only needed if you point the Whatsmeow store at `postgres`/`mysql`
 - **Git**
 
 ### Build from Source
 ```bash
-git clone https://github.com/nocodeleaks/quepasa-.git
+git clone https://github.com/inteliagenciadigital/quepasa-.git
 cd quepasa-/src
 
 go mod download
@@ -73,7 +73,7 @@ rad auth
 rad clone rad:z4N4hVxiroGtMpgB5AyzvfcptdfgD
 ```
 
-Repository ID (RID): `rad:z4N4hVxiroGtMpgB5AyzvfcptdfgD` — only `develop` is published there.
+Repository ID (RID): `rad:z4N4hVxiroGtMpgB5AyzvfcptdfgD` â€” only `develop` is published there.
 
 ## Swagger / API Docs Generation
 
@@ -91,7 +91,7 @@ swag init --output ./swagger
 # Windows: double-click generate-swagger.bat
 # Or run: .\generate-swagger.bat
 
-# Or use VS Code task: Ctrl+Shift+P → "Tasks: Run Task" → "Generate Swagger Docs"
+# Or use VS Code task: Ctrl+Shift+P â†’ "Tasks: Run Task" â†’ "Generate Swagger Docs"
 ```
 
 Docs are served at `http://localhost:PORT/swagger` (with or without trailing slash) while the application is running.

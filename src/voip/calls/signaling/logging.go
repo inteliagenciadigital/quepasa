@@ -1,6 +1,6 @@
 package signaling
 
-import qplog "github.com/nocodeleaks/quepasa/qplog"
+import qplog "github.com/inteliagenciadigital/quepasa/qplog"
 
 // pickLog returns the first logger from a variadic logger argument, or a silent
 // no-op logger when none was supplied. Stateless builders accept a trailing

@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"time"
 
-	library "github.com/nocodeleaks/quepasa/library"
-	whatsapp "github.com/nocodeleaks/quepasa/whatsapp"
+	library "github.com/inteliagenciadigital/quepasa/library"
+	whatsapp "github.com/inteliagenciadigital/quepasa/whatsapp"
 )
 
 // MarshalJSON customizes JSON serialization to include only dispatching field instead of webhooks.

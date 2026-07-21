@@ -3,10 +3,10 @@ package mlow
 import (
 	"math"
 
-	qplog "github.com/nocodeleaks/quepasa/qplog"
+	qplog "github.com/inteliagenciadigital/quepasa/qplog"
 )
 
-// Low-band synthesis: NLSF reconstruction, NLSF→LPC, gain linearization, LTP/ACB
+// Low-band synthesis: NLSF reconstruction, NLSFâ†’LPC, gain linearization, LTP/ACB
 // excitation prediction, and the per-internal-frame synthesis that turns decoded
 // parameters into PCM. Validated end-to-end via the decoder module.
 
@@ -225,7 +225,7 @@ func SmplNLSF2A(nlsf []float32) []float32 {
 	// Source of truth: https://github.com/oxidezap/whatsapp-rust/blob/ed12f359a086b28e807ba236f0977af1000859fe/wacore/src/voip/mlow/smpl_synth.rs#L293-L311
 	// Exercised end-to-end by TestEncodeRoundTripsATone (the encoder shadow-synth
 	// path reconstructs a tone at correlation 0.89). Correlation-bounded, not
-	// bit-exact — there is no isolated vector for this WASM-domain alt synth path.
+	// bit-exact â€” there is no isolated vector for this WASM-domain alt synth path.
 	order := len(nlsf)
 	half := order / 2
 	cosv := make([]float64, order)
@@ -288,7 +288,7 @@ func SmplGainLin(gainQ int32) float64 {
 	// Source of truth: https://github.com/oxidezap/whatsapp-rust/blob/ed12f359a086b28e807ba236f0977af1000859fe/wacore/src/voip/mlow/smpl_synth.rs#L350-L362
 	// Exercised end-to-end by TestEncodeRoundTripsATone (the encoder shadow-synth
 	// path reconstructs a tone at correlation 0.89). Correlation-bounded, not
-	// bit-exact — there is no isolated vector for this WASM-domain alt synth path.
+	// bit-exact â€” there is no isolated vector for this WASM-domain alt synth path.
 	y := float32(gainQ)*6.103515625e-05*0.10000000149011612*27749388.0 + 1064866816.0
 	var i int32
 	if y < 2147483648.0 && y > -2147483648.0 {
@@ -316,7 +316,7 @@ func SmplLTPFracGain(normGain float64) float32 {
 	// Source of truth: https://github.com/oxidezap/whatsapp-rust/blob/ed12f359a086b28e807ba236f0977af1000859fe/wacore/src/voip/mlow/smpl_synth.rs#L482-L484
 	// Exercised end-to-end by TestEncodeRoundTripsATone (the encoder shadow-synth
 	// path reconstructs a tone at correlation 0.89). Correlation-bounded, not
-	// bit-exact — there is no isolated vector for this WASM-domain alt synth path.
+	// bit-exact â€” there is no isolated vector for this WASM-domain alt synth path.
 	return float32(normGain)*-0.16999998688697815 + 0.3499999940395355
 }
 
@@ -421,7 +421,7 @@ type SmplPitchSynth struct {
 // SmplFrameSynth is the cross-internal-frame low-band synthesis state: LPC state and
 // the LTP/excitation history plus the gain smoother. (The reference also carries
 // Region-1 and HP postfilter state for paths gated off by SMPL_TAIL_REGION1 /
-// SMPL_HP_POSTFILTER — those gated blocks are not ported here; they would need the
+// SMPL_HP_POSTFILTER â€” those gated blocks are not ported here; they would need the
 // postfilter module's state types.)
 type SmplFrameSynth struct {
 	lpcState [SmplOrder]float32
@@ -441,7 +441,7 @@ func SmplLTPSubframePred(hist []float32, histPos int32, lagF, gainFrac float32, 
 	// Source of truth: https://github.com/oxidezap/whatsapp-rust/blob/ed12f359a086b28e807ba236f0977af1000859fe/wacore/src/voip/mlow/smpl_synth.rs#L487-L506
 	// Exercised end-to-end by TestEncodeRoundTripsATone (the encoder shadow-synth
 	// path reconstructs a tone at correlation 0.89). Correlation-bounded, not
-	// bit-exact — there is no isolated vector for this WASM-domain alt synth path.
+	// bit-exact â€” there is no isolated vector for this WASM-domain alt synth path.
 	var fracOut [2 * 2 * 40]float32
 	lags := []float32{lagF, lagF}
 	smplFracLTP(lags, 2, hist, histPos-648, smplFracStateLen, fracOut[:])
@@ -466,7 +466,7 @@ func SynthInternalFrame(
 	lg.TraceE().Int("stage1", stage1).Int("grid", grid).Int("pulses_len", len(pulses)).Int("prev_nlsf_len", len(prevNLSF)).Msg("synth internal frame")
 	// Exercised end-to-end by TestEncodeRoundTripsATone (the encoder shadow-synth
 	// path reconstructs a tone at correlation 0.89). Correlation-bounded, not
-	// bit-exact — there is no isolated vector for this WASM-domain alt synth path.
+	// bit-exact â€” there is no isolated vector for this WASM-domain alt synth path.
 	// The reference's Region-1 excitation comb and post-LPC HP postfilter are gated off
 	// (SMPL_TAIL_REGION1 / SMPL_HP_POSTFILTER == false) and need the postfilter
 	// module; those gated blocks are omitted here, matching the vector-capture config.
@@ -528,7 +528,7 @@ func SynthInternalFrame(
 	return out, nlsf
 }
 
-// (The C-float CELP synthesis — CelpDecParams / CelpDecState / SynthFrame — lives in
+// (The C-float CELP synthesis â€” CelpDecParams / CelpDecState / SynthFrame â€” lives in
 // celpdec.go.)
 
 // --- unvoiced residual-energy quantizer (smpl_quant_nrg_res.c) ---

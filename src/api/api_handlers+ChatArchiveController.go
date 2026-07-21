@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"net/http"
 
-	models "github.com/nocodeleaks/quepasa/models"
-	whatsapp "github.com/nocodeleaks/quepasa/whatsapp"
-	whatsmeow "github.com/nocodeleaks/quepasa/whatsmeow"
+	models "github.com/inteliagenciadigital/quepasa/models"
+	whatsapp "github.com/inteliagenciadigital/quepasa/whatsapp"
+	whatsmeow "github.com/inteliagenciadigital/quepasa/whatsmeow"
 )
 
 // ChatArchiveRequest defines the parameters for archiving/unarchiving a chat

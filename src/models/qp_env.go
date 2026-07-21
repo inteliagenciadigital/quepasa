@@ -4,12 +4,12 @@ import (
 	"errors"
 	"fmt"
 	"strconv"
-	"strings" // Certifique-se de que "strings" está importado
+	"strings" // Certifique-se de que "strings" estÃ¡ importado
 
-	environment "github.com/nocodeleaks/quepasa/environment"
-	library "github.com/nocodeleaks/quepasa/library"
-	"github.com/nocodeleaks/quepasa/qplog"
-	whatsapp "github.com/nocodeleaks/quepasa/whatsapp"
+	environment "github.com/inteliagenciadigital/quepasa/environment"
+	library "github.com/inteliagenciadigital/quepasa/library"
+	"github.com/inteliagenciadigital/quepasa/qplog"
+	whatsapp "github.com/inteliagenciadigital/quepasa/whatsapp"
 )
 
 // Environment variable names
@@ -56,8 +56,8 @@ const (
 	ENV_ACCOUNTSETUP = "ACCOUNTSETUP" // enable or disable account creation, default true
 	ENV_TESTING      = "TESTING"
 
-	ENV_RABBITMQ_QUEUE            = "RABBITMQ_QUEUE"            // Nome da variável de ambiente para a fila
-	ENV_RABBITMQ_CONNECTIONSTRING = "RABBITMQ_CONNECTIONSTRING" // Nome da variável de ambiente para a string de conexão
+	ENV_RABBITMQ_QUEUE            = "RABBITMQ_QUEUE"            // Nome da variÃ¡vel de ambiente para a fila
+	ENV_RABBITMQ_CONNECTIONSTRING = "RABBITMQ_CONNECTIONSTRING" // Nome da variÃ¡vel de ambiente para a string de conexÃ£o
 	ENV_RABBITMQ_CACHELENGTH      = "RABBITMQ_CACHELENGTH"
 
 	ENV_DISPATCH_UNHANDLED = "DISPATCHUNHANDLED" // enable or disable dispatch unhandled messages, default false
@@ -141,18 +141,18 @@ func (*Environment) Migrate() bool {
 // MigrationPath returns the custom path for database migrations.
 // Returns an empty string if migrations are enabled via boolean flag or no custom path is set.
 func (*Environment) MigrationPath() string {
-	// Pega o valor bruto da variável de ambiente primeiro para aplicar TrimSpace.
+	// Pega o valor bruto da variÃ¡vel de ambiente primeiro para aplicar TrimSpace.
 	trimmedValue := environment.GetString(ENV_MIGRATIONS, "") // Aplicado TrimSpace
 
 	// Se o valor trimado for vazio, ou se puder ser parseado como um booleano, retorna string vazia.
-	// Isso mantém a lógica de que um valor booleano significa "sem caminho personalizado".
+	// Isso mantÃ©m a lÃ³gica de que um valor booleano significa "sem caminho personalizado".
 	if trimmedValue == "" {
 		return ""
 	}
 	if _, err := strconv.ParseBool(trimmedValue); err == nil {
-		return "" // Indica que deve usar o caminho padrão ou as migrações são desabilitadas/habilitadas por bool
+		return "" // Indica que deve usar o caminho padrÃ£o ou as migraÃ§Ãµes sÃ£o desabilitadas/habilitadas por bool
 	}
-	return trimmedValue // Caso contrário, retorna o valor trimado como um caminho
+	return trimmedValue // Caso contrÃ¡rio, retorna o valor trimado como um caminho
 }
 
 // AppTitle returns the application title. Defaults to an empty string.
@@ -222,7 +222,7 @@ func (*Environment) DispatchUnhandled() bool {
 // ParseWhatsappBoolean parses a string value into a WhatsappBooleanExtended type.
 // It handles various string representations of boolean values, including extended ones.
 func ParseWhatsappBoolean(value string) whatsapp.WhatsappBooleanExtended {
-	// A função já faz trim, então não precisa de outro aqui.
+	// A funÃ§Ã£o jÃ¡ faz trim, entÃ£o nÃ£o precisa de outro aqui.
 	formatted := strings.TrimSpace(value)
 	formatted = strings.Trim(formatted, `"`)
 	formatted = strings.ToLower(formatted)
@@ -247,28 +247,28 @@ func ParseWhatsappBoolean(value string) whatsapp.WhatsappBooleanExtended {
 // Broadcasts returns the WhatsappBooleanExtended setting for broadcasts.
 func (*Environment) Broadcasts() whatsapp.WhatsappBooleanExtended {
 	v := environment.GetString(ENV_BROADCASTS, "")
-	// Chama ParseWhatsappBoolean que já trima a string
+	// Chama ParseWhatsappBoolean que jÃ¡ trima a string
 	return ParseWhatsappBoolean(v)
 }
 
 // Groups returns the WhatsappBooleanExtended setting for groups.
 func (*Environment) Groups() whatsapp.WhatsappBooleanExtended {
 	v := environment.GetString(ENV_GROUPS, "")
-	// Chama ParseWhatsappBoolean que já trima a string
+	// Chama ParseWhatsappBoolean que jÃ¡ trima a string
 	return ParseWhatsappBoolean(v)
 }
 
 // ReadReceipts returns the WhatsappBooleanExtended setting for read receipts.
 func (*Environment) ReadReceipts() whatsapp.WhatsappBooleanExtended {
 	v := environment.GetString(ENV_READRECEIPTS, "")
-	// Chama ParseWhatsappBoolean que já trima a string
+	// Chama ParseWhatsappBoolean que jÃ¡ trima a string
 	return ParseWhatsappBoolean(v)
 }
 
 // Calls returns the WhatsappBooleanExtended setting for calls.
 func (*Environment) Calls() whatsapp.WhatsappBooleanExtended {
 	v := environment.GetString(ENV_CALLS, "")
-	// Chama ParseWhatsappBoolean que já trima a string
+	// Chama ParseWhatsappBoolean que jÃ¡ trima a string
 	return ParseWhatsappBoolean(v)
 }
 

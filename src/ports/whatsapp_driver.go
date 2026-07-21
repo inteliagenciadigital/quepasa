@@ -1,7 +1,7 @@
 package ports
 
 import (
-	"github.com/nocodeleaks/quepasa/whatsapp"
+	"github.com/inteliagenciadigital/quepasa/whatsapp"
 )
 
 // WhatsappDriverFactory creates WhatsApp connections.

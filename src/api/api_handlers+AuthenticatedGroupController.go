@@ -10,10 +10,10 @@ import (
 	"time"
 
 	"github.com/go-chi/chi/v5"
-	apiModels "github.com/nocodeleaks/quepasa/api/models"
-	media "github.com/nocodeleaks/quepasa/media"
-	models "github.com/nocodeleaks/quepasa/models"
-	whatsapp "github.com/nocodeleaks/quepasa/whatsapp"
+	apiModels "github.com/inteliagenciadigital/quepasa/api/models"
+	media "github.com/inteliagenciadigital/quepasa/media"
+	models "github.com/inteliagenciadigital/quepasa/models"
+	whatsapp "github.com/inteliagenciadigital/quepasa/whatsapp"
 )
 
 func getGroupIDParam(r *http.Request) (string, error) {

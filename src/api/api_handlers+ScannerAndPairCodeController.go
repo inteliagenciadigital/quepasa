@@ -6,9 +6,9 @@ import (
 	"net/http"
 	"strconv"
 
-	library "github.com/nocodeleaks/quepasa/library"
-	models "github.com/nocodeleaks/quepasa/models"
-	log "github.com/nocodeleaks/quepasa/qplog"
+	library "github.com/inteliagenciadigital/quepasa/library"
+	models "github.com/inteliagenciadigital/quepasa/models"
+	log "github.com/inteliagenciadigital/quepasa/qplog"
 	"github.com/skip2/go-qrcode"
 )
 

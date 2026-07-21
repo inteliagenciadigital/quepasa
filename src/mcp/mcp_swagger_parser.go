@@ -9,7 +9,7 @@ import (
 	"regexp"
 	"strings"
 
-	log "github.com/nocodeleaks/quepasa/qplog"
+	log "github.com/inteliagenciadigital/quepasa/qplog"
 )
 
 // SwaggerEndpoint represents an API endpoint parsed from Swagger comments

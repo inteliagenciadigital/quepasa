@@ -1,5 +1,5 @@
 // Package qplog is the project's single logging facade (module
-// github.com/nocodeleaks/quepasa/qplog). It is the ONLY package allowed to
+// github.com/inteliagenciadigital/quepasa/qplog). It is the ONLY package allowed to
 // import a concrete logging backend (logrus); every other package logs through
 // the qplog.Logger interface, so the backend can be swapped here without
 // touching any call site.
@@ -48,7 +48,7 @@ const (
 
 // Logger is the logging entry point used across the whole project.
 type Logger interface {
-	// logrus style — log immediately with fmt.Sprint/Sprintf semantics.
+	// logrus style â€” log immediately with fmt.Sprint/Sprintf semantics.
 	Trace(args ...any)
 	Debug(args ...any)
 	Info(args ...any)
@@ -65,7 +65,7 @@ type Logger interface {
 	Fatalf(format string, args ...any)
 	Panicf(format string, args ...any)
 
-	// Print family (logrus compatibility) — log at Info level.
+	// Print family (logrus compatibility) â€” log at Info level.
 	Print(args ...any)
 	Printf(format string, args ...any)
 	Println(args ...any)
@@ -75,7 +75,7 @@ type Logger interface {
 	Warningf(format string, args ...any)
 	Warningln(args ...any)
 
-	// Structured context — return a child logger carrying the given context.
+	// Structured context â€” return a child logger carrying the given context.
 	WithField(key string, value any) Logger
 	WithFields(fields Fields) Logger
 	WithError(err error) Logger
@@ -94,7 +94,7 @@ type Logger interface {
 	// logger's level (drop-in for logrus.Entry.Writer).
 	Writer() io.Writer
 
-	// Fluent style — return an Event to attach fields, terminated by Msg/Msgf.
+	// Fluent style â€” return an Event to attach fields, terminated by Msg/Msgf.
 	TraceE() Event
 	DebugE() Event
 	InfoE() Event

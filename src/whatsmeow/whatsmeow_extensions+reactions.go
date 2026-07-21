@@ -6,7 +6,7 @@ import (
 	"time"
 	"unicode/utf8"
 
-	whatsapp "github.com/nocodeleaks/quepasa/whatsapp"
+	whatsapp "github.com/inteliagenciadigital/quepasa/whatsapp"
 	"go.mau.fi/util/random"
 	"go.mau.fi/whatsmeow/proto/waCommon"
 	"go.mau.fi/whatsmeow/proto/waE2E"
@@ -21,7 +21,7 @@ func (source *WhatsmeowConnection) SendReaction(chatID, targetMsgID string, from
 		return fmt.Errorf("connection not available")
 	}
 
-	// Validate emoji — allow empty string (removes reaction) or a valid unicode rune sequence
+	// Validate emoji â€” allow empty string (removes reaction) or a valid unicode rune sequence
 	if emoji != "" && !utf8.ValidString(emoji) {
 		return fmt.Errorf("invalid emoji: not valid UTF-8")
 	}

@@ -1,6 +1,6 @@
 package cable
 
-import whatsapp "github.com/nocodeleaks/quepasa/whatsapp"
+import whatsapp "github.com/inteliagenciadigital/quepasa/whatsapp"
 
 // SessionReadyPayload is the first event delivered after the websocket session
 // becomes authenticated and registered in the hub.

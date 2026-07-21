@@ -1,6 +1,6 @@
 package whatsapp
 
-import library "github.com/nocodeleaks/quepasa/library"
+import library "github.com/inteliagenciadigital/quepasa/library"
 
 const WhatsappWebAppName = "QuePasa"
 
@@ -20,16 +20,16 @@ const WhatsappPTTMime = "audio/ogg; codecs=opus"
 // Mime types that if converted will work as usual
 var WhatsappMIMEAudioPTTCompatible = [...]string{"application/ogg", "audio/ogg", "video/ogg", "audio/opus", "audio/wav", "audio/wave", "audio/x-wav"}
 
-// Mime types for audio messages, tested 1º
+// Mime types for audio messages, tested 1Âº
 var WhatsappMIMEAudio = [...]string{"audio/oga", "audio/ogx", "audio/x-mpeg-3", "audio/mpeg3", "audio/mpeg", "audio/mp4"}
 
-// Mime types for video messages, tested 2º
+// Mime types for video messages, tested 2Âº
 var WhatsappMIMEVideo = [...]string{"video/mp4"}
 
-// Mime types for image messages, tested 3º
+// Mime types for image messages, tested 3Âº
 var WhatsappMIMEImage = [...]string{"image/jpeg", "image/jpg", "image/webp", "image/png"}
 
-// Mime types for document messages, tested 4º
+// Mime types for document messages, tested 4Âº
 var WhatsappMIMEDocument = [...]string{
 	"text/xml", "application/pdf",
 	"application/ogg", "audio/ogg", "audio/wav", "audio/wave", "audio/x-wav", // not accepted anymore as audio msgs, but still compatible for convert to ptt

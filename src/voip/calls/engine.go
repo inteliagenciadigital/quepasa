@@ -13,7 +13,7 @@ import (
 	"sync"
 	"unsafe"
 
-	"github.com/nocodeleaks/quepasa/voip/calls/signaling"
+	"github.com/inteliagenciadigital/quepasa/voip/calls/signaling"
 	"go.mau.fi/whatsmeow"
 	waBinary "go.mau.fi/whatsmeow/binary"
 	"go.mau.fi/whatsmeow/proto/waE2E"
@@ -47,7 +47,7 @@ type engineCall struct {
 	peerLID string
 
 	creator types.JID // call-creator JID (for accept/relaylatency)
-	from    types.JID // the <call> "from" — where stanzas are addressed
+	from    types.JID // the <call> "from" â€” where stanzas are addressed
 
 	direction CallDirection
 	codec     AudioCodec // audio codec for this call, selected from voip_settings (MLow default)
@@ -221,7 +221,7 @@ func (e *engine) placeCall(ctx context.Context, target string) (*Call, error) {
 // OnIncomingCall listener. Only the <accept> is deferred to Answer.
 func (e *engine) onOffer(ev *events.CallOffer) {
 	// A "call ended" notification arrives offer-shaped, carrying is_call_ended/
-	// terminate_reason (e.g. accepted_elsewhere). It is not a live call — engaging it
+	// terminate_reason (e.g. accepted_elsewhere). It is not a live call â€” engaging it
 	// (preaccept/accept) just earns an "accept error 500". Ignore it.
 	oag := ev.Data.AttrGetter()
 	if oag.OptionalString("is_call_ended") == "1" || oag.OptionalString("terminate_reason") != "" {
@@ -267,7 +267,7 @@ func (e *engine) onOffer(ev *events.CallOffer) {
 
 	// Preaccept eagerly: it is a preparation step, done independently of the later
 	// Answer/Reject decision. It keeps the offer alive and joins the relay election while
-	// the integrator decides — even a call the user goes on to decline has usually already
+	// the integrator decides â€” even a call the user goes on to decline has usually already
 	// been preaccepted.
 	if err := e.sendPreaccept(ev.CallID, ev.From, ev.CallCreator); err != nil {
 		e.c.log.WarnE().Err(err).Str("call_id", ev.CallID).Msg("preaccept failed")
@@ -278,9 +278,9 @@ func (e *engine) onOffer(ev *events.CallOffer) {
 	}
 }
 
-// sendPreaccept sends the <preaccept> for an inbound call — a preparation step done
+// sendPreaccept sends the <preaccept> for an inbound call â€” a preparation step done
 // eagerly when the offer arrives (see onOffer), independent of the later Answer/Reject
-// decision. Single rate 16000 + encopt + capability, NO metadata — built inline to match
+// decision. Single rate 16000 + encopt + capability, NO metadata â€” built inline to match
 // the captured WA-Web preaccept body exactly.
 func (e *engine) sendPreaccept(callID string, to, creator types.JID) error {
 	pre := waBinary.Node{
@@ -322,7 +322,7 @@ func (e *engine) answer(c *Call) error {
 }
 
 // sendAccept sends the deferred callee <accept> (once), in the WA-Web format (metadata +
-// single rate — the peer keeps the call alive with this; capability+both-rates fails).
+// single rate â€” the peer keeps the call alive with this; capability+both-rates fails).
 func (e *engine) sendAccept(callID string, to, creator types.JID) {
 	e.mu.Lock()
 	m := e.calls[callID]
@@ -405,7 +405,7 @@ func (e *engine) onRelay(callID string, data *waBinary.Node) {
 }
 
 // onRelayLatency answers the caller's relaylatency probes (the callee's half of the
-// relay election). It does NOT send the accept — that is deferred until <mute_v2>.
+// relay election). It does NOT send the accept â€” that is deferred until <mute_v2>.
 func (e *engine) onRelayLatency(ev *events.CallRelayLatency) {
 	m := e.lookup(ev.CallID)
 	if m == nil || m.direction != CallDirectionIncoming {
@@ -527,9 +527,9 @@ func (e *engine) onCallRaw(callNode *waBinary.Node) {
 	if callID == "" {
 		return
 	}
-	// The deferred <accept> fires on the FIRST mute_v2 only — it arrives right after
+	// The deferred <accept> fires on the FIRST mute_v2 only â€” it arrives right after
 	// the relaylatency/transport. Later mute_v2 nodes are in-call mute-state changes
-	// (e.g. 1→0) and must not re-run the accept path on an already-accepted call.
+	// (e.g. 1â†’0) and must not re-run the accept path on an already-accepted call.
 	e.mu.Lock()
 	m := e.calls[callID]
 	pending := m != nil && m.acceptPending
@@ -572,8 +572,8 @@ func (e *engine) stopMedia(callID string) {
 
 // installCallAckHook injects an "ack" entry into whatsmeow's unexported nodeHandlers map
 // and wraps the "call" handler so the engine also sees the raw <call> node (with its
-// stanza id, which the CallOffer event drops). whatsmeow has no <ack> handler — it
-// silently drops <ack> nodes — but an outbound call's relay allocation arrives only
+// stanza id, which the CallOffer event drops). whatsmeow has no <ack> handler â€” it
+// silently drops <ack> nodes â€” but an outbound call's relay allocation arrives only
 // inside <ack class="call" type="offer">, so without intercepting it the caller never
 // learns the relay endpoint and media never starts. Called before Connect so the map
 // write never races the receive loop.
@@ -619,7 +619,7 @@ func parseCallTarget(target string) (types.JID, error) {
 }
 
 // resolvePeerLID turns a target (phone number, phone JID, or @lid JID) into the peer's
-// LID — the address the call's E2E keys and SSRCs derive from. A LID is used directly;
+// LID â€” the address the call's E2E keys and SSRCs derive from. A LID is used directly;
 // a phone JID is mapped via the LID store, seeded by a usync query if not cached.
 func resolvePeerLID(ctx context.Context, cli *whatsmeow.Client, target string) (types.JID, error) {
 	jid, err := parseCallTarget(target)
@@ -627,7 +627,7 @@ func resolvePeerLID(ctx context.Context, cli *whatsmeow.Client, target string) (
 		return types.EmptyJID, err
 	}
 	if jid.Server == types.HiddenUserServer {
-		return jid, nil // already a LID — call it directly
+		return jid, nil // already a LID â€” call it directly
 	}
 	if lid, err := cli.Store.LIDs.GetLIDForPN(ctx, jid); err == nil && !lid.IsEmpty() {
 		return lid, nil
@@ -734,8 +734,8 @@ type relayEndpoint struct {
 }
 
 type relayData struct {
-	relayKeyASCII []byte   // raw <key> content — the STUN MESSAGE-INTEGRITY key
-	relayTokens   [][]byte // indexed <token id=…>
+	relayKeyASCII []byte   // raw <key> content â€” the STUN MESSAGE-INTEGRITY key
+	relayTokens   [][]byte // indexed <token id=â€¦>
 	endpoints     []relayEndpoint
 }
 
@@ -873,7 +873,7 @@ func parseRelayData(node *waBinary.Node) *relayData {
 	return rd
 }
 
-// getMediaRelayEndpoint prefers an outbound (non-FNA, auth_token_id≠0) endpoint, else
+// getMediaRelayEndpoint prefers an outbound (non-FNA, auth_token_idâ‰ 0) endpoint, else
 // any non-FNA, else the first.
 func getMediaRelayEndpoint(rd *relayData) *relayEndpoint {
 	for i := range rd.endpoints {

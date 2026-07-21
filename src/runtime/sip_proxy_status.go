@@ -1,13 +1,13 @@
 package runtime
 
 import (
-	environment "github.com/nocodeleaks/quepasa/environment"
-	sipproxy "github.com/nocodeleaks/quepasa/sipproxy"
+	environment "github.com/inteliagenciadigital/quepasa/environment"
+	sipproxy "github.com/inteliagenciadigital/quepasa/sipproxy"
 )
 
 // SIPProxyStatus is the business view of the SIP proxy: whether it is configured
 // (via environment) and whether the live proxy is currently running. It never
-// carries secrets — host/port are operational info already exposed to operators.
+// carries secrets â€” host/port are operational info already exposed to operators.
 type SIPProxyStatus struct {
 	Configured bool   `json:"configured"`
 	Running    bool   `json:"running"`

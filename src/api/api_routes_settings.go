@@ -8,8 +8,8 @@ import (
 	"strings"
 
 	"github.com/go-chi/chi/v5"
-	environment "github.com/nocodeleaks/quepasa/environment"
-	models "github.com/nocodeleaks/quepasa/models"
+	environment "github.com/inteliagenciadigital/quepasa/environment"
+	models "github.com/inteliagenciadigital/quepasa/models"
 )
 
 // dispatchTypesToCSV renders the env DispatchTypes set as a sorted CSV string for display.

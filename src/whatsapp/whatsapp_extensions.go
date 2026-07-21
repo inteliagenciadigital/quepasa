@@ -5,8 +5,8 @@ import (
 	"regexp"
 	"strings"
 
-	library "github.com/nocodeleaks/quepasa/library"
-	log "github.com/nocodeleaks/quepasa/qplog"
+	library "github.com/inteliagenciadigital/quepasa/library"
+	log "github.com/inteliagenciadigital/quepasa/qplog"
 )
 
 // Helper function to convert phone numbers or partial WIDs to full WIDs
@@ -32,7 +32,7 @@ func PhoneToWid(source string) (destination string) {
 	return
 }
 
-// Formata um texto qualquer em formato de destino válido para o sistema do whatsapp
+// Formata um texto qualquer em formato de destino vÃ¡lido para o sistema do whatsapp
 func FormatEndpoint(source string) (destination string, err error) {
 
 	// removing whitespaces

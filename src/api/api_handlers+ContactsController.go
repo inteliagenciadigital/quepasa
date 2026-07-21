@@ -4,7 +4,7 @@ import (
 	"net/http"
 	"sort"
 
-	apiModels "github.com/nocodeleaks/quepasa/api/models"
+	apiModels "github.com/inteliagenciadigital/quepasa/api/models"
 )
 
 //region CONTROLLER - CONTACTS

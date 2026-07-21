@@ -8,7 +8,7 @@ import (
 	"strings"
 	"time"
 
-	log "github.com/nocodeleaks/quepasa/qplog"
+	log "github.com/inteliagenciadigital/quepasa/qplog"
 )
 
 // LogsTool implements log analysis tool for MCP (master key only)

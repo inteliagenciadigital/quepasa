@@ -5,7 +5,7 @@ import (
 	"crypto/sha1"
 	"encoding/binary"
 
-	qplog "github.com/nocodeleaks/quepasa/qplog"
+	qplog "github.com/inteliagenciadigital/quepasa/qplog"
 )
 
 // WARP RTP extension constants and the WARP MESSAGE-INTEGRITY tag (HMAC-SHA1

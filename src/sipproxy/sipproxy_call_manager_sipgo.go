@@ -9,7 +9,7 @@ import (
 
 	"github.com/emiago/sipgo"
 	"github.com/emiago/sipgo/sip"
-	qplog "github.com/nocodeleaks/quepasa/qplog"
+	qplog "github.com/inteliagenciadigital/quepasa/qplog"
 )
 
 // CallState represents the current state of a SIP call
@@ -67,12 +67,12 @@ type SIPCallManagerSipgo struct {
 	onCallAccepted   SIPCallAcceptedCallback   // Callback for call acceptance
 	onCallTerminated SIPCallTerminatedCallback // Callback for remote SIP termination
 	handlerMutex     sync.RWMutex              // Protect handler maps
-	// localRTPPorts maps callID → the local UDP port the audio bridge listens
+	// localRTPPorts maps callID â†’ the local UDP port the audio bridge listens
 	// on for this call's SIP RTP. CreateSDPOffer advertises this exact port so
 	// the SIP server sends its RTP to the socket the bridge actually reads.
 	localRTPPorts sync.Map
-	// remoteRTPAddrs maps callID → the SIP server's RTP address ("ip:port")
-	// parsed from the 200 OK SDP answer. The audio bridge sends its WhatsApp→SIP
+	// remoteRTPAddrs maps callID â†’ the SIP server's RTP address ("ip:port")
+	// parsed from the 200 OK SDP answer. The audio bridge sends its WhatsAppâ†’SIP
 	// RTP here from the start, so the SIP server (which may itself wait for our
 	// RTP before sending) doesn't deadlock waiting on us.
 	remoteRTPAddrs sync.Map
@@ -137,7 +137,7 @@ func NewSIPCallManagerSipgo(logger qplog.Logger, config SIPProxySettings, networ
 	if !networkManager.IsConfigured() {
 		err := networkManager.ConfigureNetwork()
 		if err != nil {
-			logger.Errorf("❌ Failed to configure network: %v", err)
+			logger.Errorf("âŒ Failed to configure network: %v", err)
 			return nil
 		}
 	}
@@ -153,13 +153,13 @@ func NewSIPCallManagerSipgo(logger qplog.Logger, config SIPProxySettings, networ
 	listenAddr := sipWildcardListenAddr(localPort)
 
 	// LOG CONFIGURATION VALUES FOR DEBUGGING
-	logger.Infof("🔍 SIPGO CONFIGURATION DEBUG:")
-	logger.Infof("   🌐 ServerHost: %s", config.ServerHost)
-	logger.Infof("   🌐 ServerPort: %d", config.ServerPort)
-	logger.Infof("   🏠 LocalIP: %s", localIP)
-	logger.Infof("   🏠 LocalPort: %d", localPort)
-	logger.Infof("   🏠 PublicIP: %s", publicIP)
-	logger.Infof("   🏷️ UserAgent: %s", userAgentName)
+	logger.Infof("ðŸ” SIPGO CONFIGURATION DEBUG:")
+	logger.Infof("   ðŸŒ ServerHost: %s", config.ServerHost)
+	logger.Infof("   ðŸŒ ServerPort: %d", config.ServerPort)
+	logger.Infof("   ðŸ  LocalIP: %s", localIP)
+	logger.Infof("   ðŸ  LocalPort: %d", localPort)
+	logger.Infof("   ðŸ  PublicIP: %s", publicIP)
+	logger.Infof("   ðŸ·ï¸ UserAgent: %s", userAgentName)
 
 	// Initialize sipgo UserAgent with complete configuration
 	ua, err := sipgo.NewUA(
@@ -167,27 +167,27 @@ func NewSIPCallManagerSipgo(logger qplog.Logger, config SIPProxySettings, networ
 		sipgo.WithUserAgentHostname(publicIP),
 	)
 	if err != nil {
-		logger.Errorf("❌ Failed to create sipgo UserAgent: %v", err)
+		logger.Errorf("âŒ Failed to create sipgo UserAgent: %v", err)
 		return nil
 	}
 
-	logger.Infof("✅ UserAgent configured: %s@%s:%d", userAgentName, publicIP, localPort)
+	logger.Infof("âœ… UserAgent configured: %s@%s:%d", userAgentName, publicIP, localPort)
 
 	// Create sipgo Client with explicit wildcard listen address. The server
 	// listener below uses the same address/port so inbound OPTIONS/INVITE/BYE
 	// can arrive on any IPv4 or IPv6 interface.
 	client, err := sipgo.NewClient(ua, sipgo.WithClientAddr(listenAddr))
 	if err != nil {
-		logger.Errorf("❌ Failed to create sipgo Client with addr %s: %v", listenAddr, err)
+		logger.Errorf("âŒ Failed to create sipgo Client with addr %s: %v", listenAddr, err)
 		// Fallback to default client if binding fails
 		client, err = sipgo.NewClient(ua)
 		if err != nil {
-			logger.Errorf("❌ Failed to create sipgo Client even with fallback: %v", err)
+			logger.Errorf("âŒ Failed to create sipgo Client even with fallback: %v", err)
 			return nil
 		}
-		logger.Warnf("⚠️ Using default client binding, Via header may show wildcard address")
+		logger.Warnf("âš ï¸ Using default client binding, Via header may show wildcard address")
 	} else {
-		logger.Infof("🌐 SIP Client bound to wildcard address: %s", listenAddr)
+		logger.Infof("ðŸŒ SIP Client bound to wildcard address: %s", listenAddr)
 	}
 
 	// Create contact header for this client using UserAgent name
@@ -205,7 +205,7 @@ func NewSIPCallManagerSipgo(logger qplog.Logger, config SIPProxySettings, networ
 		ContactHDR: contactHDR,
 	}
 
-	logger.Infof("✅ SIPCallManagerSipgo initialized with sipgo client")
+	logger.Infof("âœ… SIPCallManagerSipgo initialized with sipgo client")
 
 	scm := &SIPCallManagerSipgo{
 		logger:                 logger,
@@ -228,7 +228,7 @@ func NewSIPCallManagerSipgo(logger qplog.Logger, config SIPProxySettings, networ
 	// and the WhatsApp leg keeps running.
 	server, err := sipgo.NewServer(ua)
 	if err != nil {
-		logger.Errorf("❌ Failed to create sipgo Server for dialog requests: %v", err)
+		logger.Errorf("âŒ Failed to create sipgo Server for dialog requests: %v", err)
 	} else {
 		server.OnInvite(func(req *sip.Request, tx sip.ServerTransaction) {
 			scm.handleIncomingInvite(req, tx)
@@ -243,7 +243,7 @@ func NewSIPCallManagerSipgo(logger qplog.Logger, config SIPProxySettings, networ
 			scm.handleRemoteCancel(req, tx)
 		})
 		scm.sipServer = server
-		logger.Infof("✅ SIP request handlers registered")
+		logger.Infof("âœ… SIP request handlers registered")
 	}
 
 	return scm
@@ -294,7 +294,7 @@ func (scm *SIPCallManagerSipgo) StartListener() error {
 		scm.listenerCancel = cancel
 		scm.listenerDone = done
 		scm.listenerAddr = fmt.Sprintf("%s/%s", protocol, listenAddr)
-		scm.logger.Infof("✅ SIP listener started on %s", scm.listenerAddr)
+		scm.logger.Infof("âœ… SIP listener started on %s", scm.listenerAddr)
 		return nil
 	}
 }
@@ -319,10 +319,10 @@ func (scm *SIPCallManagerSipgo) StopListener() {
 		select {
 		case <-done:
 		case <-time.After(2 * time.Second):
-			scm.logger.Warnf("⚠️ SIP listener did not stop cleanly within timeout: %s", addr)
+			scm.logger.Warnf("âš ï¸ SIP listener did not stop cleanly within timeout: %s", addr)
 		}
 	}
-	scm.logger.Infof("✅ SIP listener stopped: %s", addr)
+	scm.logger.Infof("âœ… SIP listener stopped: %s", addr)
 }
 
 // InitiateCallSipgo starts a new SIP call using sipgo
@@ -333,10 +333,10 @@ func (scm *SIPCallManagerSipgo) InitiateCallSipgo(callID, fromPhone, toPhone str
 // InitiateCallSipgoWithHeaders starts a new SIP call using sipgo and attaches
 // additional SIP headers to the outbound INVITE.
 func (scm *SIPCallManagerSipgo) InitiateCallSipgoWithHeaders(callID, fromPhone, toPhone string, extraHeaders map[string]string) error {
-	scm.logger.Infof("🚀 Initiating SIP call using sipgo: %s → %s (CallID: %s)", fromPhone, toPhone, callID)
+	scm.logger.Infof("ðŸš€ Initiating SIP call using sipgo: %s â†’ %s (CallID: %s)", fromPhone, toPhone, callID)
 
 	// =========================================================================
-	// 🚫 CHECK IF CALL ALREADY EXISTS - PREVENT DUPLICATES
+	// ðŸš« CHECK IF CALL ALREADY EXISTS - PREVENT DUPLICATES
 	// =========================================================================
 	scm.callsMutex.RLock()
 	existingCall, exists := scm.activeCalls[callID]
@@ -346,20 +346,20 @@ func (scm *SIPCallManagerSipgo) InitiateCallSipgoWithHeaders(callID, fromPhone, 
 	}
 	scm.callsMutex.RUnlock()
 	if exists {
-		scm.logger.Warnf("⚠️ DUPLICATE CALL PREVENTION: CallID %s already exists (From=%s To=%s)", callID, exFrom, exTo)
+		scm.logger.Warnf("âš ï¸ DUPLICATE CALL PREVENTION: CallID %s already exists (From=%s To=%s)", callID, exFrom, exTo)
 
 		// If it's the exact same call parameters, just return success
 		if exFrom == fromPhone && exTo == toPhone {
-			scm.logger.Infof("✅ Call with same parameters already exists, skipping duplicate")
+			scm.logger.Infof("âœ… Call with same parameters already exists, skipping duplicate")
 			return nil
 		}
-		scm.logger.Errorf("❌ CallID conflict: different call parameters for same CallID")
+		scm.logger.Errorf("âŒ CallID conflict: different call parameters for same CallID")
 		return fmt.Errorf("CallID %s already exists with different parameters", callID)
 	}
 
 	// Ensure network is configured
 	if !scm.networkManager.IsConfigured() {
-		scm.logger.Infof("🌐 Network not configured, setting up...")
+		scm.logger.Infof("ðŸŒ Network not configured, setting up...")
 		if err := scm.networkManager.ConfigureNetwork(); err != nil {
 			return fmt.Errorf("failed to configure network: %v", err)
 		}
@@ -386,7 +386,7 @@ func (scm *SIPCallManagerSipgo) InitiateCallSipgoWithHeaders(callID, fromPhone, 
 	if _, dup := scm.activeCalls[callID]; dup {
 		scm.callsMutex.Unlock()
 		cancel()
-		scm.logger.Infof("✅ Call %s registered concurrently, skipping duplicate", callID)
+		scm.logger.Infof("âœ… Call %s registered concurrently, skipping duplicate", callID)
 		return nil
 	}
 	scm.activeCalls[callID] = callInfo
@@ -418,7 +418,7 @@ func (scm *SIPCallManagerSipgo) InitiateCallSipgoWithHeaders(callID, fromPhone, 
 	// Content-Type MUST be application/sdp so the SIP server treats the body as
 	// the SDP offer. Without it, asterisk ignores the offer, puts its own offer
 	// in the 200 OK, and then aborts the dialog with "incomplete SDP
-	// negotiation" when our ACK carries no answer — an immediate BYE after ACK.
+	// negotiation" when our ACK carries no answer â€” an immediate BYE after ACK.
 	ctype := sip.ContentTypeHeader("application/sdp")
 	headers = append(headers, &ctype)
 
@@ -441,7 +441,7 @@ func (scm *SIPCallManagerSipgo) InitiateCallSipgoWithHeaders(callID, fromPhone, 
 
 	// Concise per-call line at info level. The WhatsApp Call-ID is reused as the
 	// SIP Call-ID, so a single identifier tracks both legs.
-	scm.logger.Infof("📞 SIP INVITE → %s (Call-ID: %s)", inviteReq.Recipient.String(), callID)
+	scm.logger.Infof("ðŸ“ž SIP INVITE â†’ %s (Call-ID: %s)", inviteReq.Recipient.String(), callID)
 
 	// The full INVITE (all headers + SDP) is verbose; emit it once at debug
 	// level only, as a single message, instead of one info line per header/line.
@@ -456,7 +456,7 @@ func (scm *SIPCallManagerSipgo) InitiateCallSipgoWithHeaders(callID, fromPhone, 
 	// Start monitoring the dialog session responses
 	go scm.monitorSipgoDialog(callInfo, dialogSession)
 
-	scm.logger.Infof("✅ SIP INVITE sent using sipgo DialogUA, CallID: %s", callID)
+	scm.logger.Infof("âœ… SIP INVITE sent using sipgo DialogUA, CallID: %s", callID)
 
 	return nil
 }
@@ -471,7 +471,7 @@ func (scm *SIPCallManagerSipgo) updateCallState(callID string, state CallState) 
 	}
 	scm.callsMutex.Unlock()
 	if exists {
-		scm.logger.Infof("🔄 Call %s state updated to: %v", callID, state)
+		scm.logger.Infof("ðŸ”„ Call %s state updated to: %v", callID, state)
 	}
 }
 
@@ -487,7 +487,7 @@ func (scm *SIPCallManagerSipgo) cleanupCall(callID string) {
 	}
 	scm.callsMutex.Unlock()
 	if exists {
-		scm.logger.Infof("🧹 Call %s cleaned up", callID)
+		scm.logger.Infof("ðŸ§¹ Call %s cleaned up", callID)
 	}
 
 	// Also clean up the cancel call counter
@@ -521,7 +521,7 @@ func (scm *SIPCallManagerSipgo) handleRemoteBye(req *sip.Request, tx sip.ServerT
 		return
 	}
 
-	scm.logger.Infof("📞⬅️ SIP BYE received from remote side (Call-ID: %s)", callID)
+	scm.logger.Infof("ðŸ“žâ¬…ï¸ SIP BYE received from remote side (Call-ID: %s)", callID)
 	if callInfo.DialogSession != nil {
 		if err := callInfo.DialogSession.ReadBye(req, tx); err != nil {
 			scm.logger.Errorf("failed to handle remote SIP BYE (Call-ID: %s): %v", callID, err)
@@ -561,7 +561,7 @@ func (scm *SIPCallManagerSipgo) handleRemoteCancel(req *sip.Request, tx sip.Serv
 		return
 	}
 
-	scm.logger.Infof("📞⬅️ SIP CANCEL received from remote side (Call-ID: %s)", callID)
+	scm.logger.Infof("ðŸ“žâ¬…ï¸ SIP CANCEL received from remote side (Call-ID: %s)", callID)
 	if err := tx.Respond(sip.NewResponseFromRequest(req, sip.StatusOK, "OK", nil)); err != nil {
 		scm.logger.Errorf("failed to respond remote SIP CANCEL (Call-ID: %s): %v", callID, err)
 		return
@@ -656,12 +656,12 @@ func (scm *SIPCallManagerSipgo) monitorSipgoDialog(callInfo *CallInfo, dialogSes
 		return
 	}
 
-	// 200 OK — the SIP server accepted the call.
-	scm.logger.Infof("✅ SIP 200 OK accepted (Call-ID: %s)", callInfo.CallID)
+	// 200 OK â€” the SIP server accepted the call.
+	scm.logger.Infof("âœ… SIP 200 OK accepted (Call-ID: %s)", callInfo.CallID)
 	scm.updateCallState(callInfo.CallID, CallStateAccepted)
 
 	// Publish the SIP server's RTP address from the 200 OK SDP answer so the
-	// audio bridge can start sending WhatsApp→SIP RTP immediately (breaking the
+	// audio bridge can start sending WhatsAppâ†’SIP RTP immediately (breaking the
 	// mutual "wait for the other side's RTP" deadlock).
 	if dialogSession.InviteResponse != nil {
 		if addr, ok := parseSDPRTPAddr(string(dialogSession.InviteResponse.Body())); ok {
@@ -695,7 +695,7 @@ func (scm *SIPCallManagerSipgo) monitorSipgoDialog(callInfo *CallInfo, dialogSes
 
 	// Call stays active; managed by SIP server and WhatsApp events. Stop
 	// monitoring here to avoid callback loops.
-	scm.logger.Infof("📞 SIP call active (Call-ID: %s)", callInfo.CallID)
+	scm.logger.Infof("ðŸ“ž SIP call active (Call-ID: %s)", callInfo.CallID)
 }
 
 // GetActiveCalls returns the list of active call IDs
@@ -712,62 +712,62 @@ func (scm *SIPCallManagerSipgo) GetActiveCalls() []string {
 // CancelCall cancels an active call by sending BYE/CANCEL to SIP server
 func (scm *SIPCallManagerSipgo) CancelCall(callID string) error {
 	callCount := scm.getCancelCallCount(callID)
-	scm.logger.Infof("🔥🔥🔥 [CANCEL-CALL-ENTRY] CallID: %s - Entry #%d", callID, callCount)
+	scm.logger.Infof("ðŸ”¥ðŸ”¥ðŸ”¥ [CANCEL-CALL-ENTRY] CallID: %s - Entry #%d", callID, callCount)
 
 	// Get call info
 	scm.callsMutex.RLock()
 	callInfo, exists := scm.activeCalls[callID]
 	scm.callsMutex.RUnlock()
 	if !exists {
-		scm.logger.Warnf("📞⚠️ Call %s not found for cancellation - may have been removed already", callID)
+		scm.logger.Warnf("ðŸ“žâš ï¸ Call %s not found for cancellation - may have been removed already", callID)
 		return nil // Not an error, call was already cleaned up
 	}
 
 	// =========================================================================
-	// 🚫 SEND ACTUAL SIP BYE/CANCEL TO SERVER
+	// ðŸš« SEND ACTUAL SIP BYE/CANCEL TO SERVER
 	// =========================================================================
 	if callInfo.DialogSession != nil {
-		scm.logger.Infof("📞🚫 [BYE-SEND] Sending SIP BYE to server for call: %s (attempt #%d)", callID, callCount)
+		scm.logger.Infof("ðŸ“žðŸš« [BYE-SEND] Sending SIP BYE to server for call: %s (attempt #%d)", callID, callCount)
 
 		// Create context for BYE request
 		ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 		defer cancel()
 
 		// =========================================================================
-		// 🔍 WRAPPED BYE CALL WITH DETAILED LOGGING
+		// ðŸ” WRAPPED BYE CALL WITH DETAILED LOGGING
 		// =========================================================================
-		scm.logger.Infof("🔥 [BYE-CALL] About to call DialogSession.Bye() for CallID: %s", callID)
+		scm.logger.Infof("ðŸ”¥ [BYE-CALL] About to call DialogSession.Bye() for CallID: %s", callID)
 
 		// Send BYE request to terminate the SIP session
 		err := callInfo.DialogSession.Bye(ctx)
 
-		scm.logger.Infof("🔥 [BYE-RETURN] DialogSession.Bye() returned for CallID: %s, err: %v", callID, err)
+		scm.logger.Infof("ðŸ”¥ [BYE-RETURN] DialogSession.Bye() returned for CallID: %s, err: %v", callID, err)
 
 		if err != nil {
-			scm.logger.Errorf("❌ Failed to send SIP BYE for call %s: %v", callID, err)
+			scm.logger.Errorf("âŒ Failed to send SIP BYE for call %s: %v", callID, err)
 			// Continue with cleanup even if BYE fails
 		} else {
-			scm.logger.Infof("✅ [BYE-SUCCESS] SIP BYE sent successfully for call: %s (attempt #%d)", callID, callCount)
+			scm.logger.Infof("âœ… [BYE-SUCCESS] SIP BYE sent successfully for call: %s (attempt #%d)", callID, callCount)
 		}
 	} else if callInfo.ServerDialogSession != nil {
-		scm.logger.Infof("📞🚫 [BYE-SEND] Sending SIP BYE to caller for inbound dialog: %s (attempt #%d)", callID, callCount)
+		scm.logger.Infof("ðŸ“žðŸš« [BYE-SEND] Sending SIP BYE to caller for inbound dialog: %s (attempt #%d)", callID, callCount)
 
 		ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 		defer cancel()
 
 		err := callInfo.ServerDialogSession.Bye(ctx)
 		if err != nil {
-			scm.logger.Errorf("❌ Failed to send inbound-dialog SIP BYE for call %s: %v", callID, err)
+			scm.logger.Errorf("âŒ Failed to send inbound-dialog SIP BYE for call %s: %v", callID, err)
 		} else {
-			scm.logger.Infof("✅ [BYE-SUCCESS] inbound-dialog SIP BYE sent successfully for call: %s (attempt #%d)", callID, callCount)
+			scm.logger.Infof("âœ… [BYE-SUCCESS] inbound-dialog SIP BYE sent successfully for call: %s (attempt #%d)", callID, callCount)
 		}
 	} else {
-		scm.logger.Warnf("⚠️ No DialogSession available for call %s - cannot send SIP BYE", callID)
+		scm.logger.Warnf("âš ï¸ No DialogSession available for call %s - cannot send SIP BYE", callID)
 	}
 
 	// Clean up local call data
 	scm.cleanupCall(callID)
-	scm.logger.Infof("🧹 Call %s cleaned up", callID)
+	scm.logger.Infof("ðŸ§¹ Call %s cleaned up", callID)
 
 	return nil
 }
@@ -778,7 +778,7 @@ func (scm *SIPCallManagerSipgo) SetCallRejectedHandler(handler SIPCallRejectedCa
 	scm.handlerMutex.Lock()
 	defer scm.handlerMutex.Unlock()
 	scm.onCallRejected = handler
-	scm.logger.Infof("📞❌ GLOBAL call rejection handler configured for sipgo manager")
+	scm.logger.Infof("ðŸ“žâŒ GLOBAL call rejection handler configured for sipgo manager")
 }
 
 // SetCallAcceptedHandler configures the GLOBAL callback for when SIP calls are accepted
@@ -787,7 +787,7 @@ func (scm *SIPCallManagerSipgo) SetCallAcceptedHandler(handler SIPCallAcceptedCa
 	scm.handlerMutex.Lock()
 	defer scm.handlerMutex.Unlock()
 	scm.onCallAccepted = handler
-	scm.logger.Infof("📞✅ GLOBAL call acceptance handler configured for sipgo manager")
+	scm.logger.Infof("ðŸ“žâœ… GLOBAL call acceptance handler configured for sipgo manager")
 }
 
 // SetCallTerminatedHandler configures the GLOBAL callback for when the remote
@@ -796,7 +796,7 @@ func (scm *SIPCallManagerSipgo) SetCallTerminatedHandler(handler SIPCallTerminat
 	scm.handlerMutex.Lock()
 	defer scm.handlerMutex.Unlock()
 	scm.onCallTerminated = handler
-	scm.logger.Infof("📞⬅️ GLOBAL remote termination handler configured for sipgo manager")
+	scm.logger.Infof("ðŸ“žâ¬…ï¸ GLOBAL remote termination handler configured for sipgo manager")
 }
 
 // RegisterCallAcceptedHandler registers a callback for a SPECIFIC call ID
@@ -808,7 +808,7 @@ func (scm *SIPCallManagerSipgo) RegisterCallAcceptedHandler(callID string, handl
 		scm.callAcceptedHandlers[callID] = make([]SIPCallAcceptedCallback, 0)
 	}
 	scm.callAcceptedHandlers[callID] = append(scm.callAcceptedHandlers[callID], handler)
-	scm.logger.Infof("📞✅ Per-call acceptance handler registered for CallID: %s (total: %d)", callID, len(scm.callAcceptedHandlers[callID]))
+	scm.logger.Infof("ðŸ“žâœ… Per-call acceptance handler registered for CallID: %s (total: %d)", callID, len(scm.callAcceptedHandlers[callID]))
 }
 
 // RegisterCallRejectedHandler registers a callback for a SPECIFIC call ID
@@ -820,7 +820,7 @@ func (scm *SIPCallManagerSipgo) RegisterCallRejectedHandler(callID string, handl
 		scm.callRejectedHandlers[callID] = make([]SIPCallRejectedCallback, 0)
 	}
 	scm.callRejectedHandlers[callID] = append(scm.callRejectedHandlers[callID], handler)
-	scm.logger.Infof("📞❌ Per-call rejection handler registered for CallID: %s (total: %d)", callID, len(scm.callRejectedHandlers[callID]))
+	scm.logger.Infof("ðŸ“žâŒ Per-call rejection handler registered for CallID: %s (total: %d)", callID, len(scm.callRejectedHandlers[callID]))
 }
 
 // RegisterCallTerminatedHandler registers a callback for a SPECIFIC call ID
@@ -832,7 +832,7 @@ func (scm *SIPCallManagerSipgo) RegisterCallTerminatedHandler(callID string, han
 		scm.callTerminatedHandlers[callID] = make([]SIPCallTerminatedCallback, 0)
 	}
 	scm.callTerminatedHandlers[callID] = append(scm.callTerminatedHandlers[callID], handler)
-	scm.logger.Infof("📞⬅️ Per-call remote termination handler registered for CallID: %s (total: %d)", callID, len(scm.callTerminatedHandlers[callID]))
+	scm.logger.Infof("ðŸ“žâ¬…ï¸ Per-call remote termination handler registered for CallID: %s (total: %d)", callID, len(scm.callTerminatedHandlers[callID]))
 }
 
 // ClearCallHandlers removes transient acceptance/rejection handlers for a
@@ -842,7 +842,7 @@ func (scm *SIPCallManagerSipgo) ClearCallHandlers(callID string) {
 	defer scm.handlerMutex.Unlock()
 	delete(scm.callAcceptedHandlers, callID)
 	delete(scm.callRejectedHandlers, callID)
-	scm.logger.Infof("📞🧹 Cleared handlers for CallID: %s", callID)
+	scm.logger.Infof("ðŸ“žðŸ§¹ Cleared handlers for CallID: %s", callID)
 }
 
 func (scm *SIPCallManagerSipgo) clearAllCallHandlers(callID string) {
@@ -862,7 +862,7 @@ func (scm *SIPCallManagerSipgo) invokeCallAcceptedHandlers(callID, fromPhone, to
 
 	handlerCalled := false
 	for _, handler := range perCallHandlers {
-		scm.logger.Infof("📞✅ Calling per-call acceptance handler for CallID: %s", callID)
+		scm.logger.Infof("ðŸ“žâœ… Calling per-call acceptance handler for CallID: %s", callID)
 		handler(callID, fromPhone, toPhone, resp)
 		handlerCalled = true
 	}
@@ -878,7 +878,7 @@ func (scm *SIPCallManagerSipgo) invokeCallRejectedHandlers(callID, fromPhone, to
 
 	handlerCalled := false
 	for _, handler := range perCallHandlers {
-		scm.logger.Infof("📞❌ Calling per-call rejection handler for CallID: %s", callID)
+		scm.logger.Infof("ðŸ“žâŒ Calling per-call rejection handler for CallID: %s", callID)
 		handler(callID, fromPhone, toPhone, resp)
 		handlerCalled = true
 	}
@@ -886,7 +886,7 @@ func (scm *SIPCallManagerSipgo) invokeCallRejectedHandlers(callID, fromPhone, to
 }
 
 // =========================================================================
-// 🔢 CANCEL CALL COUNTER METHODS (for debugging multiple BYEs)
+// ðŸ”¢ CANCEL CALL COUNTER METHODS (for debugging multiple BYEs)
 // =========================================================================
 
 // getCancelCallCount gets and increments the cancel call counter for a CallID

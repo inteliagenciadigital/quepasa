@@ -6,9 +6,9 @@ import (
 	"reflect"
 	"time"
 
-	"github.com/nocodeleaks/quepasa/library"
-	"github.com/nocodeleaks/quepasa/whatsapp"
-	log "github.com/nocodeleaks/quepasa/qplog"
+	"github.com/inteliagenciadigital/quepasa/library"
+	"github.com/inteliagenciadigital/quepasa/whatsapp"
+	log "github.com/inteliagenciadigital/quepasa/qplog"
 )
 
 /*

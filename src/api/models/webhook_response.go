@@ -1,6 +1,6 @@
 package api
 
-import models "github.com/nocodeleaks/quepasa/models"
+import models "github.com/inteliagenciadigital/quepasa/models"
 
 // WebhookResponse is the API transport shape for webhook configuration endpoints.
 type WebhookResponse struct {

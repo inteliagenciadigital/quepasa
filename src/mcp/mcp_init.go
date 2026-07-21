@@ -2,8 +2,8 @@ package mcp
 
 import (
 	"github.com/go-chi/chi/v5"
-	webserver "github.com/nocodeleaks/quepasa/webserver"
-	log "github.com/nocodeleaks/quepasa/qplog"
+	webserver "github.com/inteliagenciadigital/quepasa/webserver"
+	log "github.com/inteliagenciadigital/quepasa/qplog"
 )
 
 var mcpServerInstance *MCPServer

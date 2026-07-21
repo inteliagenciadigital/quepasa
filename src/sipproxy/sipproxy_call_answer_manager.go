@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"time"
 
-	qplog "github.com/nocodeleaks/quepasa/qplog"
+	qplog "github.com/inteliagenciadigital/quepasa/qplog"
 )
 
 // SIPProxyCallAnswerManager manages call answering operations
@@ -26,29 +26,29 @@ func NewSIPProxyCallAnswerManager(proxy *SIPProxyManager) *SIPProxyCallAnswerMan
 }
 
 // AnswerCall answers an incoming WhatsApp call
-// fromPhone = quem está ligando (ex: 557138388109)
-// callID = identificador único da chamada (ex: BE88BDBDA5C0C1E75D7BD0F8E0E10EBF)
+// fromPhone = quem estÃ¡ ligando (ex: 557138388109)
+// callID = identificador Ãºnico da chamada (ex: BE88BDBDA5C0C1E75D7BD0F8E0E10EBF)
 // DEPRECATED: Use AnswerCallWithReceiver instead for correct toPhone parameter
 func (cam *SIPProxyCallAnswerManager) AnswerCall(fromPhone, callID string) error {
-	cam.logger.Errorf("❌ DEPRECATED: AnswerCall called without receiver number!")
-	cam.logger.Errorf("❌ This method is deprecated - use AnswerCallWithReceiver instead")
+	cam.logger.Errorf("âŒ DEPRECATED: AnswerCall called without receiver number!")
+	cam.logger.Errorf("âŒ This method is deprecated - use AnswerCallWithReceiver instead")
 	return fmt.Errorf("AnswerCall is deprecated - missing receiver phone number")
 }
 
 // AnswerCallWithReceiver answers an incoming WhatsApp call with explicit receiver number
-// fromPhone = quem está ligando (ex: 557138388109)
-// toPhone = número do WhatsApp que está recebendo (ex: 5521967609494)
-// callID = identificador único da chamada (ex: BE88BDBDA5C0C1E75D7BD0F8E0E10EBF)
+// fromPhone = quem estÃ¡ ligando (ex: 557138388109)
+// toPhone = nÃºmero do WhatsApp que estÃ¡ recebendo (ex: 5521967609494)
+// callID = identificador Ãºnico da chamada (ex: BE88BDBDA5C0C1E75D7BD0F8E0E10EBF)
 func (cam *SIPProxyCallAnswerManager) AnswerCallWithReceiver(fromPhone, toPhone, callID string) error {
-	cam.logger.Infof("📞 Answering call from %s to %s (CallID: %s)", fromPhone, toPhone, callID)
+	cam.logger.Infof("ðŸ“ž Answering call from %s to %s (CallID: %s)", fromPhone, toPhone, callID)
 
 	// Send INVITE to SIP proxy with correct parameter order: callID, fromPhone, toPhone
 	if err := cam.proxy.SendSIPInvite(callID, fromPhone, toPhone); err != nil {
-		cam.logger.Errorf("❌ Failed to send SIP INVITE: %v", err)
+		cam.logger.Errorf("âŒ Failed to send SIP INVITE: %v", err)
 		return err
 	}
 
-	cam.logger.Infof("✅ Call answered and forwarded to SIP proxy")
+	cam.logger.Infof("âœ… Call answered and forwarded to SIP proxy")
 	return nil
 }
 

@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"net/http"
 
-	library "github.com/nocodeleaks/quepasa/library"
-	models "github.com/nocodeleaks/quepasa/models"
-	whatsapp "github.com/nocodeleaks/quepasa/whatsapp"
+	library "github.com/inteliagenciadigital/quepasa/library"
+	models "github.com/inteliagenciadigital/quepasa/models"
+	whatsapp "github.com/inteliagenciadigital/quepasa/whatsapp"
 )
 
 // ReactionRequest defines the parameters for sending or removing a message reaction.
@@ -22,7 +22,7 @@ type ReactionRequest struct {
 	// Required to build the correct WhatsApp message key.
 	FromMe bool `json:"fromme"`
 
-	// Emoji is the reaction emoji (e.g. "👍"). Send empty string to remove reaction.
+	// Emoji is the reaction emoji (e.g. "ðŸ‘"). Send empty string to remove reaction.
 	Emoji string `json:"emoji"`
 }
 

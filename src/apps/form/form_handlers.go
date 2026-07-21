@@ -10,13 +10,13 @@ import (
 	jwt "github.com/dgrijalva/jwt-go"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/jwtauth"
-	api "github.com/nocodeleaks/quepasa/api"
-	viewmodel "github.com/nocodeleaks/quepasa/apps/form/viewmodel"
-	environment "github.com/nocodeleaks/quepasa/environment"
-	models "github.com/nocodeleaks/quepasa/models"
-	runtime "github.com/nocodeleaks/quepasa/runtime"
-	webserver "github.com/nocodeleaks/quepasa/webserver"
-	log "github.com/nocodeleaks/quepasa/qplog"
+	api "github.com/inteliagenciadigital/quepasa/api"
+	viewmodel "github.com/inteliagenciadigital/quepasa/apps/form/viewmodel"
+	environment "github.com/inteliagenciadigital/quepasa/environment"
+	models "github.com/inteliagenciadigital/quepasa/models"
+	runtime "github.com/inteliagenciadigital/quepasa/runtime"
+	webserver "github.com/inteliagenciadigital/quepasa/webserver"
+	log "github.com/inteliagenciadigital/quepasa/qplog"
 )
 
 func buildFormPublicEndpoint(suffix string) string {

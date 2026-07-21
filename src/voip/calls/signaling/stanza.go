@@ -3,7 +3,7 @@ package signaling
 import (
 	"strconv"
 
-	qplog "github.com/nocodeleaks/quepasa/qplog"
+	qplog "github.com/inteliagenciadigital/quepasa/qplog"
 	waBinary "go.mau.fi/whatsmeow/binary"
 	"go.mau.fi/whatsmeow/types"
 )
@@ -43,9 +43,9 @@ type OfferParams struct {
 	DeviceIdentity []byte // nil = absent
 }
 
-// BuildOffer builds <call to=peer><offer …>…</offer></call> with the mandatory
-// child order: privacy → audio(8k) → audio(16k) → net → capability →
-// destination|enc → encopt → device-identity.
+// BuildOffer builds <call to=peer><offer â€¦>â€¦</offer></call> with the mandatory
+// child order: privacy â†’ audio(8k) â†’ audio(16k) â†’ net â†’ capability â†’
+// destination|enc â†’ encopt â†’ device-identity.
 func BuildOffer(p *OfferParams, log ...qplog.Logger) waBinary.Node {
 	// Source of truth: https://github.com/oxidezap/whatsapp-rust/blob/41095d4e6ba4610e054e9ede3af1d5e88a83faee/wacore/src/voip/stanza.rs#L42-L100
 	lg := pickLog(log)
@@ -83,7 +83,7 @@ func BuildOffer(p *OfferParams, log ...qplog.Logger) waBinary.Node {
 	return callWrap(p.To, nil, offerAction("offer", p.CallID, p.CallCreator, children))
 }
 
-// encNode builds one <enc v=2 type=… count=0> child carrying the ciphertext.
+// encNode builds one <enc v=2 type=â€¦ count=0> child carrying the ciphertext.
 func encNode(dk OfferDeviceKey) waBinary.Node {
 	// Source of truth: https://github.com/oxidezap/whatsapp-rust/blob/41095d4e6ba4610e054e9ede3af1d5e88a83faee/wacore/src/voip/stanza.rs#L101-L108
 	return waBinary.Node{
@@ -106,8 +106,8 @@ type AcceptParams struct {
 	Metadata     waBinary.Attrs // nil = absent
 }
 
-// BuildAccept builds <accept>: audio → [te priority=2] → net medium=2 → encopt →
-// [capability] → [metadata] → [rte] → [voip_settings].
+// BuildAccept builds <accept>: audio â†’ [te priority=2] â†’ net medium=2 â†’ encopt â†’
+// [capability] â†’ [metadata] â†’ [rte] â†’ [voip_settings].
 func BuildAccept(p *AcceptParams, log ...qplog.Logger) waBinary.Node {
 	// Source of truth: https://github.com/oxidezap/whatsapp-rust/blob/41095d4e6ba4610e054e9ede3af1d5e88a83faee/wacore/src/voip/stanza.rs#L124-L162
 	lg := pickLog(log)
@@ -144,13 +144,13 @@ func BuildAccept(p *AcceptParams, log ...qplog.Logger) waBinary.Node {
 	return callWrap(p.To, nil, offerAction("accept", p.CallID, p.CallCreator, children))
 }
 
-// audioOpus builds one <audio enc=opus rate=…> advertisement child.
+// audioOpus builds one <audio enc=opus rate=â€¦> advertisement child.
 func audioOpus(rate string) waBinary.Node {
 	// Source of truth: https://github.com/oxidezap/whatsapp-rust/blob/41095d4e6ba4610e054e9ede3af1d5e88a83faee/wacore/src/voip/stanza.rs#L163-L169
 	return waBinary.Node{Tag: "audio", Attrs: waBinary.Attrs{"enc": "opus", "rate": rate}}
 }
 
-// BuildPreaccept builds <preaccept>: audio → encopt → capability(preaccept blob),
+// BuildPreaccept builds <preaccept>: audio â†’ encopt â†’ capability(preaccept blob),
 // wrapped with the random wrapper id.
 func BuildPreaccept(callID string, to, callCreator types.JID, wrapperID string, audioRates []string, log ...qplog.Logger) waBinary.Node {
 	// Source of truth: https://github.com/oxidezap/whatsapp-rust/blob/41095d4e6ba4610e054e9ede3af1d5e88a83faee/wacore/src/voip/stanza.rs#L171-L201
@@ -245,7 +245,7 @@ func BuildRelayLatency(p *RelayLatencyParams, log ...qplog.Logger) waBinary.Node
 	return callWrap(p.To, nil, offerAction("relaylatency", p.CallID, p.CallCreator, children))
 }
 
-// BuildHeartbeat builds <call to={callID}@call id=…><heartbeat …/></call>.
+// BuildHeartbeat builds <call to={callID}@call id=â€¦><heartbeat â€¦/></call>.
 func BuildHeartbeat(callID string, callCreator types.JID, wrapperID string, log ...qplog.Logger) waBinary.Node {
 	// Source of truth: https://github.com/oxidezap/whatsapp-rust/blob/41095d4e6ba4610e054e9ede3af1d5e88a83faee/wacore/src/voip/stanza.rs#L263-L283
 	lg := pickLog(log)
@@ -328,7 +328,7 @@ func offerAction(tag, callID string, callCreator types.JID, children []waBinary.
 	}
 }
 
-// destinationTo builds <destination> wrapping one <to jid=…> per device.
+// destinationTo builds <destination> wrapping one <to jid=â€¦> per device.
 func destinationTo(devices []types.JID) waBinary.Node {
 	// Source of truth: https://github.com/oxidezap/whatsapp-rust/blob/41095d4e6ba4610e054e9ede3af1d5e88a83faee/wacore/src/voip/stanza.rs#L325-L332
 	tos := make([]waBinary.Node, len(devices))
@@ -338,7 +338,7 @@ func destinationTo(devices []types.JID) waBinary.Node {
 	return waBinary.Node{Tag: "destination", Content: tos}
 }
 
-// callWrap wraps an action in <call to=… [id=…]>.
+// callWrap wraps an action in <call to=â€¦ [id=â€¦]>.
 func callWrap(to types.JID, id *string, action waBinary.Node) waBinary.Node {
 	// Source of truth: https://github.com/oxidezap/whatsapp-rust/blob/41095d4e6ba4610e054e9ede3af1d5e88a83faee/wacore/src/voip/stanza.rs#L333-L341
 	attrs := waBinary.Attrs{"to": to}

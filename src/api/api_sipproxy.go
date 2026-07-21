@@ -3,8 +3,8 @@ package api
 import (
 	"net/http"
 
-	log "github.com/nocodeleaks/quepasa/qplog"
-	runtime "github.com/nocodeleaks/quepasa/runtime"
+	log "github.com/inteliagenciadigital/quepasa/qplog"
+	runtime "github.com/inteliagenciadigital/quepasa/runtime"
 )
 
 // AuthenticatedSIPProxyStatusController reports whether the SIP proxy is

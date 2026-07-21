@@ -6,11 +6,11 @@ import (
 	"time"
 
 	"github.com/google/uuid"
-	library "github.com/nocodeleaks/quepasa/library"
-	whatsapp "github.com/nocodeleaks/quepasa/whatsapp"
+	library "github.com/inteliagenciadigital/quepasa/library"
+	whatsapp "github.com/inteliagenciadigital/quepasa/whatsapp"
 )
 
-// Serviço que controla os servidores / bots individuais do whatsapp
+// ServiÃ§o que controla os servidores / bots individuais do whatsapp
 type DispatchingHandler struct {
 	QpWhatsappMessages
 	library.LogStruct // logging
@@ -241,7 +241,7 @@ func (source *DispatchingHandler) Receipt(msg *whatsapp.WhatsappMessage) {
 // new messages. These must never trigger the create-webhook pipeline because:
 //
 //   - REVOKE reuses the original message ID and arrives with different content,
-//     which fools the UNOAPI dedup ("content differs → new message") into
+//     which fools the UNOAPI dedup ("content differs â†’ new message") into
 //     re-posting the same msgid to the webhook, creating duplicates in Chatwoot.
 //   - EDIT also reuses the original message ID with updated text.
 //   - REACTION reuses the original message ID with an emoji payload.
@@ -265,7 +265,7 @@ func shouldSuppressFromCreateWebhook(msg *whatsapp.WhatsappMessage) bool {
 	}
 }
 
-// dispatchDecision: store-independent dispatch gate — realtime always, history only
+// dispatchDecision: store-independent dispatch gate â€” realtime always, history only
 // when new (dedup), and only for allowed message types.
 func dispatchDecision(r ResolvedMessageSettings, from string, wasNew bool, msgType string) bool {
 	// realtime messages always dispatch; history dispatches only when new, so a
@@ -284,7 +284,7 @@ func (source *DispatchingHandler) appendMsgToCache(msg *whatsapp.WhatsappMessage
 
 	r := ResolveMessageSettings(source.server)
 
-	wasNew := true // store=none never stored → treat as new for the dispatch gate
+	wasNew := true // store=none never stored â†’ treat as new for the dispatch gate
 	if r.Store() {
 		// saving on local normalized cache, do not affect remote msgs
 		valid, isNew := source.QpWhatsappMessages.AppendWithExpiry(msg, from, r.ExpiryFor())

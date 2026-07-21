@@ -1,6 +1,6 @@
 package api
 
-import models "github.com/nocodeleaks/quepasa/models"
+import models "github.com/inteliagenciadigital/quepasa/models"
 
 // GroupsResponse is the API transport shape for group collection endpoints.
 type GroupsResponse struct {

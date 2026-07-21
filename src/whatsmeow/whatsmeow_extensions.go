@@ -8,9 +8,9 @@ import (
 	"time"
 
 	_ "github.com/mattn/go-sqlite3"
-	media "github.com/nocodeleaks/quepasa/media"
-	whatsapp "github.com/nocodeleaks/quepasa/whatsapp"
-	log "github.com/nocodeleaks/quepasa/qplog"
+	media "github.com/inteliagenciadigital/quepasa/media"
+	whatsapp "github.com/inteliagenciadigital/quepasa/whatsapp"
+	log "github.com/inteliagenciadigital/quepasa/qplog"
 	whatsmeow "go.mau.fi/whatsmeow"
 	"go.mau.fi/whatsmeow/proto/waE2E"
 	types "go.mau.fi/whatsmeow/types"
@@ -96,7 +96,7 @@ func NewWhatsmeowMessageAttachment(response whatsmeow.UploadResponse, waMsg what
 		mimetype = proto.String(attach.Mimetype)
 	}
 
-	// Stickers are sent as StickerMessage — build and return immediately,
+	// Stickers are sent as StickerMessage â€” build and return immediately,
 	// skipping thumbnail generation and the generic media switch below.
 	if waMsg.Type == whatsapp.StickerMessageType {
 		isAnimated := attach.Mimetype == "video/webp"
@@ -349,7 +349,7 @@ func GetDownloadableMessage(msg *waE2E.Message) whatsmeow.DownloadableMessage {
  * This function uses reflection to set the MessageContextInfo field to its zero value (nil),
  * effectively removing any context information (such como reply, quoted, etc) que estava presente na mensagem.
  *
- * Útil para sanitizar mensagens antes de processar ou enviar, evitando que informações de contexto sejam propagadas.
+ * Ãštil para sanitizar mensagens antes de processar ou enviar, evitando que informaÃ§Ãµes de contexto sejam propagadas.
  *
  * @param content WhatsApp message struct (pointer)
  * @return The same struct with MessageContextInfo removed (set to zero value)

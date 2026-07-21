@@ -3,8 +3,8 @@ package runtime
 import (
 	"fmt"
 
-	models "github.com/nocodeleaks/quepasa/models"
-	whatsapp "github.com/nocodeleaks/quepasa/whatsapp"
+	models "github.com/inteliagenciadigital/quepasa/models"
+	whatsapp "github.com/inteliagenciadigital/quepasa/whatsapp"
 )
 
 // GetSessionVoIPMode returns the per-instance VoIP mode persisted in the server

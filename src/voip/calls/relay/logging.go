@@ -1,8 +1,8 @@
 package relay
 
-import qplog "github.com/nocodeleaks/quepasa/qplog"
+import qplog "github.com/inteliagenciadigital/quepasa/qplog"
 
-// Option configures optional, non-behavioral aspects of the relay channel —
+// Option configures optional, non-behavioral aspects of the relay channel â€”
 // currently the diagnostic logger. The zero configuration logs nothing.
 type Option func(*config)
 

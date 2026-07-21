@@ -4,7 +4,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/nocodeleaks/quepasa/cache"
+	"github.com/inteliagenciadigital/quepasa/cache"
 )
 
 // TestMemoryMessagesBackendBasic verifies basic set/get operations.

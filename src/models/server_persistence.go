@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"time"
 
-	log "github.com/nocodeleaks/quepasa/qplog"
+	log "github.com/inteliagenciadigital/quepasa/qplog"
 )
 
 /*

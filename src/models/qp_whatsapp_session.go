@@ -1,6 +1,6 @@
 package models
 
-import whatsapp "github.com/nocodeleaks/quepasa/whatsapp"
+import whatsapp "github.com/inteliagenciadigital/quepasa/whatsapp"
 
 // QpWhatsappSession is the preferred domain name for the per-identity runtime
 // object. It currently aliases the legacy server type to preserve compatibility

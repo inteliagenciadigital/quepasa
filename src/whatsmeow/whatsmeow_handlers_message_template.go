@@ -3,8 +3,8 @@ package whatsmeow
 import (
 	"fmt"
 
-	whatsapp "github.com/nocodeleaks/quepasa/whatsapp"
-	log "github.com/nocodeleaks/quepasa/qplog"
+	whatsapp "github.com/inteliagenciadigital/quepasa/whatsapp"
+	log "github.com/inteliagenciadigital/quepasa/qplog"
 	"go.mau.fi/whatsmeow/proto/waE2E"
 )
 

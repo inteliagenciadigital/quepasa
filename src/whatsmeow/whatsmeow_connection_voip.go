@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"strings"
 
-	voip "github.com/nocodeleaks/quepasa/voip"
-	whatsapp "github.com/nocodeleaks/quepasa/whatsapp"
+	voip "github.com/inteliagenciadigital/quepasa/voip"
+	whatsapp "github.com/inteliagenciadigital/quepasa/whatsapp"
 	types "go.mau.fi/whatsmeow/types"
 )
 

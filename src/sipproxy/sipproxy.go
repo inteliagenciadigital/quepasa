@@ -1,8 +1,8 @@
 package sipproxy
 
 import (
-	environment "github.com/nocodeleaks/quepasa/environment"
-	qplog "github.com/nocodeleaks/quepasa/qplog"
+	environment "github.com/inteliagenciadigital/quepasa/environment"
+	qplog "github.com/inteliagenciadigital/quepasa/qplog"
 )
 
 var SIPProxy *SIPProxyManager
@@ -16,7 +16,7 @@ func init() {
 		settings := GetEnvironmentSettings()
 
 		logentry := qplog.New().WithField("package", "sipproxy")
-		logentry.Infof("🔧 SIP Proxy enabled - Host: %s, Port: %d, Protocol: %s",
+		logentry.Infof("ðŸ”§ SIP Proxy enabled - Host: %s, Port: %d, Protocol: %s",
 			settings.ServerHost,
 			settings.ServerPort,
 			settings.Protocol)
@@ -24,15 +24,15 @@ func init() {
 		// Initialize SIP Proxy singleton using environment settings directly
 		SIPProxy = GetSIPProxyManager(settings)
 		if SIPProxy == nil {
-			logentry.Errorf("❌ Failed to get SIP proxy singleton")
+			logentry.Errorf("âŒ Failed to get SIP proxy singleton")
 		} else {
 			// Initialize the SIP proxy
 			err := SIPProxy.Initialize()
 			if err != nil {
-				logentry.Errorf("❌ Failed to initialize SIP proxy: %v", err)
+				logentry.Errorf("âŒ Failed to initialize SIP proxy: %v", err)
 			} else {
-				logentry.Infof("✅ SIP Proxy initialized successfully")
-				logentry.Infof("📡 SIP Proxy listening on port %d, forwarding to %s:%d",
+				logentry.Infof("âœ… SIP Proxy initialized successfully")
+				logentry.Infof("ðŸ“¡ SIP Proxy listening on port %d, forwarding to %s:%d",
 					env.LocalPort,
 					env.Host,
 					env.Port)

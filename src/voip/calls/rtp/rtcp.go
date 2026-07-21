@@ -3,7 +3,7 @@ package rtp
 import (
 	"encoding/binary"
 
-	qplog "github.com/nocodeleaks/quepasa/qplog"
+	qplog "github.com/inteliagenciadigital/quepasa/qplog"
 )
 
 // RTCP: WhatsApp compact reports (PT 208/209) and a Sender Report (PT 200). The

@@ -3,7 +3,7 @@ package whatsmeow
 import (
 	"strings"
 
-	library "github.com/nocodeleaks/quepasa/library"
+	library "github.com/inteliagenciadigital/quepasa/library"
 	log "github.com/sirupsen/logrus"
 )
 

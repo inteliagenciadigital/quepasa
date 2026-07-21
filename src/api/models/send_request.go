@@ -11,10 +11,10 @@ import (
 	"strconv"
 	"strings"
 
-	library "github.com/nocodeleaks/quepasa/library"
-	media "github.com/nocodeleaks/quepasa/media"
-	whatsapp "github.com/nocodeleaks/quepasa/whatsapp"
-	log "github.com/nocodeleaks/quepasa/qplog"
+	library "github.com/inteliagenciadigital/quepasa/library"
+	media "github.com/inteliagenciadigital/quepasa/media"
+	whatsapp "github.com/inteliagenciadigital/quepasa/whatsapp"
+	log "github.com/inteliagenciadigital/quepasa/qplog"
 )
 
 // SendRequest is the HTTP transport contract used by send endpoints after the
@@ -66,7 +66,7 @@ type SendRequest struct {
 	Sticker  *WhatsappSticker           `json:"sticker,omitempty"`  // Sticker payload when present.
 
 	// LinkPreview is populated internally after Open Graph metadata is fetched.
-	// Not exposed in JSON — set programmatically by the handler.
+	// Not exposed in JSON â€” set programmatically by the handler.
 	LinkPreview *whatsapp.WhatsappMessageUrl `json:"-"`
 }
 

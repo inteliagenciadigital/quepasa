@@ -5,8 +5,8 @@ import (
 	"reflect"
 	"strings"
 
-	log "github.com/nocodeleaks/quepasa/qplog"
-	whatsapp "github.com/nocodeleaks/quepasa/whatsapp"
+	log "github.com/inteliagenciadigital/quepasa/qplog"
+	whatsapp "github.com/inteliagenciadigital/quepasa/whatsapp"
 	"go.mau.fi/whatsmeow/proto/waE2E"
 	"google.golang.org/protobuf/proto"
 )
@@ -121,7 +121,7 @@ func ValidateItemBecauseUNOAPIConflict(item QpCacheItem, from string, previous a
 		if contentEquals {
 			// CRITICAL FIX: For ads messages (ExtendedTextMessage), ignore volatile delay fields
 			// These fields change from N to 0 on retries but don't affect actual message content:
-			// - conversionDelaySeconds (5→0, 4→0, 3→0, etc)
+			// - conversionDelaySeconds (5â†’0, 4â†’0, 3â†’0, etc)
 			// - entryPointConversionDelaySeconds (same behavior)
 			// - messageContextInfo (contains volatile deviceListMetadata and messageSecret)
 

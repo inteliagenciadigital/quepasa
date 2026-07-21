@@ -1,7 +1,7 @@
 package mcp
 
 import (
-	log "github.com/nocodeleaks/quepasa/qplog"
+	log "github.com/inteliagenciadigital/quepasa/qplog"
 )
 
 // RegisterAPITools registers all API endpoints as MCP tools using auto-discovery

@@ -1,11 +1,11 @@
 package calls
 
 import (
-	"github.com/nocodeleaks/quepasa/voip/calls/diag"
-	qplog "github.com/nocodeleaks/quepasa/qplog"
+	"github.com/inteliagenciadigital/quepasa/voip/calls/diag"
+	qplog "github.com/inteliagenciadigital/quepasa/qplog"
 )
 
-// Option configures optional, non-behavioral aspects of the call/media types —
+// Option configures optional, non-behavioral aspects of the call/media types â€”
 // currently the diagnostic logger. The zero configuration logs nothing.
 type Option func(*config)
 

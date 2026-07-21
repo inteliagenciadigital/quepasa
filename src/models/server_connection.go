@@ -4,13 +4,13 @@ import (
 	"fmt"
 	"time"
 
-	library "github.com/nocodeleaks/quepasa/library"
-	whatsapp "github.com/nocodeleaks/quepasa/whatsapp"
+	library "github.com/inteliagenciadigital/quepasa/library"
+	whatsapp "github.com/inteliagenciadigital/quepasa/whatsapp"
 )
 
 // Initialize starts the server asynchronously; errors are only logged.
-// Roda de forma assíncrona, não interessa o resultado ao chamador
-// Inicia o processo de tentativas de conexão de um servidor individual
+// Roda de forma assÃ­ncrona, nÃ£o interessa o resultado ao chamador
+// Inicia o processo de tentativas de conexÃ£o de um servidor individual
 func (source *QpWhatsappServer) Initialize() {
 	if source == nil {
 		panic("nil server, code error")
@@ -253,7 +253,7 @@ func (source *QpWhatsappServer) Restart() (err error) {
 	return source.Start()
 }
 
-// Somente usar em caso de não ser permitida a reconxão automática
+// Somente usar em caso de nÃ£o ser permitida a reconxÃ£o automÃ¡tica
 func (source *QpWhatsappServer) DisposeConnection(cause string) {
 	conn, err := source.GetValidConnection()
 	if err == nil {
@@ -315,7 +315,7 @@ func (server *QpWhatsappServer) ID() string {
 	return server.GetWId()
 }
 
-// Traduz o Wid para um número de telefone em formato E164
+// Traduz o Wid para um nÃºmero de telefone em formato E164
 // Ex: 5521967609494
 func (server *QpWhatsappServer) GetNumber() string {
 	return library.GetPhoneByWId(server.GetWId())

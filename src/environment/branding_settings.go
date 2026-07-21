@@ -15,8 +15,8 @@ const (
 // Default QuePasa branding values
 const (
 	DefaultBrandingTitle          = "QuePasa"
-	DefaultBrandingLogo           = "https://raw.githubusercontent.com/nocodeleaks/quepasa/main/src/assets/favicon.png"
-	DefaultBrandingFavicon        = "https://raw.githubusercontent.com/nocodeleaks/quepasa/main/src/assets/favicon.png"
+	DefaultBrandingLogo           = "https://raw.githubusercontent.com/nosrwarez/quepasa/main/src/assets/favicon.png"
+	DefaultBrandingFavicon        = "https://raw.githubusercontent.com/nosrwarez/quepasa/main/src/assets/favicon.png"
 	DefaultBrandingPrimaryColor   = "#7C3AED" // QuePasa purple
 	DefaultBrandingSecondaryColor = "#5B21B6" // QuePasa dark purple
 	DefaultBrandingAccentColor    = "#8B5CF6" // QuePasa light purple

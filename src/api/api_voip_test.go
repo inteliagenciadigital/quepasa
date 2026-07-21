@@ -3,8 +3,8 @@ package api
 import (
 	"testing"
 
-	"github.com/nocodeleaks/quepasa/models"
-	"github.com/nocodeleaks/quepasa/runtime"
+	"github.com/inteliagenciadigital/quepasa/models"
+	"github.com/inteliagenciadigital/quepasa/runtime"
 )
 
 func TestGetOwnedOrContextServerRecordAllowsOwner(t *testing.T) {

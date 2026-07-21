@@ -4,8 +4,8 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/nocodeleaks/quepasa/ports"
-	"github.com/nocodeleaks/quepasa/whatsapp"
+	"github.com/inteliagenciadigital/quepasa/ports"
+	"github.com/inteliagenciadigital/quepasa/whatsapp"
 )
 
 // WhatsmeowDriverAdapter implements ports.WhatsappDriverFactory.

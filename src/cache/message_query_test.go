@@ -4,7 +4,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/nocodeleaks/quepasa/whatsapp"
+	"github.com/inteliagenciadigital/quepasa/whatsapp"
 )
 
 func entry(id, wid, chat string, ts int64) MessageRecordEntry {

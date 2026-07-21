@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"net/http"
 
-	models "github.com/nocodeleaks/quepasa/models"
-	whatsapp "github.com/nocodeleaks/quepasa/whatsapp"
+	models "github.com/inteliagenciadigital/quepasa/models"
+	whatsapp "github.com/inteliagenciadigital/quepasa/whatsapp"
 )
 
 // TypingRequest defines the parameters for controlling typing indicators

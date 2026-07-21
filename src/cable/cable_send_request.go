@@ -10,10 +10,10 @@ import (
 	"path"
 	"strings"
 
-	library "github.com/nocodeleaks/quepasa/library"
-	media "github.com/nocodeleaks/quepasa/media"
-	whatsapp "github.com/nocodeleaks/quepasa/whatsapp"
-	log "github.com/nocodeleaks/quepasa/qplog"
+	library "github.com/inteliagenciadigital/quepasa/library"
+	media "github.com/inteliagenciadigital/quepasa/media"
+	whatsapp "github.com/inteliagenciadigital/quepasa/whatsapp"
+	log "github.com/inteliagenciadigital/quepasa/qplog"
 )
 
 // sendMessageRequest is the cable-local contract used by `message.send`.

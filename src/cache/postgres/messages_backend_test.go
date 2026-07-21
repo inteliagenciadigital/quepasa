@@ -5,8 +5,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/nocodeleaks/quepasa/cache"
-	"github.com/nocodeleaks/quepasa/whatsapp"
+	"github.com/inteliagenciadigital/quepasa/cache"
+	"github.com/inteliagenciadigital/quepasa/whatsapp"
 )
 
 func newTestBackend(t *testing.T) *MessagesBackend {

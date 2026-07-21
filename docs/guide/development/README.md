@@ -13,19 +13,19 @@ QuePasa is built with:
 - **API**: RESTful HTTP endpoints
 - **Real-time**: WebSocket support for live updates
 
-For deeper architecture notes (ADRs, package maps, roadmap), see the [`docs/`](../..) folder — start at [ARCHITECTURE-INDEX.md](../../ARCHITECTURE-INDEX.md).
+For deeper architecture notes (ADRs, package maps, roadmap), see the [`docs/`](../..) folder â€” start at [ARCHITECTURE-INDEX.md](../../ARCHITECTURE-INDEX.md).
 
 ## Project Structure
 ```
-├── src/                    # Go source code
-├── docker/                 # Docker configuration
-├── extra/                  # Integration examples
-│   ├── chatwoot/          # Chatwoot integration
-│   ├── n8n+chatwoot/      # N8N workflow examples
-│   └── typebot/           # TypeBot integration
-├── docs/                   # Documentation (architecture, ADRs, usage guides)
-│   └── guide/              # User-facing guides (this section)
-└── helpers/                # Installation helpers
+â”œâ”€â”€ src/                    # Go source code
+â”œâ”€â”€ docker/                 # Docker configuration
+â”œâ”€â”€ extra/                  # Integration examples
+â”‚   â”œâ”€â”€ chatwoot/          # Chatwoot integration
+â”‚   â”œâ”€â”€ n8n+chatwoot/      # N8N workflow examples
+â”‚   â””â”€â”€ typebot/           # TypeBot integration
+â”œâ”€â”€ docs/                   # Documentation (architecture, ADRs, usage guides)
+â”‚   â””â”€â”€ guide/              # User-facing guides (this section)
+â””â”€â”€ helpers/                # Installation helpers
 ```
 
 ## Building
@@ -41,7 +41,7 @@ Multi-platform release binaries (linux/windows/darwin, amd64/arm64/386) are buil
 
 ## Contributing
 
-Issues and pull requests are welcome on [GitHub](https://github.com/nocodeleaks/quepasa-) or via the [Radicle mirror](../installation/README.md#p2p-mirror-radicle).
+Issues and pull requests are welcome on [GitHub](https://github.com/inteliagenciadigital/quepasa-) or via the [Radicle mirror](../installation/README.md#p2p-mirror-radicle).
 
 - **Security**: This application has not been security audited. Use at your own risk.
 - **Unofficial**: This is a third-party project, not affiliated with WhatsApp.

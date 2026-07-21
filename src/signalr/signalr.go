@@ -5,10 +5,10 @@ import (
 
 	"github.com/go-chi/chi/v5"
 	kitlog "github.com/go-kit/log"
-	dispatchservice "github.com/nocodeleaks/quepasa/dispatch/service"
-	webserver "github.com/nocodeleaks/quepasa/webserver"
+	dispatchservice "github.com/inteliagenciadigital/quepasa/dispatch/service"
+	webserver "github.com/inteliagenciadigital/quepasa/webserver"
 	signalr "github.com/philippseith/signalr"
-	log "github.com/nocodeleaks/quepasa/qplog"
+	log "github.com/inteliagenciadigital/quepasa/qplog"
 )
 
 func init() {

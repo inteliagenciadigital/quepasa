@@ -16,7 +16,7 @@ import (
 	"github.com/gopxl/beep/v2"
 	"github.com/gopxl/beep/v2/mp3"
 	"github.com/gopxl/beep/v2/wav"
-	qplog "github.com/nocodeleaks/quepasa/qplog"
+	qplog "github.com/inteliagenciadigital/quepasa/qplog"
 )
 
 // logentry is the qplog logger used within this package.
@@ -29,7 +29,7 @@ import (
 // import (
 //
 //	"os"
-//	qplog "github.com/nocodeleaks/quepasa/qplog"
+//	qplog "github.com/inteliagenciadigital/quepasa/qplog"
 //
 // )
 //

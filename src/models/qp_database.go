@@ -15,9 +15,9 @@ import (
 	"github.com/jmoiron/sqlx"
 	_ "github.com/mattn/go-sqlite3"
 
-	library "github.com/nocodeleaks/quepasa/library"
-	"github.com/nocodeleaks/quepasa/ports"
-	log "github.com/nocodeleaks/quepasa/qplog"
+	library "github.com/inteliagenciadigital/quepasa/library"
+	"github.com/inteliagenciadigital/quepasa/ports"
+	log "github.com/inteliagenciadigital/quepasa/qplog"
 )
 
 type QpDatabase struct {
@@ -32,7 +32,7 @@ type QpDatabase struct {
 }
 
 var (
-	Sync       sync.Once // Objeto de sinaleiro para garantir uma única chamada em todo o andamento do programa
+	Sync       sync.Once // Objeto de sinaleiro para garantir uma Ãºnica chamada em todo o andamento do programa
 	Connection *sqlx.DB
 )
 
@@ -69,7 +69,7 @@ func GetDB() *sqlx.DB {
 		// generates the relative connection string
 		connectionString := dbParameters.GetConnectionString()
 
-		// Tenta realizar a conexão
+		// Tenta realizar a conexÃ£o
 		dbconn, err := sqlx.Connect(dbParameters.Driver, connectionString)
 		if err != nil {
 			log.Fatalf("error at database connection: %s, msg: %s", dbParameters.Driver, err.Error())
@@ -80,7 +80,7 @@ func GetDB() *sqlx.DB {
 		dbconn.DB.SetMaxOpenConns(1000)
 		dbconn.DB.SetConnMaxLifetime(30 * time.Second)
 
-		// Definindo uma única conexão para todo o sistema
+		// Definindo uma Ãºnica conexÃ£o para todo o sistema
 		Connection = dbconn
 	})
 	return Connection
@@ -437,11 +437,11 @@ func (source *QpMigrator) Migrate(sqlDB *sql.DB, dialect string) error {
 	// SQLite migrations use DROP TABLE + RENAME to recreate tables (e.g. to change
 	// column constraints). When child tables have FK references to the parent being
 	// dropped, SQLite raises FOREIGN KEY constraint failed even though the data is
-	// consistent. PRAGMA foreign_keys must be OFF before the transaction begins —
+	// consistent. PRAGMA foreign_keys must be OFF before the transaction begins â€”
 	// it cannot be changed inside an open transaction (silently ignored).
 	// Connection pool LIFO ensures the same connection (with FK=OFF) is reused by
 	// the migration transaction, while the library's out-of-transaction INSERT INTO
-	// migrations opens a fresh connection (which is fine — migrations has no FKs).
+	// migrations opens a fresh connection (which is fine â€” migrations has no FKs).
 	if dialect == "sqlite3" {
 		sqlDB.Exec("PRAGMA foreign_keys = OFF")
 		defer sqlDB.Exec("PRAGMA foreign_keys = ON")

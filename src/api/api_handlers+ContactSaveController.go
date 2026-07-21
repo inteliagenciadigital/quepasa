@@ -6,9 +6,9 @@ import (
 	"net/http"
 	"strings"
 
-	models "github.com/nocodeleaks/quepasa/models"
-	whatsapp "github.com/nocodeleaks/quepasa/whatsapp"
-	whatsmeow "github.com/nocodeleaks/quepasa/whatsmeow"
+	models "github.com/inteliagenciadigital/quepasa/models"
+	whatsapp "github.com/inteliagenciadigital/quepasa/whatsapp"
+	whatsmeow "github.com/inteliagenciadigital/quepasa/whatsmeow"
 )
 
 // ContactSaveRequest defines the parameters for saving a contact

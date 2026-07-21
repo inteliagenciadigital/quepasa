@@ -5,8 +5,8 @@ import (
 	"net/http"
 	"strings"
 
-	apiModels "github.com/nocodeleaks/quepasa/api/models"
-	library "github.com/nocodeleaks/quepasa/library"
+	apiModels "github.com/inteliagenciadigital/quepasa/api/models"
+	library "github.com/inteliagenciadigital/quepasa/library"
 )
 
 //region CONTROLLER - INVITE

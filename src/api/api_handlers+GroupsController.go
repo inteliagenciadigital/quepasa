@@ -8,11 +8,11 @@ import (
 	"strings"
 	"time"
 
-	apiModels "github.com/nocodeleaks/quepasa/api/models"
-	library "github.com/nocodeleaks/quepasa/library"
-	media "github.com/nocodeleaks/quepasa/media"
-	models "github.com/nocodeleaks/quepasa/models"
-	whatsapp "github.com/nocodeleaks/quepasa/whatsapp"
+	apiModels "github.com/inteliagenciadigital/quepasa/api/models"
+	library "github.com/inteliagenciadigital/quepasa/library"
+	media "github.com/inteliagenciadigital/quepasa/media"
+	models "github.com/inteliagenciadigital/quepasa/models"
+	whatsapp "github.com/inteliagenciadigital/quepasa/whatsapp"
 )
 
 //region CONTROLLER - GET GROUP

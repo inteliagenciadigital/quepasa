@@ -4,7 +4,7 @@ import (
 	"strings"
 	"testing"
 
-	whatsapp "github.com/nocodeleaks/quepasa/whatsapp"
+	whatsapp "github.com/inteliagenciadigital/quepasa/whatsapp"
 	types "go.mau.fi/whatsmeow/types"
 )
 

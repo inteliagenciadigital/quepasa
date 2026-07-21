@@ -1,8 +1,8 @@
 package api
 
 import (
-	environment "github.com/nocodeleaks/quepasa/environment"
-	models "github.com/nocodeleaks/quepasa/models"
+	environment "github.com/inteliagenciadigital/quepasa/environment"
+	models "github.com/inteliagenciadigital/quepasa/models"
 )
 
 // EnvironmentResponse represents environment settings response

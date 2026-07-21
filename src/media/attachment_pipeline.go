@@ -5,10 +5,10 @@ import (
 	"path/filepath"
 	"strings"
 
-	environment "github.com/nocodeleaks/quepasa/environment"
-	library "github.com/nocodeleaks/quepasa/library"
-	whatsapp "github.com/nocodeleaks/quepasa/whatsapp"
-	log "github.com/nocodeleaks/quepasa/qplog"
+	environment "github.com/inteliagenciadigital/quepasa/environment"
+	library "github.com/inteliagenciadigital/quepasa/library"
+	whatsapp "github.com/inteliagenciadigital/quepasa/whatsapp"
+	log "github.com/inteliagenciadigital/quepasa/qplog"
 )
 
 type QpToWhatsappAttachment struct {
@@ -132,7 +132,7 @@ func (source *QpToWhatsappAttachment) AttachAudioTreatmentTesting() {
 	if AreAudioToolsAvailable() {
 		audioInfo, err := GetAudioInfoFromBytes(*source.Attach.GetContent())
 		if err != nil {
-			log.Errorf("Erro ao obter as informações de áudio a partir dos bytes: %v", err)
+			log.Errorf("Erro ao obter as informaÃ§Ãµes de Ã¡udio a partir dos bytes: %v", err)
 			return
 		}
 
@@ -150,8 +150,8 @@ func (source *QpToWhatsappAttachment) AttachAudioTreatmentTesting() {
 			source.Attach.WaveForm = wf
 		}
 
-		log.Tracef("\n--- Informações de Áudio ---\n")
-		log.Tracef("Duração:    %s\n", audioInfo.Duration)
+		log.Tracef("\n--- InformaÃ§Ãµes de Ãudio ---\n")
+		log.Tracef("DuraÃ§Ã£o:    %s\n", audioInfo.Duration)
 		log.Tracef("MIME Type:  %s\n", audioInfo.MIMEType)
 		log.Tracef("Canais:     %d\n", audioInfo.Channels)
 		log.Tracef("Sample Rate: %d Hz\n", audioInfo.SampleRate)

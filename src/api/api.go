@@ -3,9 +3,9 @@ package api
 import (
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
-	environment "github.com/nocodeleaks/quepasa/environment"
-	log "github.com/nocodeleaks/quepasa/qplog"
-	webserver "github.com/nocodeleaks/quepasa/webserver"
+	environment "github.com/inteliagenciadigital/quepasa/environment"
+	log "github.com/inteliagenciadigital/quepasa/qplog"
+	webserver "github.com/inteliagenciadigital/quepasa/webserver"
 )
 
 func init() {

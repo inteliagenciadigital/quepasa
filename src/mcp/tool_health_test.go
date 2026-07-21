@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"testing"
 
-	models "github.com/nocodeleaks/quepasa/models"
+	models "github.com/inteliagenciadigital/quepasa/models"
 )
 
 func TestHealthToolName(t *testing.T) {

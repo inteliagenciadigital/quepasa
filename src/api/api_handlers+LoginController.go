@@ -7,8 +7,8 @@ import (
 
 	jwt "github.com/dgrijalva/jwt-go"
 	"github.com/go-chi/jwtauth"
-	environment "github.com/nocodeleaks/quepasa/environment"
-	models "github.com/nocodeleaks/quepasa/models"
+	environment "github.com/inteliagenciadigital/quepasa/environment"
+	models "github.com/inteliagenciadigital/quepasa/models"
 )
 
 // LoginConfigController returns the public bootstrap payload used by web client login screens.

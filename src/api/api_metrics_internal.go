@@ -1,7 +1,7 @@
 package api
 
 import (
-	metrics "github.com/nocodeleaks/quepasa/metrics"
+	metrics "github.com/inteliagenciadigital/quepasa/metrics"
 )
 
 // APIProcessingTime is the public API processing time metric

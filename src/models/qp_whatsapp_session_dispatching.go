@@ -1,8 +1,8 @@
 package models
 
 import (
-	whatsapp "github.com/nocodeleaks/quepasa/whatsapp"
-	log "github.com/nocodeleaks/quepasa/qplog"
+	whatsapp "github.com/inteliagenciadigital/quepasa/whatsapp"
+	log "github.com/inteliagenciadigital/quepasa/qplog"
 )
 
 // QpWhatsappSessionDispatching is the preferred session-oriented wrapper around

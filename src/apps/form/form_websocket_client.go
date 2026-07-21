@@ -7,8 +7,8 @@ import (
 	"time"
 
 	websocket "github.com/gorilla/websocket"
-	models "github.com/nocodeleaks/quepasa/models"
-	log "github.com/nocodeleaks/quepasa/qplog"
+	models "github.com/inteliagenciadigital/quepasa/models"
+	log "github.com/inteliagenciadigital/quepasa/qplog"
 )
 
 const (

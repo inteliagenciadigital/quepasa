@@ -9,7 +9,7 @@ import (
 	"github.com/pion/dtls/v3/pkg/crypto/selfsign"
 	"github.com/pion/logging"
 	"github.com/pion/sctp"
-	qplog "github.com/nocodeleaks/quepasa/qplog"
+	qplog "github.com/inteliagenciadigital/quepasa/qplog"
 )
 
 // Relay media transport: a pre-negotiated WebRTC DataChannel over
@@ -34,8 +34,8 @@ const (
 	SctpPort = 5000
 )
 
-// ClassifyRelayPacket demuxes by first byte: top two bits zero ⇒ STUN; 0x80/0x81 ⇒
-// RTCP; 0x90 ⇒ RTP (WARP); anything else ⇒ Other.
+// ClassifyRelayPacket demuxes by first byte: top two bits zero â‡’ STUN; 0x80/0x81 â‡’
+// RTCP; 0x90 â‡’ RTP (WARP); anything else â‡’ Other.
 func ClassifyRelayPacket(data []byte, log ...qplog.Logger) RelayPacketKind {
 	// Source of truth: https://github.com/oxidezap/whatsapp-rust/blob/41095d4e6ba4610e054e9ede3af1d5e88a83faee/src/voip/transport.rs#L57-L70
 	lg := pickLog(log)
@@ -124,9 +124,9 @@ func (c *RelayMediaChannel) Recv(buf []byte) (int, error) {
 	return n, nil
 }
 
-// ConnectRelayMedia connects the full media stack (UDP→DTLS→SCTP→DataChannel) to one
+// ConnectRelayMedia connects the full media stack (UDPâ†’DTLSâ†’SCTPâ†’DataChannel) to one
 // relay endpoint. Self-signed cert; server-cert verification skipped (media auth is
-// HBH SRTP, not DTLS). No vector — validated only against a live relay.
+// HBH SRTP, not DTLS). No vector â€” validated only against a live relay.
 func ConnectRelayMedia(relayAddr *net.UDPAddr, opts ...Option) (*RelayMediaChannel, error) {
 	// NOT VALIDATED: no vector exists for the live transport; exercised only against a real relay.
 	// Source of truth: https://github.com/oxidezap/whatsapp-rust/blob/41095d4e6ba4610e054e9ede3af1d5e88a83faee/src/voip/transport.rs#L136-L195

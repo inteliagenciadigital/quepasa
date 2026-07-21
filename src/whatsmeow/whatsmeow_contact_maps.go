@@ -4,7 +4,7 @@ import (
 	"strings"
 	"sync"
 
-	library "github.com/nocodeleaks/quepasa/library"
+	library "github.com/inteliagenciadigital/quepasa/library"
 )
 
 // WhatsmeowContactMaps provides thread-safe mapping for LID/Phone relationships

@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"net/http"
 
-	models "github.com/nocodeleaks/quepasa/models"
-	whatsapp "github.com/nocodeleaks/quepasa/whatsapp"
+	models "github.com/inteliagenciadigital/quepasa/models"
+	whatsapp "github.com/inteliagenciadigital/quepasa/whatsapp"
 )
 
 // StatusPublishRequest defines the parameters for publishing a WhatsApp status (story).

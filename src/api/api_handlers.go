@@ -5,11 +5,11 @@ import (
 	"net/http"
 
 	"github.com/go-chi/chi/v5"
-	legacy "github.com/nocodeleaks/quepasa/api/legacy"
+	legacy "github.com/inteliagenciadigital/quepasa/api/legacy"
 
-	library "github.com/nocodeleaks/quepasa/library"
-	models "github.com/nocodeleaks/quepasa/models"
-	runtime "github.com/nocodeleaks/quepasa/runtime"
+	library "github.com/inteliagenciadigital/quepasa/library"
+	models "github.com/inteliagenciadigital/quepasa/models"
+	runtime "github.com/inteliagenciadigital/quepasa/runtime"
 )
 
 // CurrentAPIVersion is the latest versioned alias exposed by the legacy HTTP API.

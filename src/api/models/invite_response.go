@@ -1,6 +1,6 @@
 package api
 
-import models "github.com/nocodeleaks/quepasa/models"
+import models "github.com/inteliagenciadigital/quepasa/models"
 
 // InviteResponse is the API transport shape for invite-link endpoints.
 type InviteResponse struct {

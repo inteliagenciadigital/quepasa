@@ -1,6 +1,6 @@
 package api
 
-import "github.com/nocodeleaks/quepasa/whatsapp"
+import "github.com/inteliagenciadigital/quepasa/whatsapp"
 
 // PollRequest represents the request body for poll send operations.
 type PollRequest struct {

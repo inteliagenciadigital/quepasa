@@ -5,8 +5,8 @@ import (
 	"errors"
 	"time"
 
-	"github.com/nocodeleaks/quepasa/library"
-	whatsapp "github.com/nocodeleaks/quepasa/whatsapp"
+	"github.com/inteliagenciadigital/quepasa/library"
+	whatsapp "github.com/inteliagenciadigital/quepasa/whatsapp"
 )
 
 type QpRabbitMQConfig struct {

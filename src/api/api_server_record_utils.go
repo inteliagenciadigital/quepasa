@@ -1,8 +1,8 @@
 package api
 
 import (
-	models "github.com/nocodeleaks/quepasa/models"
-	runtime "github.com/nocodeleaks/quepasa/runtime"
+	models "github.com/inteliagenciadigital/quepasa/models"
+	runtime "github.com/inteliagenciadigital/quepasa/runtime"
 )
 
 func listPersistedServerRecords() ([]*models.QpServer, error) {

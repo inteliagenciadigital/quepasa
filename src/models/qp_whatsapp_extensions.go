@@ -5,10 +5,10 @@ import (
 	"encoding/base64"
 	"fmt"
 
-	log "github.com/nocodeleaks/quepasa/qplog"
+	log "github.com/inteliagenciadigital/quepasa/qplog"
 	"github.com/skip2/go-qrcode"
 
-	whatsapp "github.com/nocodeleaks/quepasa/whatsapp"
+	whatsapp "github.com/inteliagenciadigital/quepasa/whatsapp"
 )
 
 func NewEmptyConnection(callback func(string)) (conn whatsapp.IWhatsappConnection, err error) {

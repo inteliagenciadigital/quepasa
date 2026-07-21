@@ -1,10 +1,10 @@
 package viewmodel
 
 import (
-	models "github.com/nocodeleaks/quepasa/models"
-	webserver "github.com/nocodeleaks/quepasa/webserver"
-	whatsapp "github.com/nocodeleaks/quepasa/whatsapp"
-	whatsmeow "github.com/nocodeleaks/quepasa/whatsmeow"
+	models "github.com/inteliagenciadigital/quepasa/models"
+	webserver "github.com/inteliagenciadigital/quepasa/webserver"
+	whatsapp "github.com/inteliagenciadigital/quepasa/whatsapp"
+	whatsmeow "github.com/inteliagenciadigital/quepasa/whatsmeow"
 )
 
 // LoginPageData contains only the template fields required by the login screen.

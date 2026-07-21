@@ -1,6 +1,6 @@
 package api
 
-import whatsapp "github.com/nocodeleaks/quepasa/whatsapp"
+import whatsapp "github.com/inteliagenciadigital/quepasa/whatsapp"
 
 // InfoCreateRequest represents the request body for creating a new bot/server
 // Used for pre-configuring a server before QR code scanning

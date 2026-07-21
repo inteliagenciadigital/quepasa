@@ -13,7 +13,7 @@ import (
 	"os"
 	"strings"
 
-	log "github.com/nocodeleaks/quepasa/qplog"
+	log "github.com/inteliagenciadigital/quepasa/qplog"
 )
 
 // SameFilePath reports whether two paths point to the same existing file.

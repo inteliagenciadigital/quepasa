@@ -4,14 +4,14 @@ import (
 	"context"
 	"sync"
 
-	"github.com/nocodeleaks/quepasa/voip/calls/diag"
-	qplog "github.com/nocodeleaks/quepasa/qplog"
+	"github.com/inteliagenciadigital/quepasa/voip/calls/diag"
+	qplog "github.com/inteliagenciadigital/quepasa/qplog"
 	"go.mau.fi/whatsmeow"
 )
 
 // Client is the managed entry point to the WhatsApp 1:1 calling stack. It wraps a
-// connected *whatsmeow.Client and drives the whole call lifecycle — signaling, keying,
-// relay election, and media — under the hood, behind a small surface:
+// connected *whatsmeow.Client and drives the whole call lifecycle â€” signaling, keying,
+// relay election, and media â€” under the hood, behind a small surface:
 // place a call with Call, handle inbound calls from an OnIncomingCall listener, and
 // attach a Player (outbound audio) and a sink (inbound audio) to each Call.
 //

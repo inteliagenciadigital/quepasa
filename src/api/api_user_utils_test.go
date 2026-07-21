@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"testing"
 
-	models "github.com/nocodeleaks/quepasa/models"
+	models "github.com/inteliagenciadigital/quepasa/models"
 )
 
 func TestFindPersistedUserDelegatesToUserStore(t *testing.T) {

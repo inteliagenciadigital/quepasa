@@ -1,6 +1,6 @@
 package models
 
-import "github.com/nocodeleaks/quepasa/whatsapp"
+import "github.com/inteliagenciadigital/quepasa/whatsapp"
 
 // GetVoIPMode returns the per-instance VoIP mode for this server, read from the
 // server metadata. Falls back to VoIPModeDisabled when not set, keeping the

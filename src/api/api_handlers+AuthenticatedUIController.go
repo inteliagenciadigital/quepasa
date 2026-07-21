@@ -5,7 +5,7 @@ import (
 	"io"
 	"net/http"
 
-	models "github.com/nocodeleaks/quepasa/models"
+	models "github.com/inteliagenciadigital/quepasa/models"
 )
 
 // AuthenticatedUIController handles GET and PATCH for the authenticated user's UI preferences.
@@ -63,7 +63,7 @@ func authenticatedUIPatch(w http.ResponseWriter, r *http.Request, user *models.Q
 func parseUserUI(user *models.QpUser) *models.QpUserUI {
 	ui := &models.QpUserUI{}
 	if user.UI != nil && *user.UI != "" {
-		json.Unmarshal([]byte(*user.UI), ui) //nolint:errcheck — invalid JSON falls back to zero value
+		json.Unmarshal([]byte(*user.UI), ui) //nolint:errcheck â€” invalid JSON falls back to zero value
 	}
 	return ui
 }

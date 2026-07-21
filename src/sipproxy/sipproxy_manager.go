@@ -4,17 +4,17 @@ import (
 	"fmt"
 	"sync"
 
-	qplog "github.com/nocodeleaks/quepasa/qplog"
+	qplog "github.com/inteliagenciadigital/quepasa/qplog"
 )
 
-// SIPProxyManager coordena os módulos refatorados usando sipgo
+// SIPProxyManager coordena os mÃ³dulos refatorados usando sipgo
 type SIPProxyManager struct {
 	mutex     sync.RWMutex
 	logger    qplog.Logger
 	config    SIPProxySettings
 	isRunning bool
 
-	// Módulos refatorados
+	// MÃ³dulos refatorados
 	networkManager     *SIPProxyNetworkManager
 	responseHandler    *SIPResponseHandler
 	callManagerSipgo   *SIPCallManagerSipgo // sipgo-based call manager
@@ -34,7 +34,7 @@ var (
 	managerOnce     sync.Once
 )
 
-// GetSIPProxyManager retorna a instância singleton do manager refatorado
+// GetSIPProxyManager retorna a instÃ¢ncia singleton do manager refatorado
 func GetSIPProxyManager(settings SIPProxySettings) *SIPProxyManager {
 	managerOnce.Do(func() {
 		logentry := qplog.New().WithField("package", "sipproxy")
@@ -44,7 +44,7 @@ func GetSIPProxyManager(settings SIPProxySettings) *SIPProxyManager {
 		sipListener := NewSIPListener(logentry)
 		transactionMonitor := NewSIPTransactionMonitor(logentry)
 
-		// Inicializar módulos refatorados
+		// Inicializar mÃ³dulos refatorados
 		networkManager := NewSIPProxyNetworkManager(settings.SIPProxyNetworkManagerSettings, logentry)
 
 		responseHandler := NewSIPResponseHandler(
@@ -72,7 +72,7 @@ func GetSIPProxyManager(settings SIPProxySettings) *SIPProxyManager {
 			sipListener:        sipListener,
 		}
 
-		logentry.Infof("🏗️ SIP Proxy Manager inicializado com arquitetura modular usando sipgo")
+		logentry.Infof("ðŸ—ï¸ SIP Proxy Manager inicializado com arquitetura modular usando sipgo")
 	})
 	return managerInstance
 }
@@ -85,12 +85,12 @@ func (m *SIPProxyManager) SendSIPInvite(callID, fromPhone, toPhone string) error
 // SendSIPInviteWithHeaders inicia uma chamada SIP anexando headers adicionais
 // ao INVITE. Headers vazios sao ignorados.
 func (m *SIPProxyManager) SendSIPInviteWithHeaders(callID, fromPhone, toPhone string, headers map[string]string) error {
-	m.logger.Infof("🚀 DEBUG: SendSIPInvite recebeu parâmetros:")
-	m.logger.Infof("   📞 CallID recebido: %s", callID)
-	m.logger.Infof("   🔵 From recebido: %s", fromPhone)
-	m.logger.Infof("   🟢 To recebido: %s", toPhone)
+	m.logger.Infof("ðŸš€ DEBUG: SendSIPInvite recebeu parÃ¢metros:")
+	m.logger.Infof("   ðŸ“ž CallID recebido: %s", callID)
+	m.logger.Infof("   ðŸ”µ From recebido: %s", fromPhone)
+	m.logger.Infof("   ðŸŸ¢ To recebido: %s", toPhone)
 
-	m.logger.Infof("🆕📞 Iniciando chamada SIP modular usando SIPGO: %s → %s (CallID: %s)", fromPhone, toPhone, callID)
+	m.logger.Infof("ðŸ†•ðŸ“ž Iniciando chamada SIP modular usando SIPGO: %s â†’ %s (CallID: %s)", fromPhone, toPhone, callID)
 
 	m.mutex.Lock()
 	defer m.mutex.Unlock()
@@ -99,12 +99,12 @@ func (m *SIPProxyManager) SendSIPInviteWithHeaders(callID, fromPhone, toPhone st
 	m.callAttempts[callID]++
 	attemptNumber := m.callAttempts[callID]
 
-	m.logger.Infof("🔄 Tentativa #%d para CallID: %s", attemptNumber, callID)
+	m.logger.Infof("ðŸ”„ Tentativa #%d para CallID: %s", attemptNumber, callID)
 
-	m.logger.Infof("🔍 DEBUG: Passando para InitiateCallSipgo (NEW):")
-	m.logger.Infof("   📞 CallID que será passado: %s", callID)
-	m.logger.Infof("   🔵 From que será passado: %s", fromPhone)
-	m.logger.Infof("   🟢 To que será passado: %s", toPhone)
+	m.logger.Infof("ðŸ” DEBUG: Passando para InitiateCallSipgo (NEW):")
+	m.logger.Infof("   ðŸ“ž CallID que serÃ¡ passado: %s", callID)
+	m.logger.Infof("   ðŸ”µ From que serÃ¡ passado: %s", fromPhone)
+	m.logger.Infof("   ðŸŸ¢ To que serÃ¡ passado: %s", toPhone)
 
 	// Usar o call manager sipgo para iniciar a chamada
 	return m.callManagerSipgo.InitiateCallSipgoWithHeaders(callID, fromPhone, toPhone, headers)
@@ -160,32 +160,32 @@ func (m *SIPProxyManager) HangupCall(callID string) {
 
 // SetCallAcceptedHandler define o callback para chamadas aceitas
 func (m *SIPProxyManager) SetCallAcceptedHandler(handler SIPCallAcceptedCallback) {
-	m.logger.Infof("📞 Configurando handler para chamadas aceitas")
+	m.logger.Infof("ðŸ“ž Configurando handler para chamadas aceitas")
 	m.transactionMonitor.SetCallbacks(handler, m.transactionMonitor.callRejectedHandler)
 
-	// NOVO: Configurar o callback também no sipgo call manager
+	// NOVO: Configurar o callback tambÃ©m no sipgo call manager
 	if m.callManagerSipgo != nil {
 		m.callManagerSipgo.SetCallAcceptedHandler(handler)
-		m.logger.Infof("✅ Handler de aceitação também configurado no sipgo call manager")
+		m.logger.Infof("âœ… Handler de aceitaÃ§Ã£o tambÃ©m configurado no sipgo call manager")
 	}
 }
 
 // SetCallRejectedHandler define o callback para chamadas rejeitadas
 func (m *SIPProxyManager) SetCallRejectedHandler(handler SIPCallRejectedCallback) {
-	m.logger.Infof("❌ Configurando handler para chamadas rejeitadas")
+	m.logger.Infof("âŒ Configurando handler para chamadas rejeitadas")
 	m.transactionMonitor.SetCallbacks(m.transactionMonitor.callAcceptedHandler, handler)
 
-	// NOVO: Configurar o callback também no sipgo call manager
+	// NOVO: Configurar o callback tambÃ©m no sipgo call manager
 	if m.callManagerSipgo != nil {
 		m.callManagerSipgo.SetCallRejectedHandler(handler)
-		m.logger.Infof("❌ Handler de rejeição também configurado no sipgo call manager")
+		m.logger.Infof("âŒ Handler de rejeiÃ§Ã£o tambÃ©m configurado no sipgo call manager")
 	}
 }
 
 // SetCallTerminatedHandler define o callback para quando o lado SIP remoto
 // encerra uma chamada ja estabelecida.
 func (m *SIPProxyManager) SetCallTerminatedHandler(handler SIPCallTerminatedCallback) {
-	m.logger.Infof("📞⬅️ Configurando handler para encerramento remoto de chamadas")
+	m.logger.Infof("ðŸ“žâ¬…ï¸ Configurando handler para encerramento remoto de chamadas")
 	if m.callManagerSipgo != nil {
 		m.callManagerSipgo.SetCallTerminatedHandler(handler)
 	}
@@ -197,10 +197,10 @@ func (m *SIPProxyManager) Start() error {
 	defer m.mutex.Unlock()
 
 	if m.isRunning {
-		return fmt.Errorf("SIP proxy manager já está rodando")
+		return fmt.Errorf("SIP proxy manager jÃ¡ estÃ¡ rodando")
 	}
 
-	m.logger.Infof("🚀 Iniciando SIP Proxy Manager com arquitetura modular...")
+	m.logger.Infof("ðŸš€ Iniciando SIP Proxy Manager com arquitetura modular...")
 
 	// Configurar rede (descoberta STUN, etc.)
 	if err := m.networkManager.ConfigureNetwork(); err != nil {
@@ -214,7 +214,7 @@ func (m *SIPProxyManager) Start() error {
 	}
 
 	m.isRunning = true
-	m.logger.Infof("✅ SIP Proxy Manager iniciado com sucesso")
+	m.logger.Infof("âœ… SIP Proxy Manager iniciado com sucesso")
 
 	return nil
 }
@@ -225,10 +225,10 @@ func (m *SIPProxyManager) Stop() error {
 	defer m.mutex.Unlock()
 
 	if !m.isRunning {
-		return fmt.Errorf("SIP proxy manager não está rodando")
+		return fmt.Errorf("SIP proxy manager nÃ£o estÃ¡ rodando")
 	}
 
-	m.logger.Infof("🛑 Parando SIP Proxy Manager...")
+	m.logger.Infof("ðŸ›‘ Parando SIP Proxy Manager...")
 
 	// Cancelar todas as chamadas ativas
 	for _, callID := range m.callManagerSipgo.GetActiveCalls() {
@@ -242,24 +242,24 @@ func (m *SIPProxyManager) Stop() error {
 	}
 
 	m.isRunning = false
-	m.logger.Infof("✅ SIP Proxy Manager parado com sucesso")
+	m.logger.Infof("âœ… SIP Proxy Manager parado com sucesso")
 
 	return nil
 }
 
-// IsRunning retorna se o SIP proxy manager está rodando
+// IsRunning retorna se o SIP proxy manager estÃ¡ rodando
 func (m *SIPProxyManager) IsRunning() bool {
 	m.mutex.RLock()
 	defer m.mutex.RUnlock()
 	return m.isRunning
 }
 
-// GetActiveCallCount retorna o número de chamadas ativas
+// GetActiveCallCount retorna o nÃºmero de chamadas ativas
 func (m *SIPProxyManager) GetActiveCallCount() int {
 	return len(m.callManagerSipgo.GetActiveCalls())
 }
 
-// GetNetworkInfo retorna informações da configuração de rede atual
+// GetNetworkInfo retorna informaÃ§Ãµes da configuraÃ§Ã£o de rede atual
 func (m *SIPProxyManager) GetNetworkInfo() map[string]interface{} {
 	return map[string]interface{}{
 		"public_ip":     m.networkManager.GetPublicIP(),
@@ -270,7 +270,7 @@ func (m *SIPProxyManager) GetNetworkInfo() map[string]interface{} {
 	}
 }
 
-// GetStats retorna estatísticas do manager
+// GetStats retorna estatÃ­sticas do manager
 func (m *SIPProxyManager) GetStats() map[string]interface{} {
 	m.mutex.RLock()
 	defer m.mutex.RUnlock()
@@ -283,7 +283,7 @@ func (m *SIPProxyManager) GetStats() map[string]interface{} {
 	}
 }
 
-// Métodos de compatibilidade legada
+// MÃ©todos de compatibilidade legada
 func (m *SIPProxyManager) GetConfig() SIPProxySettings {
 	return m.config
 }
@@ -296,10 +296,10 @@ func (m *SIPProxyManager) SetConfig(config SIPProxySettings) {
 	m.mutex.Lock()
 	defer m.mutex.Unlock()
 	m.config = config
-	m.logger.Infof("📋 Configuração SIP Proxy atualizada")
+	m.logger.Infof("ðŸ“‹ ConfiguraÃ§Ã£o SIP Proxy atualizada")
 }
 
-// Métodos avançados de gerenciamento de chamadas
+// MÃ©todos avanÃ§ados de gerenciamento de chamadas
 func (m *SIPProxyManager) CancelCall(callID string) error {
 	return m.callManagerSipgo.CancelCall(callID)
 }
@@ -314,13 +314,13 @@ func (m *SIPProxyManager) GetCallInfo(callID string) (map[string]interface{}, bo
 
 // Initialize inicializa o SIP proxy manager (compatibilidade legada)
 func (m *SIPProxyManager) Initialize() error {
-	m.logger.Infof("🔧 Inicializando SIP Proxy Manager...")
+	m.logger.Infof("ðŸ”§ Inicializando SIP Proxy Manager...")
 	return m.Start()
 }
 
 // RemoveCall remove uma chamada ativa (compatibilidade legada)
 func (m *SIPProxyManager) RemoveCall(callID string) {
-	m.logger.Infof("🗑️ Removendo chamada: %s", callID)
+	m.logger.Infof("ðŸ—‘ï¸ Removendo chamada: %s", callID)
 
 	m.mutex.Lock()
 	defer m.mutex.Unlock()
@@ -328,13 +328,13 @@ func (m *SIPProxyManager) RemoveCall(callID string) {
 	// Check if call exists in active calls map
 	if _, exists := m.activeCalls[callID]; exists {
 		delete(m.activeCalls, callID)
-		m.logger.Infof("✅ Chamada %s removida do mapeamento ativo", callID)
+		m.logger.Infof("âœ… Chamada %s removida do mapeamento ativo", callID)
 	} else {
-		m.logger.Infof("📞ℹ️ Chamada %s não encontrada no mapeamento ativo - pode ter sido removida anteriormente", callID)
+		m.logger.Infof("ðŸ“žâ„¹ï¸ Chamada %s nÃ£o encontrada no mapeamento ativo - pode ter sido removida anteriormente", callID)
 	}
 
 	// =========================================================================
-	// 🚫 DUPLICATE BYE PREVENTION: Don't send BYE automatically here
+	// ðŸš« DUPLICATE BYE PREVENTION: Don't send BYE automatically here
 	// =========================================================================
 	// The CancelCall() method already handles BYE sending and cleanup
 	// RemoveCall() should only remove from tracking, not send SIP messages
@@ -344,10 +344,10 @@ func (m *SIPProxyManager) RemoveCall(callID string) {
 	// if err := m.callManagerSipgo.CancelCall(callID); err != nil {
 	//	m.logger.Errorf("Erro ao cancelar chamada %s: %v", callID, err)
 	// } else {
-	//	m.logger.Infof("✅ Processo de cancelamento de chamada %s concluído", callID)
+	//	m.logger.Infof("âœ… Processo de cancelamento de chamada %s concluÃ­do", callID)
 	// }
 
-	m.logger.Infof("✅ Chamada %s removida do rastreamento (sem envio de BYE adicional)", callID)
+	m.logger.Infof("âœ… Chamada %s removida do rastreamento (sem envio de BYE adicional)", callID)
 }
 
 // GetSipgoCallManager returns the underlying SIPGO call manager for advanced operations
@@ -361,7 +361,7 @@ func (m *SIPProxyManager) GetActiveCalls() map[string]*SIPProxyCallData {
 	m.mutex.RLock()
 	defer m.mutex.RUnlock()
 
-	// Retorna uma cópia do mapa para evitar modificações concorrentes
+	// Retorna uma cÃ³pia do mapa para evitar modificaÃ§Ãµes concorrentes
 	activeCalls := make(map[string]*SIPProxyCallData)
 	for callID, callData := range m.activeCalls {
 		activeCalls[callID] = callData
@@ -376,7 +376,7 @@ func (m *SIPProxyManager) GetActiveCalls() map[string]*SIPProxyCallData {
 //
 // The SIP INVITE to the configured SIP server is sent separately by the
 // SIPCallManagerSipgo. This method only prepares the RTP media path so the
-// VoIPBridge can read/write μ-law RTP packets directly.
+// VoIPBridge can read/write Î¼-law RTP packets directly.
 //
 // The caller receives the *RTPStream handle and owns all I/O on its sockets.
 func (m *SIPProxyManager) BridgeInboundWhatsAppCall(
@@ -385,7 +385,7 @@ func (m *SIPProxyManager) BridgeInboundWhatsAppCall(
 	toPhone string,
 ) (*RTPStream, error) {
 
-	m.logger.Infof("🌉 BridgeInboundWhatsAppCall: CallID=%s, From=%s, To=%s", callID, fromPhone, toPhone)
+	m.logger.Infof("ðŸŒ‰ BridgeInboundWhatsAppCall: CallID=%s, From=%s, To=%s", callID, fromPhone, toPhone)
 
 	// Get local and public IPs from the network manager
 	localIP := m.networkManager.GetLocalIP()
@@ -425,7 +425,7 @@ func (m *SIPProxyManager) BridgeInboundWhatsAppCall(
 	m.activeCalls[callID] = callData
 	m.mutex.Unlock()
 
-	m.logger.Infof("🌉✅ Bridge RTP stream ready: CallID=%s, WAPort=%d, SIPPort=%d → %s:%d",
+	m.logger.Infof("ðŸŒ‰âœ… Bridge RTP stream ready: CallID=%s, WAPort=%d, SIPPort=%d â†’ %s:%d",
 		callID, stream.WhatsAppPort, stream.SIPPort, sipHost, sipPort)
 
 	return stream, nil
@@ -440,7 +440,7 @@ func (m *SIPProxyManager) BridgeOutboundSIPCall(
 	remoteHost string,
 	remotePort int,
 ) (*RTPStream, error) {
-	m.logger.Infof("🌉 BridgeOutboundSIPCall: CallID=%s, From=%s, To=%s, Remote=%s:%d", callID, fromPhone, toPhone, remoteHost, remotePort)
+	m.logger.Infof("ðŸŒ‰ BridgeOutboundSIPCall: CallID=%s, From=%s, To=%s, Remote=%s:%d", callID, fromPhone, toPhone, remoteHost, remotePort)
 
 	localIP := m.networkManager.GetLocalIP()
 	if localIP == "" {
@@ -466,7 +466,7 @@ func (m *SIPProxyManager) BridgeOutboundSIPCall(
 	m.activeCalls[callID] = callData
 	m.mutex.Unlock()
 
-	m.logger.Infof("🌉✅ Outbound SIP RTP stream ready: CallID=%s, WAPort=%d, SIPPort=%d → %s:%d",
+	m.logger.Infof("ðŸŒ‰âœ… Outbound SIP RTP stream ready: CallID=%s, WAPort=%d, SIPPort=%d â†’ %s:%d",
 		callID, stream.WhatsAppPort, stream.SIPPort, remoteHost, remotePort)
 
 	return stream, nil

@@ -1,8 +1,8 @@
 package whatsmeow
 
 import (
-	whatsapp "github.com/nocodeleaks/quepasa/whatsapp"
-	log "github.com/nocodeleaks/quepasa/qplog"
+	whatsapp "github.com/inteliagenciadigital/quepasa/whatsapp"
+	log "github.com/inteliagenciadigital/quepasa/qplog"
 	types "go.mau.fi/whatsmeow/types"
 )
 

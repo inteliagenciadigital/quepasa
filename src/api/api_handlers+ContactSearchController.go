@@ -8,8 +8,8 @@ import (
 	"sort"
 	"strings"
 
-	apiModels "github.com/nocodeleaks/quepasa/api/models"
-	whatsapp "github.com/nocodeleaks/quepasa/whatsapp"
+	apiModels "github.com/inteliagenciadigital/quepasa/api/models"
+	whatsapp "github.com/inteliagenciadigital/quepasa/whatsapp"
 )
 
 //region CONTROLLER - CONTACTS SEARCH

@@ -6,9 +6,9 @@ import (
 	"net/http"
 	"strings"
 
-	environment "github.com/nocodeleaks/quepasa/environment"
-	models "github.com/nocodeleaks/quepasa/models"
-	runtime "github.com/nocodeleaks/quepasa/runtime"
+	environment "github.com/inteliagenciadigital/quepasa/environment"
+	models "github.com/inteliagenciadigital/quepasa/models"
+	runtime "github.com/inteliagenciadigital/quepasa/runtime"
 )
 
 /*

@@ -2,7 +2,7 @@ package api
 
 import (
 	"github.com/go-chi/chi/v5"
-	oauth "github.com/nocodeleaks/quepasa/oauth"
+	oauth "github.com/inteliagenciadigital/quepasa/oauth"
 )
 
 // RegisterOAuthRoutes mounts the OAuth login/callback handlers. These routes are

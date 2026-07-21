@@ -8,10 +8,10 @@ import (
 	"strings"
 	"time"
 
-	environment "github.com/nocodeleaks/quepasa/environment"
-	models "github.com/nocodeleaks/quepasa/models"
-	runtime "github.com/nocodeleaks/quepasa/runtime"
-	log "github.com/nocodeleaks/quepasa/qplog"
+	environment "github.com/inteliagenciadigital/quepasa/environment"
+	models "github.com/inteliagenciadigital/quepasa/models"
+	runtime "github.com/inteliagenciadigital/quepasa/runtime"
+	log "github.com/inteliagenciadigital/quepasa/qplog"
 )
 
 // MCPServer represents the Model Context Protocol server

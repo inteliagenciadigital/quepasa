@@ -5,8 +5,8 @@ import (
 	"strings"
 	"time"
 
-	library "github.com/nocodeleaks/quepasa/library"
-	whatsapp "github.com/nocodeleaks/quepasa/whatsapp"
+	library "github.com/inteliagenciadigital/quepasa/library"
+	whatsapp "github.com/inteliagenciadigital/quepasa/whatsapp"
 )
 
 func (source *QpWhatsappServer) DownloadData(id string) ([]byte, error) {
@@ -143,10 +143,10 @@ func (source *QpWhatsappServer) SendMessage(msg *whatsapp.WhatsappMessage) (resp
 
 		phone, _ := whatsapp.GetPhoneIfValid(msg.Chat.Id)
 		if len(phone) > 0 {
-			// Try remove-9: 9-digit (14 chars) → 8-digit variant (DDDs > 30)
+			// Try remove-9: 9-digit (14 chars) â†’ 8-digit variant (DDDs > 30)
 			phoneWithout9, errRemove := library.RemoveDigit9IfElegible(phone)
 
-			// Try add-9: 8-digit (13 chars) → 9-digit variant (all Brazilian DDDs)
+			// Try add-9: 8-digit (13 chars) â†’ 9-digit variant (all Brazilian DDDs)
 			phoneWith9, errAdd := library.AddDigit9BRAllDDDs(phone)
 
 			var variant string

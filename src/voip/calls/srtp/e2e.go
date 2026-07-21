@@ -5,8 +5,8 @@ import (
 	"crypto/cipher"
 	"errors"
 
-	"github.com/nocodeleaks/quepasa/voip/calls/util"
-	qplog "github.com/nocodeleaks/quepasa/qplog"
+	"github.com/inteliagenciadigital/quepasa/voip/calls/util"
+	qplog "github.com/inteliagenciadigital/quepasa/qplog"
 )
 
 // errShortKey is returned when the supplied key material is shorter than the

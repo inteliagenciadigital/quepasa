@@ -7,7 +7,7 @@ import (
 	"testing"
 	"time"
 
-	api "github.com/nocodeleaks/quepasa/api/models"
+	api "github.com/inteliagenciadigital/quepasa/api/models"
 )
 
 // TestHealthEndpoint_NoAuthentication tests /health endpoint without authentication

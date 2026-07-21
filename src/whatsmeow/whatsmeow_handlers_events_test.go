@@ -5,8 +5,8 @@ import (
 	"testing"
 	"time"
 
-	qpevents "github.com/nocodeleaks/quepasa/events"
-	log "github.com/nocodeleaks/quepasa/qplog"
+	qpevents "github.com/inteliagenciadigital/quepasa/events"
+	log "github.com/inteliagenciadigital/quepasa/qplog"
 	"go.mau.fi/whatsmeow/types/events"
 )
 

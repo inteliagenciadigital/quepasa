@@ -6,9 +6,9 @@ import (
 	"strings"
 	"time"
 
-	cache "github.com/nocodeleaks/quepasa/cache"
-	whatsapp "github.com/nocodeleaks/quepasa/whatsapp"
-	qplog "github.com/nocodeleaks/quepasa/qplog"
+	cache "github.com/inteliagenciadigital/quepasa/cache"
+	whatsapp "github.com/inteliagenciadigital/quepasa/whatsapp"
+	qplog "github.com/inteliagenciadigital/quepasa/qplog"
 )
 
 const DEFAULTEXPIRATION time.Duration = time.Duration(124 * time.Hour)

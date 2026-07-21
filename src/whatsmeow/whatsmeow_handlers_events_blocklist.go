@@ -1,11 +1,11 @@
-﻿package whatsmeow
+package whatsmeow
 
 import (
 	"fmt"
 	"strings"
 
-	qpevents "github.com/nocodeleaks/quepasa/events"
-	whatsapp "github.com/nocodeleaks/quepasa/whatsapp"
+	qpevents "github.com/inteliagenciadigital/quepasa/events"
+	whatsapp "github.com/inteliagenciadigital/quepasa/whatsapp"
 	"go.mau.fi/whatsmeow/types/events"
 )
 

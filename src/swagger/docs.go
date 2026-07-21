@@ -9,14 +9,14 @@ const docTemplate = `{
     "info": {
         "description": "{{escape .Description}}",
         "title": "{{.Title}}",
-        "termsOfService": "https://github.com/nocodeleaks/quepasa",
+        "termsOfService": "https://github.com/inteliagenciadigital/quepasa",
         "contact": {
             "name": "QuePasa Support",
-            "url": "https://github.com/nocodeleaks/quepasa"
+            "url": "https://github.com/inteliagenciadigital/quepasa"
         },
         "license": {
             "name": "GNU Affero General Public License v3.0",
-            "url": "https://github.com/nocodeleaks/quepasa/blob/main/LICENSE.md"
+            "url": "https://github.com/inteliagenciadigital/quepasa/blob/main/LICENSE.md"
         },
         "version": "{{.Version}}"
     },
@@ -2888,7 +2888,7 @@ const docTemplate = `{
                         "ApiKeyAuth": []
                     }
                 ],
-                "description": "Endpoint to send messages via WhatsApp. Accepts sending of:\n- Plain text (field \"text\")\n- Files by URL (field \"url\") — server will download and send as attachment\n- Base64 content (field \"content\") — use format data:\u003cmime\u003e;base64,\u003cdata\u003e\n- Polls (field \"poll\") — send the poll JSON in the \"poll\" field\n- Location (field \"location\") — send location with latitude/longitude in the \"location\" object\n- Contact (field \"contact\") — send contact with phone/name in the \"contact\" object\n- Sticker (field \"sticker\") — send a sticker from URL or base64 content; auto-converted to WebP 512×512 via FFmpeg\n\nMain fields:\n- chatId: chat identifier (can be WID, LID or number with suffix @s.whatsapp.net)\n- text: message text\n- url: public URL to download a file\n- content: embedded base64 content (e.g.: data:image/png;base64,...)\n- fileName: file name (optional, used when name cannot be inferred)\n- poll: JSON object with the poll (question, options, selections)\n- location: JSON object with location data (latitude, longitude, name, address, url)\n- contact: JSON object with contact data (phone, name, vcard)\n- sticker: JSON object with sticker source (url or content as base64/data URI)\n\nLocation object fields:\n- latitude (float64, required): Location latitude in degrees (e.g.: -23.550520)\n- longitude (float64, required): Location longitude in degrees (e.g.: -46.633308)\n- name (string, optional): Location name/description\n- address (string, optional): Location full address\n- url (string, optional): URL with link to the map\n\nContact object fields:\n- phone (string, required): Contact phone number\n- name (string, required): Contact display name\n- vcard (string, optional): Full vCard string (auto-generated if not provided)\n\nSticker object fields:\n- url (string): Public URL of the sticker image/video to download and convert\n- content (string): Base64-encoded content or data URI (e.g.: data:image/png;base64,...)\nNote: images and videos are automatically converted to WebP 512×512 using FFmpeg.\nAnimated formats (video, gif, apng) produce animated WebP stickers (max 10s, 15fps).\nStatic images produce static WebP stickers.\n\nExamples:\nText:\n` + "`" + `` + "`" + `` + "`" + `json\n{\n\"chatId\": \"5511999999999@s.whatsapp.net\",\n\"text\": \"Hello, world!\"\n}\n` + "`" + `` + "`" + `` + "`" + `\nPoll:\n` + "`" + `` + "`" + `` + "`" + `json\n{\n\"chatId\": \"5511999999999@s.whatsapp.net\",\n\"poll\": {\n\"question\": \"Which languages do you know?\",\n\"options\": [\"JavaScript\",\"Python\",\"Go\",\"Java\",\"C#\",\"Ruby\"],\n\"selections\": 3\n}\n}\n` + "`" + `` + "`" + `` + "`" + `\nLocation:\n` + "`" + `` + "`" + `` + "`" + `json\n{\n\"chatId\": \"5511999999999@s.whatsapp.net\",\n\"location\": {\n\"latitude\": -23.550520,\n\"longitude\": -46.633308,\n\"name\": \"Avenida Paulista, São Paulo\"\n}\n}\n` + "`" + `` + "`" + `` + "`" + `\nContact:\n` + "`" + `` + "`" + `` + "`" + `json\n{\n\"chatId\": \"5511999999999@s.whatsapp.net\",\n\"contact\": {\n\"phone\": \"5511999999999\",\n\"name\": \"John Doe\"\n}\n}\n` + "`" + `` + "`" + `` + "`" + `\nBase64:\n` + "`" + `` + "`" + `` + "`" + `json\n{\n\"chatId\": \"5511999999999@s.whatsapp.net\",\n\"content\": \"data:image/png;base64,....\"\n}\n` + "`" + `` + "`" + `` + "`" + `\nFile by URL:\n` + "`" + `` + "`" + `` + "`" + `json\n{\n\"chatId\": \"5511999999999@s.whatsapp.net\",\n\"url\": \"https://example.com/path/to/file.jpg\"\n}\n` + "`" + `` + "`" + `` + "`" + `\nSticker by URL:\n` + "`" + `` + "`" + `` + "`" + `json\n{\n\"chatId\": \"5511999999999@s.whatsapp.net\",\n\"sticker\": {\n\"url\": \"https://example.com/sticker.png\"\n}\n}\n` + "`" + `` + "`" + `` + "`" + `\nSticker by base64:\n` + "`" + `` + "`" + `` + "`" + `json\n{\n\"chatId\": \"5511999999999@s.whatsapp.net\",\n\"sticker\": {\n\"content\": \"data:image/png;base64,....\"\n}\n}\n` + "`" + `` + "`" + `` + "`" + `",
+                "description": "Endpoint to send messages via WhatsApp. Accepts sending of:\n- Plain text (field \"text\")\n- Files by URL (field \"url\") â€” server will download and send as attachment\n- Base64 content (field \"content\") â€” use format data:\u003cmime\u003e;base64,\u003cdata\u003e\n- Polls (field \"poll\") â€” send the poll JSON in the \"poll\" field\n- Location (field \"location\") â€” send location with latitude/longitude in the \"location\" object\n- Contact (field \"contact\") â€” send contact with phone/name in the \"contact\" object\n- Sticker (field \"sticker\") â€” send a sticker from URL or base64 content; auto-converted to WebP 512Ã—512 via FFmpeg\n\nMain fields:\n- chatId: chat identifier (can be WID, LID or number with suffix @s.whatsapp.net)\n- text: message text\n- url: public URL to download a file\n- content: embedded base64 content (e.g.: data:image/png;base64,...)\n- fileName: file name (optional, used when name cannot be inferred)\n- poll: JSON object with the poll (question, options, selections)\n- location: JSON object with location data (latitude, longitude, name, address, url)\n- contact: JSON object with contact data (phone, name, vcard)\n- sticker: JSON object with sticker source (url or content as base64/data URI)\n\nLocation object fields:\n- latitude (float64, required): Location latitude in degrees (e.g.: -23.550520)\n- longitude (float64, required): Location longitude in degrees (e.g.: -46.633308)\n- name (string, optional): Location name/description\n- address (string, optional): Location full address\n- url (string, optional): URL with link to the map\n\nContact object fields:\n- phone (string, required): Contact phone number\n- name (string, required): Contact display name\n- vcard (string, optional): Full vCard string (auto-generated if not provided)\n\nSticker object fields:\n- url (string): Public URL of the sticker image/video to download and convert\n- content (string): Base64-encoded content or data URI (e.g.: data:image/png;base64,...)\nNote: images and videos are automatically converted to WebP 512Ã—512 using FFmpeg.\nAnimated formats (video, gif, apng) produce animated WebP stickers (max 10s, 15fps).\nStatic images produce static WebP stickers.\n\nExamples:\nText:\n` + "`" + `` + "`" + `` + "`" + `json\n{\n\"chatId\": \"5511999999999@s.whatsapp.net\",\n\"text\": \"Hello, world!\"\n}\n` + "`" + `` + "`" + `` + "`" + `\nPoll:\n` + "`" + `` + "`" + `` + "`" + `json\n{\n\"chatId\": \"5511999999999@s.whatsapp.net\",\n\"poll\": {\n\"question\": \"Which languages do you know?\",\n\"options\": [\"JavaScript\",\"Python\",\"Go\",\"Java\",\"C#\",\"Ruby\"],\n\"selections\": 3\n}\n}\n` + "`" + `` + "`" + `` + "`" + `\nLocation:\n` + "`" + `` + "`" + `` + "`" + `json\n{\n\"chatId\": \"5511999999999@s.whatsapp.net\",\n\"location\": {\n\"latitude\": -23.550520,\n\"longitude\": -46.633308,\n\"name\": \"Avenida Paulista, SÃ£o Paulo\"\n}\n}\n` + "`" + `` + "`" + `` + "`" + `\nContact:\n` + "`" + `` + "`" + `` + "`" + `json\n{\n\"chatId\": \"5511999999999@s.whatsapp.net\",\n\"contact\": {\n\"phone\": \"5511999999999\",\n\"name\": \"John Doe\"\n}\n}\n` + "`" + `` + "`" + `` + "`" + `\nBase64:\n` + "`" + `` + "`" + `` + "`" + `json\n{\n\"chatId\": \"5511999999999@s.whatsapp.net\",\n\"content\": \"data:image/png;base64,....\"\n}\n` + "`" + `` + "`" + `` + "`" + `\nFile by URL:\n` + "`" + `` + "`" + `` + "`" + `json\n{\n\"chatId\": \"5511999999999@s.whatsapp.net\",\n\"url\": \"https://example.com/path/to/file.jpg\"\n}\n` + "`" + `` + "`" + `` + "`" + `\nSticker by URL:\n` + "`" + `` + "`" + `` + "`" + `json\n{\n\"chatId\": \"5511999999999@s.whatsapp.net\",\n\"sticker\": {\n\"url\": \"https://example.com/sticker.png\"\n}\n}\n` + "`" + `` + "`" + `` + "`" + `\nSticker by base64:\n` + "`" + `` + "`" + `` + "`" + `json\n{\n\"chatId\": \"5511999999999@s.whatsapp.net\",\n\"sticker\": {\n\"content\": \"data:image/png;base64,....\"\n}\n}\n` + "`" + `` + "`" + `` + "`" + `",
                 "consumes": [
                     "application/json"
                 ],
@@ -4015,7 +4015,7 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "emoji": {
-                    "description": "Emoji is the reaction emoji (e.g. \"👍\"). Send empty string to remove reaction.",
+                    "description": "Emoji is the reaction emoji (e.g. \"ðŸ‘\"). Send empty string to remove reaction.",
                     "type": "string"
                 },
                 "fromme": {
@@ -5371,7 +5371,7 @@ const docTemplate = `{
             "type": "object",
             "properties": {
                 "errors": {
-                    "description": "Errors contains token→error pairs for any linking attempt that failed.",
+                    "description": "Errors contains tokenâ†’error pairs for any linking attempt that failed.",
                     "type": "array",
                     "items": {
                         "$ref": "#/definitions/models.RestoreError"
@@ -5385,7 +5385,7 @@ const docTemplate = `{
                     }
                 },
                 "restored": {
-                    "description": "Restored contains the token→JID pairs that were successfully linked\nduring an actual restore (empty during a dry-run).",
+                    "description": "Restored contains the tokenâ†’JID pairs that were successfully linked\nduring an actual restore (empty during a dry-run).",
                     "type": "array",
                     "items": {
                         "$ref": "#/definitions/models.RestoreResult"

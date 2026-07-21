@@ -1,10 +1,10 @@
 package mlow
 
-import qplog "github.com/nocodeleaks/quepasa/qplog"
+import qplog "github.com/inteliagenciadigital/quepasa/qplog"
 
-// MLow top-level decoder: RED strip → TOC routing → active-frame decode (3 chained
-// 20 ms internal frames: LSF → pulses → pitch/gains → reconstruct → CELP synthesis)
-// → per-packet harmonic postfilter → 60 ms PCM. Cross-frame predictor and synthesis
+// MLow top-level decoder: RED strip â†’ TOC routing â†’ active-frame decode (3 chained
+// 20 ms internal frames: LSF â†’ pulses â†’ pitch/gains â†’ reconstruct â†’ CELP synthesis)
+// â†’ per-packet harmonic postfilter â†’ 60 ms PCM. Cross-frame predictor and synthesis
 // history persist across calls (the stream is continuous).
 //
 // Source of truth: https://github.com/oxidezap/whatsapp-rust/blob/ed12f359a086b28e807ba236f0977af1000859fe/wacore/src/voip/mlow/decoder.rs#L1-L218

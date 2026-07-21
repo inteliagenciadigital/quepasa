@@ -4,7 +4,7 @@ import (
 	"strings"
 	"time"
 
-	whatsapp "github.com/nocodeleaks/quepasa/whatsapp"
+	whatsapp "github.com/inteliagenciadigital/quepasa/whatsapp"
 )
 
 type QpConversationLabel struct {

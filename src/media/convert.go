@@ -7,7 +7,7 @@ import (
 	"os/exec"
 	"strings"
 
-	log "github.com/nocodeleaks/quepasa/qplog"
+	log "github.com/inteliagenciadigital/quepasa/qplog"
 )
 
 // ConvertToOggOpus converts audio data (any format supported by ffmpeg) to OGG Opus format.

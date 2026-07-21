@@ -5,9 +5,9 @@ import (
 	"net/http"
 	"strings"
 
-	models "github.com/nocodeleaks/quepasa/models"
-	runtime "github.com/nocodeleaks/quepasa/runtime"
-	log "github.com/nocodeleaks/quepasa/qplog"
+	models "github.com/inteliagenciadigital/quepasa/models"
+	runtime "github.com/inteliagenciadigital/quepasa/runtime"
+	log "github.com/inteliagenciadigital/quepasa/qplog"
 )
 
 type errorResponse struct {
@@ -29,7 +29,7 @@ func RespondNoContent(w http.ResponseWriter) {
 	w.Header().Del("Content-Type")
 }
 
-// / Usado para avisar que o bot ainda não esta pronto
+// / Usado para avisar que o bot ainda nÃ£o esta pronto
 func RespondNotReady(w http.ResponseWriter, err error) {
 	RespondErrorCode(w, err, http.StatusServiceUnavailable)
 }

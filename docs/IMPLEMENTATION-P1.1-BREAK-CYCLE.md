@@ -1,7 +1,7 @@
 # P1.1 Implementation - Break `models <-> whatsmeow` Cycle
 
 **Date:** 2026-06-28  
-**Status:** ✅ Core Cycle Broken  
+**Status:** âœ… Core Cycle Broken  
 **Priority:** P1.1 (Enables P1.2 and P2.x)
 
 ---
@@ -41,7 +41,7 @@ var GlobalWhatsappDriverFactory WhatsappDriverFactory
 
 **Before (P1.1):**
 ```go
-import whatsmeow "github.com/nocodeleaks/quepasa/whatsmeow"
+import whatsmeow "github.com/inteliagenciadigital/quepasa/whatsmeow"
 
 func NewWhatsmeowConnection(options *whatsapp.WhatsappConnectionOptions) (whatsapp.IWhatsappConnection, error) {
 	return whatsmeow.WhatsmeowService.CreateConnection(options)
@@ -50,7 +50,7 @@ func NewWhatsmeowConnection(options *whatsapp.WhatsappConnectionOptions) (whatsa
 
 **After (P1.1):**
 ```go
-import "github.com/nocodeleaks/quepasa/ports"
+import "github.com/inteliagenciadigital/quepasa/ports"
 
 func NewWhatsmeowConnection(options *whatsapp.WhatsappConnectionOptions) (whatsapp.IWhatsappConnection, error) {
 	if ports.GlobalWhatsappDriverFactory == nil {
@@ -100,7 +100,7 @@ ports.GlobalWhatsappDriverFactory = &whatsmeow.WhatsmeowDriverAdapter{}
 models.ApplyTransportServices(...)
 ```
 
-**Why:** Composition root owns wiring. Dependency direction now: `models` → `ports` ← `whatsmeow` (inverted).
+**Why:** Composition root owns wiring. Dependency direction now: `models` â†’ `ports` â† `whatsmeow` (inverted).
 
 ---
 
@@ -109,17 +109,17 @@ models.ApplyTransportServices(...)
 ### Before P1.1
 
 ```
-    ┌─────────┐
-    │  main   │
-    └────┬────┘
-         │
-    ┌────▼──────┐
-    │  models   │◄─────┐
-    └────┬──────┘      │
-         │             │
-    ┌────▼──────┐      │
-    │whatsmeow  │──────┘
-    └───────────┘
+    â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+    â”‚  main   â”‚
+    â””â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”˜
+         â”‚
+    â”Œâ”€â”€â”€â”€â–¼â”€â”€â”€â”€â”€â”€â”
+    â”‚  models   â”‚â—„â”€â”€â”€â”€â”€â”
+    â””â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”˜      â”‚
+         â”‚             â”‚
+    â”Œâ”€â”€â”€â”€â–¼â”€â”€â”€â”€â”€â”€â”      â”‚
+    â”‚whatsmeow  â”‚â”€â”€â”€â”€â”€â”€â”˜
+    â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
 ```
 
 **Problem:** Cyclic dependency `models <-> whatsmeow` forces global-var DI.
@@ -129,22 +129,22 @@ models.ApplyTransportServices(...)
 ### After P1.1
 
 ```
-    ┌─────────┐
-    │  main   │
-    └────┬────┘
-         │
-    ┌────▼──────┐        ┌───────────┐
-    │  models   │───────►│   ports   │◄────────┐
-    └───────────┘        └───────────┘         │
-                                                │
-                         ┌──────────────────────┘
-                         │
-                    ┌────▼──────┐
-                    │whatsmeow  │
-                    └───────────┘
+    â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+    â”‚  main   â”‚
+    â””â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”˜
+         â”‚
+    â”Œâ”€â”€â”€â”€â–¼â”€â”€â”€â”€â”€â”€â”        â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+    â”‚  models   â”‚â”€â”€â”€â”€â”€â”€â”€â–ºâ”‚   ports   â”‚â—„â”€â”€â”€â”€â”€â”€â”€â”€â”
+    â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜        â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜         â”‚
+                                                â”‚
+                         â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+                         â”‚
+                    â”Œâ”€â”€â”€â”€â–¼â”€â”€â”€â”€â”€â”€â”
+                    â”‚whatsmeow  â”‚
+                    â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
 ```
 
-**Result:** Dependency direction inverted. `models` → `ports` interface, `whatsmeow` implements.
+**Result:** Dependency direction inverted. `models` â†’ `ports` interface, `whatsmeow` implements.
 
 ---
 
@@ -156,7 +156,7 @@ models.ApplyTransportServices(...)
 cd src && go build ./...
 ```
 
-**Result:** ✅ Success
+**Result:** âœ… Success
 
 ---
 
@@ -166,28 +166,28 @@ cd src && go build ./...
 cd src && go test ./models/... ./whatsmeow/... ./ports/...
 ```
 
-**Result:** ✅ 98 tests passing
+**Result:** âœ… 98 tests passing
 
 ---
 
 ### Import Check
 
 ```bash
-cd src && grep -r '"github.com/nocodeleaks/quepasa/whatsmeow"' models/*.go | grep -v test
+cd src && grep -r '"github.com/inteliagenciadigital/quepasa/whatsmeow"' models/*.go | grep -v test
 ```
 
 **Result:**
 ```
-models/qp_contact_manager.go:	whatsmeow "github.com/nocodeleaks/quepasa/whatsmeow"
-models/qp_database.go:	whatsmeow "github.com/nocodeleaks/quepasa/whatsmeow"
-models/qp_whatsapp_service_restore.go:	whatsmeow "github.com/nocodeleaks/quepasa/whatsmeow"
+models/qp_contact_manager.go:	whatsmeow "github.com/inteliagenciadigital/quepasa/whatsmeow"
+models/qp_database.go:	whatsmeow "github.com/inteliagenciadigital/quepasa/whatsmeow"
+models/qp_whatsapp_service_restore.go:	whatsmeow "github.com/inteliagenciadigital/quepasa/whatsmeow"
 ```
 
 **Analysis:** 3 auxiliary imports remain (contact manager, migration, restore). **Not part of core cycle**.
 
 ---
 
-## Remaining Imports - RESOLVED ✅
+## Remaining Imports - RESOLVED âœ…
 
 **Update 2026-06-28:** All 3 auxiliary imports eliminated via interface extension.
 
@@ -204,18 +204,18 @@ type WhatsappDriverService interface {
 ```
 
 **Implemented in `whatsmeow/whatsmeow_driver_adapter.go`:**
-- `GetContactManagerForWid` → delegates to `GetContactManagerForWid(wid, conn)`
-- `ResolveMigratedWid` → delegates to `WhatsmeowService.GetStoreForMigrated(phone)`
-- `ListDevices` → delegates to `WhatsmeowService.Container.GetAllDevices()`
+- `GetContactManagerForWid` â†’ delegates to `GetContactManagerForWid(wid, conn)`
+- `ResolveMigratedWid` â†’ delegates to `WhatsmeowService.GetStoreForMigrated(phone)`
+- `ListDevices` â†’ delegates to `WhatsmeowService.Container.GetAllDevices()`
 
 **Files refactored:**
-- ✅ `models/qp_contact_manager.go` - no longer imports whatsmeow
-- ✅ `models/qp_database.go` - no longer imports whatsmeow
-- ✅ `models/qp_whatsapp_service_restore.go` - no longer imports whatsmeow
+- âœ… `models/qp_contact_manager.go` - no longer imports whatsmeow
+- âœ… `models/qp_database.go` - no longer imports whatsmeow
+- âœ… `models/qp_whatsapp_service_restore.go` - no longer imports whatsmeow
 
 **Verification:**
 ```bash
-grep -r '"github.com/nocodeleaks/quepasa/whatsmeow"' models/*.go
+grep -r '"github.com/inteliagenciadigital/quepasa/whatsmeow"' models/*.go
 # Result: 0 matches
 ```
 
@@ -225,17 +225,17 @@ grep -r '"github.com/nocodeleaks/quepasa/whatsmeow"' models/*.go
 
 ### What Changed
 
-- ✅ **Core connection factory** (`NewWhatsmeowConnection`, `NewWhatsmeowEmptyConnection`) no longer imports `whatsmeow`
-- ✅ **All auxiliary imports removed** — contact manager, migration, restore now via `ports.GlobalWhatsappDriverService`
-- ✅ **Dependency direction inverted** — `models` → `ports` ← `whatsmeow`
-- ✅ **Zero behavior change** — adapter delegates to existing `WhatsmeowService`
-- ✅ **All tests pass** — 98/98 green
-- ✅ **Zero imports** — `models` package has NO direct dependency on `whatsmeow`
+- âœ… **Core connection factory** (`NewWhatsmeowConnection`, `NewWhatsmeowEmptyConnection`) no longer imports `whatsmeow`
+- âœ… **All auxiliary imports removed** â€” contact manager, migration, restore now via `ports.GlobalWhatsappDriverService`
+- âœ… **Dependency direction inverted** â€” `models` â†’ `ports` â† `whatsmeow`
+- âœ… **Zero behavior change** â€” adapter delegates to existing `WhatsmeowService`
+- âœ… **All tests pass** â€” 98/98 green
+- âœ… **Zero imports** â€” `models` package has NO direct dependency on `whatsmeow`
 
 ### What Didn't Change
 
-- ⚠️ Still using globals (`GlobalWhatsappDriverFactory`, `GlobalWhatsappDriverService`) — transitional until P1.2 (grouped constructor wiring)
-- ⚠️ `ApplyTransportServices` global wiring still exists — addressed in P1.2
+- âš ï¸ Still using globals (`GlobalWhatsappDriverFactory`, `GlobalWhatsappDriverService`) â€” transitional until P1.2 (grouped constructor wiring)
+- âš ï¸ `ApplyTransportServices` global wiring still exists â€” addressed in P1.2
 
 ---
 
@@ -281,7 +281,7 @@ rm -f ports/whatsapp_driver.go whatsmeow/whatsmeow_driver_adapter.go
 go build ./...
 ```
 
-Rollback is clean — P1.1 is **additive** (new `ports` package + adapter).
+Rollback is clean â€” P1.1 is **additive** (new `ports` package + adapter).
 
 ---
 
@@ -289,7 +289,7 @@ Rollback is clean — P1.1 is **additive** (new `ports` package + adapter).
 
 **Goal:** Replace global function-pointer DI (`ApplyTransportServices` + `Global*` vars) with grouped constructor wiring.
 
-**Blocked by:** P1.1 ✅ (this work)
+**Blocked by:** P1.1 âœ… (this work)
 
 **Effort:** 1 day per subsystem (RabbitMQ, SignalR, dispatch)
 
@@ -303,7 +303,7 @@ Rollback is clean — P1.1 is **additive** (new `ports` package + adapter).
 
 ## Status
 
-✅ **P1.1 Complete (100%)**
+âœ… **P1.1 Complete (100%)**
 
 **Cycle fully broken:**
 - `models` has **ZERO** imports of `whatsmeow` (verified via grep)
@@ -312,11 +312,11 @@ Rollback is clean — P1.1 is **additive** (new `ports` package + adapter).
   - Contact manager (1): `GetContactManagerForWid`
   - Migration (1): `ResolveMigratedWid`
   - Device listing (1): `ListDevices`
-- Dependency inverted: `models` → `ports` ← `whatsmeow`
+- Dependency inverted: `models` â†’ `ports` â† `whatsmeow`
 - Build clean, tests green (98/98)
 
 **Remaining work:**
-- Global var DI → grouped constructors — **P1.2 scope**
+- Global var DI â†’ grouped constructors â€” **P1.2 scope**
 
 ---
 

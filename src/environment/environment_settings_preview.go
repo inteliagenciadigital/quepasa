@@ -3,7 +3,7 @@ package environment
 import (
 	"fmt"
 
-	whatsapp "github.com/nocodeleaks/quepasa/whatsapp"
+	whatsapp "github.com/inteliagenciadigital/quepasa/whatsapp"
 )
 
 // EnvironmentSettingsPreview provides a read-only preview of environment settings

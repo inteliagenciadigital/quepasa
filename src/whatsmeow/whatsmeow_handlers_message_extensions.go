@@ -5,9 +5,9 @@ import (
 	"strings"
 
 	slug "github.com/gosimple/slug"
-	library "github.com/nocodeleaks/quepasa/library"
-	whatsapp "github.com/nocodeleaks/quepasa/whatsapp"
-	log "github.com/nocodeleaks/quepasa/qplog"
+	library "github.com/inteliagenciadigital/quepasa/library"
+	whatsapp "github.com/inteliagenciadigital/quepasa/whatsapp"
+	log "github.com/inteliagenciadigital/quepasa/qplog"
 	"go.mau.fi/whatsmeow/proto/waE2E"
 )
 

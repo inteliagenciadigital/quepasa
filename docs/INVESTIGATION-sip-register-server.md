@@ -19,7 +19,7 @@
 - `sipproxy_response_handler.go` - SIP response handling
 
 **Technology Stack**:
-- **Library**: `github.com/emiago/sipgo` v0.33.0 (✅ Confirmed)
+- **Library**: `github.com/emiago/sipgo` v0.33.0 (âœ… Confirmed)
 - **Protocol**: UDP/TCP SIP
 - **Supported Methods**: INVITE, BYE, CANCEL, OPTIONS
 - **NOT Currently Implemented**: REGISTER method (server-side)
@@ -88,19 +88,19 @@ type QpSipCredentials struct {
 ### Current SIP Proxy Limitations
 
 **What EXISTS**:
-- ✅ SIP server using sipgo
-- ✅ INVITE handling (outbound calls)
-- ✅ BYE/CANCEL handling
-- ✅ RTP media streaming
-- ✅ Integration with WhatsApp VoIP calls
+- âœ… SIP server using sipgo
+- âœ… INVITE handling (outbound calls)
+- âœ… BYE/CANCEL handling
+- âœ… RTP media streaming
+- âœ… Integration with WhatsApp VoIP calls
 
 **What DOES NOT EXIST**:
-- ❌ REGISTER method handler (server-side)
-- ❌ SIP user registration state management
-- ❌ Registration expiration timers
-- ❌ Contact URI storage
-- ❌ Digest authentication for registration
-- ❌ Registration lookup for inbound calls
+- âŒ REGISTER method handler (server-side)
+- âŒ SIP user registration state management
+- âŒ Registration expiration timers
+- âŒ Contact URI storage
+- âŒ Digest authentication for registration
+- âŒ Registration lookup for inbound calls
 
 ### Proposed Authentication Scheme (Updated)
 
@@ -188,10 +188,10 @@ type SIPRegistration struct {
 
 var registrations sync.Map
 ```
-- ✅ Simple, fast, no external dependencies
-- ✅ Sufficient for development/single-instance deployment
-- ❌ Lost on restart
-- ❌ Not shared across multiple server instances
+- âœ… Simple, fast, no external dependencies
+- âœ… Sufficient for development/single-instance deployment
+- âŒ Lost on restart
+- âŒ Not shared across multiple server instances
 
 **Option 2: Redis**
 ```go
@@ -202,12 +202,12 @@ type RedisRegistrationStore struct {
 // Key format: "sipreg:{instance_id}:{phone_number}"
 // TTL set automatically
 ```
-- ✅ Persistent across restarts
-- ✅ Shared across instances
-- ✅ Native TTL support
-- ✅ High performance
-- ❌ Requires Redis deployment
-- ❌ Additional infrastructure
+- âœ… Persistent across restarts
+- âœ… Shared across instances
+- âœ… Native TTL support
+- âœ… High performance
+- âŒ Requires Redis deployment
+- âŒ Additional infrastructure
 
 **Recommendation**: Start with in-memory for PoC, plan Redis migration for production.
 
@@ -228,7 +228,7 @@ import (
     "time"
 
     "github.com/emiago/sipgo/sip"
-    qplog "github.com/nocodeleaks/quepasa/qplog"
+    qplog "github.com/inteliagenciadigital/quepasa/qplog"
 )
 
 type SIPRegisterHandler struct {
@@ -277,19 +277,19 @@ func (rh *SIPRegisterHandler) GetRegisteredContact(phoneNumber string) (string, 
 
 ### Integration with VoIP Call Flow
 
-**Current Flow** (WhatsApp → SIP Proxy → Remote Server):
+**Current Flow** (WhatsApp â†’ SIP Proxy â†’ Remote Server):
 ```
-WhatsApp Call → VoIPManager → SIPProxyManager → Remote SIP Server
+WhatsApp Call â†’ VoIPManager â†’ SIPProxyManager â†’ Remote SIP Server
 ```
 
-**New Flow** (WhatsApp → SIP Proxy → Registered Softphone):
+**New Flow** (WhatsApp â†’ SIP Proxy â†’ Registered Softphone):
 ```
-WhatsApp Call → VoIPManager → SIPProxyManager
-                          ↓
+WhatsApp Call â†’ VoIPManager â†’ SIPProxyManager
+                          â†“
                    Lookup Registration
-                          ↓
+                          â†“
                  Registered Softphone Contact URI
-                          ↓
+                          â†“
                    Forward INVITE to Softphone
 ```
 
@@ -401,8 +401,8 @@ Transport: UDP
 ### Dependencies and Requirements
 
 **Existing Dependencies** (Already in go.mod):
-- ✅ `github.com/emiago/sipgo v0.33.0` - SIP stack
-- ✅ `github.com/icholy/digest v1.1.0` - Digest auth helpers
+- âœ… `github.com/emiago/sipgo v0.33.0` - SIP stack
+- âœ… `github.com/icholy/digest v1.1.0` - Digest auth helpers
 
 **New Dependencies** (Potentially needed):
 - `github.com/redis/go-redis/v9` - Redis client (for production)
@@ -446,11 +446,11 @@ func TestCallRouting(t *testing.T)
 
 The SIP Register Server implementation is **technically feasible** and **well-aligned** with the existing QuePasa architecture:
 
-- ✅ SIP library (sipgo) already integrated
-- ✅ Instance model (`QpServer`) provides authentication data
-- ✅ Existing SIP proxy infrastructure can be extended
-- ✅ Minimal code changes required
-- ✅ No breaking changes to existing functionality
+- âœ… SIP library (sipgo) already integrated
+- âœ… Instance model (`QpServer`) provides authentication data
+- âœ… Existing SIP proxy infrastructure can be extended
+- âœ… Minimal code changes required
+- âœ… No breaking changes to existing functionality
 
 **Estimated Effort**: 2-3 weeks for full implementation including testing.
 

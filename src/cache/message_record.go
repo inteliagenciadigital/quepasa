@@ -3,7 +3,7 @@ package cache
 import (
 	"time"
 
-	whatsapp "github.com/nocodeleaks/quepasa/whatsapp"
+	whatsapp "github.com/inteliagenciadigital/quepasa/whatsapp"
 )
 
 type MessageRecord struct {

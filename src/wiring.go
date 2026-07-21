@@ -1,12 +1,12 @@
 package main
 
 import (
-	models "github.com/nocodeleaks/quepasa/models"
-	"github.com/nocodeleaks/quepasa/ports"
-	rabbitmq "github.com/nocodeleaks/quepasa/rabbitmq"
-	runtime "github.com/nocodeleaks/quepasa/runtime"
-	signalr "github.com/nocodeleaks/quepasa/signalr"
-	whatsmeow "github.com/nocodeleaks/quepasa/whatsmeow"
+	models "github.com/inteliagenciadigital/quepasa/models"
+	"github.com/inteliagenciadigital/quepasa/ports"
+	rabbitmq "github.com/inteliagenciadigital/quepasa/rabbitmq"
+	runtime "github.com/inteliagenciadigital/quepasa/runtime"
+	signalr "github.com/inteliagenciadigital/quepasa/signalr"
+	whatsmeow "github.com/inteliagenciadigital/quepasa/whatsmeow"
 )
 
 // wiring.go is the composition root: it groups the startup dependency injection

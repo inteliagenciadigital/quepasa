@@ -1,7 +1,7 @@
 package models
 
 import (
-	whatsapp "github.com/nocodeleaks/quepasa/whatsapp"
+	whatsapp "github.com/inteliagenciadigital/quepasa/whatsapp"
 )
 
 // Mensagem no formato QuePasa

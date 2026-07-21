@@ -1,6 +1,6 @@
 package calls
 
-import "github.com/nocodeleaks/quepasa/voip/calls/signaling"
+import "github.com/inteliagenciadigital/quepasa/voip/calls/signaling"
 
 // AudioCodec identifies the wire audio codec negotiated for a call. WhatsApp 1:1
 // audio is carried in RTP payload type 120 regardless of codec; the codec itself

@@ -1,28 +1,28 @@
 ### Workflows links
 
-* [(1.0.1) Chatwoot Profile Update](https://raw.githubusercontent.com/nocodeleaks/quepasa/main/extra/n8n%2Bchatwoot/ChatwootProfileUpdate.json)
-* [(1.1.0) Chatwoot To Quepasa](https://raw.githubusercontent.com/nocodeleaks/quepasa/main/extra/n8n%2Bchatwoot/ChatwootToQuepasa.json)
-* [(1.1.0) Post To Chatwoot](https://raw.githubusercontent.com/nocodeleaks/quepasa/main/extra/n8n%2Bchatwoot/PostToChatwoot.json)
+* [(1.0.1) Chatwoot Profile Update](https://raw.githubusercontent.com/nosrwarez/quepasa/main/extra/n8n%2Bchatwoot/ChatwootProfileUpdate.json)
+* [(1.1.0) Chatwoot To Quepasa](https://raw.githubusercontent.com/nosrwarez/quepasa/main/extra/n8n%2Bchatwoot/ChatwootToQuepasa.json)
+* [(1.1.0) Post To Chatwoot](https://raw.githubusercontent.com/nosrwarez/quepasa/main/extra/n8n%2Bchatwoot/PostToChatwoot.json)
 
-* [(1.1.0) Quepasa Contacts Import](https://raw.githubusercontent.com/nocodeleaks/quepasa/refs/heads/main/extra/n8n%2Bchatwoot/QuepasaContactsImport.json)
-* [(1.1.0) Quepasa Qrcode](https://raw.githubusercontent.com/nocodeleaks/quepasa/main/extra/n8n%2Bchatwoot/QuepasaQrcode.json)
-* [(1.0.26) Quepasa To Chatwoot](https://raw.githubusercontent.com/nocodeleaks/quepasa/main/extra/n8n%2Bchatwoot/QuepasaToChatwoot.json)
-* [(1.0.11) Quepasa Automatic](https://raw.githubusercontent.com/nocodeleaks/quepasa/main/extra/n8n%2Bchatwoot/QuepasaAutomatic.json)
-* [(1.1.0) Quepasa Chat Control](https://raw.githubusercontent.com/nocodeleaks/quepasa/main/extra/n8n%2Bchatwoot/QuepasaChatControl.json)
+* [(1.1.0) Quepasa Contacts Import](https://raw.githubusercontent.com/nosrwarez/quepasa/refs/heads/main/extra/n8n%2Bchatwoot/QuepasaContactsImport.json)
+* [(1.1.0) Quepasa Qrcode](https://raw.githubusercontent.com/nosrwarez/quepasa/main/extra/n8n%2Bchatwoot/QuepasaQrcode.json)
+* [(1.0.26) Quepasa To Chatwoot](https://raw.githubusercontent.com/nosrwarez/quepasa/main/extra/n8n%2Bchatwoot/QuepasaToChatwoot.json)
+* [(1.0.11) Quepasa Automatic](https://raw.githubusercontent.com/nosrwarez/quepasa/main/extra/n8n%2Bchatwoot/QuepasaAutomatic.json)
+* [(1.1.0) Quepasa Chat Control](https://raw.githubusercontent.com/nosrwarez/quepasa/main/extra/n8n%2Bchatwoot/QuepasaChatControl.json)
 
-* [(1.0.15) Quepasa Inbox Control](https://raw.githubusercontent.com/nocodeleaks/quepasa/main/extra/n8n%2Bchatwoot/QuepasaInboxControl.json)
-* [(1.0.1) Quepasa Inbox Control + typebot](https://raw.githubusercontent.com/nocodeleaks/quepasa/refs/heads/main/extra/n8n%2Bchatwoot/QuepasaInboxControl_typebot.json)
-* [(1.0.1) Quepasa Inbox Control + soc](https://raw.githubusercontent.com/nocodeleaks/quepasa/refs/heads/main/extra/n8n%2Bchatwoot/QuepasaInboxControl_soc.json)
-* [(1.1.0) Quepasa Inbox Control + webhook](https://raw.githubusercontent.com/nocodeleaks/quepasa/refs/heads/main/extra/n8n%2Bchatwoot/QuepasaInboxControl_webhook.json)
+* [(1.0.15) Quepasa Inbox Control](https://raw.githubusercontent.com/nosrwarez/quepasa/main/extra/n8n%2Bchatwoot/QuepasaInboxControl.json)
+* [(1.0.1) Quepasa Inbox Control + typebot](https://raw.githubusercontent.com/nosrwarez/quepasa/refs/heads/main/extra/n8n%2Bchatwoot/QuepasaInboxControl_typebot.json)
+* [(1.0.1) Quepasa Inbox Control + soc](https://raw.githubusercontent.com/nosrwarez/quepasa/refs/heads/main/extra/n8n%2Bchatwoot/QuepasaInboxControl_soc.json)
+* [(1.1.0) Quepasa Inbox Control + webhook](https://raw.githubusercontent.com/nosrwarez/quepasa/refs/heads/main/extra/n8n%2Bchatwoot/QuepasaInboxControl_webhook.json)
 
-* [(1.0.17) Get Chatwoot Contacts](https://raw.githubusercontent.com/nocodeleaks/quepasa/main/extra/n8n%2Bchatwoot/GetChatwootContacts.json)
-* [(1.0.4) Post To WebCallBack](https://raw.githubusercontent.com/nocodeleaks/quepasa/main/extra/n8n%2Bchatwoot/PostToWebCallBack.json)
-* [(1.0.5) Chatwoot Extra](https://raw.githubusercontent.com/nocodeleaks/quepasa/main/extra/n8n%2Bchatwoot/ChatwootExtra.json)
-* [(1.0.2) Get Valid Conversation](https://raw.githubusercontent.com/nocodeleaks/quepasa/refs/heads/main/extra/n8n%2Bchatwoot/GetValidConversation.json)
-* [(1.1.0) To TypeBot](https://raw.githubusercontent.com/nocodeleaks/quepasa/refs/heads/main/extra/n8n%2Bchatwoot/ToTypeBot.json)
+* [(1.0.17) Get Chatwoot Contacts](https://raw.githubusercontent.com/nosrwarez/quepasa/main/extra/n8n%2Bchatwoot/GetChatwootContacts.json)
+* [(1.0.4) Post To WebCallBack](https://raw.githubusercontent.com/nosrwarez/quepasa/main/extra/n8n%2Bchatwoot/PostToWebCallBack.json)
+* [(1.0.5) Chatwoot Extra](https://raw.githubusercontent.com/nosrwarez/quepasa/main/extra/n8n%2Bchatwoot/ChatwootExtra.json)
+* [(1.0.2) Get Valid Conversation](https://raw.githubusercontent.com/nosrwarez/quepasa/refs/heads/main/extra/n8n%2Bchatwoot/GetValidConversation.json)
+* [(1.1.0) To TypeBot](https://raw.githubusercontent.com/nosrwarez/quepasa/refs/heads/main/extra/n8n%2Bchatwoot/ToTypeBot.json)
 
 #### Obsolete
-* [(1.0.0) To Chatwoot Transcript Via OpenAI](https://raw.githubusercontent.com/nocodeleaks/quepasa/refs/heads/main/extra/n8n%2Bchatwoot/ToChatwootTranscriptViaOpenAI.json)
+* [(1.0.0) To Chatwoot Transcript Via OpenAI](https://raw.githubusercontent.com/nosrwarez/quepasa/refs/heads/main/extra/n8n%2Bchatwoot/ToChatwootTranscriptViaOpenAI.json)
 
 ### Use N8N Environment File to set these variables:
 > use your respectives ids
@@ -140,7 +140,7 @@
 		> (optional) 'Usu&#225;rio requisitou uma chamada de voz | video'
 		
 		# C8Q_MSGFOR_NO_CSAT
-		> (optional) 'Atendimento concluído'
+		> (optional) 'Atendimento concluÃ­do'
 
 ### Use ChatWoot INBOX Webhook parameters:
 > individual inboxes

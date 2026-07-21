@@ -3,7 +3,7 @@ package models
 import (
 	"fmt"
 
-	whatsapp "github.com/nocodeleaks/quepasa/whatsapp"
+	whatsapp "github.com/inteliagenciadigital/quepasa/whatsapp"
 )
 
 func (source *QpWhatsappServer) GetValidConnection() (whatsapp.IWhatsappConnection, error) {

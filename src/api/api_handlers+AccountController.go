@@ -8,7 +8,7 @@ import (
 	"net/http"
 
 	"github.com/nbutton23/zxcvbn-go"
-	models "github.com/nocodeleaks/quepasa/models"
+	models "github.com/inteliagenciadigital/quepasa/models"
 )
 
 //region CONTROLLER - HEALTH

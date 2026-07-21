@@ -9,7 +9,7 @@ import (
 	"strconv"
 	"strings"
 
-	qplog "github.com/nocodeleaks/quepasa/qplog"
+	qplog "github.com/inteliagenciadigital/quepasa/qplog"
 )
 
 // STUN/WARP relay framing: an RFC 5389 TLV encoder with WhatsApp's

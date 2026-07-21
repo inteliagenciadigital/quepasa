@@ -5,9 +5,9 @@ import (
 	"html/template"
 	"net/http"
 
-	api "github.com/nocodeleaks/quepasa/api"
-	viewmodel "github.com/nocodeleaks/quepasa/apps/form/viewmodel"
-	whatsapp "github.com/nocodeleaks/quepasa/whatsapp"
+	api "github.com/inteliagenciadigital/quepasa/api"
+	viewmodel "github.com/inteliagenciadigital/quepasa/apps/form/viewmodel"
+	whatsapp "github.com/inteliagenciadigital/quepasa/whatsapp"
 )
 
 var funcMap = template.FuncMap{"safeURL": SafeURL}

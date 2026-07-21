@@ -1,8 +1,8 @@
 package whatsmeow
 
 import (
-	library "github.com/nocodeleaks/quepasa/library"
-	"github.com/nocodeleaks/quepasa/qplog"
+	library "github.com/inteliagenciadigital/quepasa/library"
+	"github.com/inteliagenciadigital/quepasa/qplog"
 	types "go.mau.fi/whatsmeow/types"
 )
 

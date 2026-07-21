@@ -4,7 +4,7 @@ import (
 	"strconv"
 	"strings"
 
-	environment "github.com/nocodeleaks/quepasa/environment"
+	environment "github.com/inteliagenciadigital/quepasa/environment"
 )
 
 // RTP Media Port Configuration.

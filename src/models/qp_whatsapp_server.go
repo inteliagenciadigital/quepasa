@@ -3,7 +3,7 @@ package models
 import (
 	"sync"
 
-	whatsapp "github.com/nocodeleaks/quepasa/whatsapp"
+	whatsapp "github.com/inteliagenciadigital/quepasa/whatsapp"
 )
 
 type QpWhatsappServer struct {
@@ -14,8 +14,8 @@ type QpWhatsappServer struct {
 	Reconnect bool `json:"reconnect"`
 
 	connection     whatsapp.IWhatsappConnection `json:"-"`
-	syncConnection *sync.Mutex                  `json:"-"` // Objeto de sinaleiro para evitar chamadas simultâneas a este objeto
-	syncMessages   *sync.Mutex                  `json:"-"` // Objeto de sinaleiro para evitar chamadas simultâneas a este objeto
+	syncConnection *sync.Mutex                  `json:"-"` // Objeto de sinaleiro para evitar chamadas simultÃ¢neas a este objeto
+	syncMessages   *sync.Mutex                  `json:"-"` // Objeto de sinaleiro para evitar chamadas simultÃ¢neas a este objeto
 
 	Timestamps QpTimestamps `json:"timestamps"`
 

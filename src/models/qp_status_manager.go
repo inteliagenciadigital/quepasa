@@ -3,7 +3,7 @@ package models
 import (
 	"fmt"
 
-	whatsapp "github.com/nocodeleaks/quepasa/whatsapp"
+	whatsapp "github.com/inteliagenciadigital/quepasa/whatsapp"
 )
 
 // Compile-time check to ensure QpStatusManager implements whatsapp.WhatsappStatusManagerInterface

@@ -3,7 +3,7 @@ package whatsapp
 import (
 	"encoding/json"
 
-	library "github.com/nocodeleaks/quepasa/library"
+	library "github.com/inteliagenciadigital/quepasa/library"
 )
 
 type WhatsappChat struct {

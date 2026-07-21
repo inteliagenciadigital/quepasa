@@ -4,8 +4,8 @@ import (
 	"bytes"
 	"encoding/binary"
 
-	"github.com/nocodeleaks/quepasa/voip/calls/srtp"
-	qplog "github.com/nocodeleaks/quepasa/qplog"
+	"github.com/inteliagenciadigital/quepasa/voip/calls/srtp"
+	qplog "github.com/inteliagenciadigital/quepasa/qplog"
 )
 
 // RTP WARP framing: WhatsApp's 16-byte speech / 20-byte DTX headers (extension

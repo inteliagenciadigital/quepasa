@@ -1,9 +1,9 @@
 package models
 
 import (
-	dispatchservice "github.com/nocodeleaks/quepasa/dispatch/service"
-	"github.com/nocodeleaks/quepasa/library"
-	whatsapp "github.com/nocodeleaks/quepasa/whatsapp"
+	dispatchservice "github.com/inteliagenciadigital/quepasa/dispatch/service"
+	"github.com/inteliagenciadigital/quepasa/library"
+	whatsapp "github.com/inteliagenciadigital/quepasa/whatsapp"
 )
 
 // OutboundDispatchingSubscriber is the default outbound subscriber attached to

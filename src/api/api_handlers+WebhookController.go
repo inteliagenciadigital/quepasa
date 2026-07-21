@@ -6,8 +6,8 @@ import (
 	"io"
 	"net/http"
 
-	apiModels "github.com/nocodeleaks/quepasa/api/models"
-	models "github.com/nocodeleaks/quepasa/models"
+	apiModels "github.com/inteliagenciadigital/quepasa/api/models"
+	models "github.com/inteliagenciadigital/quepasa/models"
 )
 
 //region CONTROLLER - WEBHOOK
