@@ -81,8 +81,19 @@ func ScannerController(w http.ResponseWriter, r *http.Request) {
 func ValidateUsername(r *http.Request) (username string, ex ApiException) {
 	username, err := GetUsername(r)
 	if err != nil {
-		ex = &BadRequestException{ApiExceptionBase{Inner: err}}
-		return
+		// FALLBACK: Attempt to resolve username from the token owner
+		token := GetToken(r)
+		if len(token) > 0 {
+			if server, _ := findPersistedServerRecord(token); server != nil && server.GetUser() != "" {
+				username = server.GetUser()
+				err = nil
+			}
+		}
+
+		if err != nil {
+			ex = &BadRequestException{ApiExceptionBase{Inner: err}}
+			return
+		}
 	}
 
 	if username == models.DEFAULTEMAIL {

@@ -409,10 +409,21 @@ func SendWithMessageType(server *models.QpWhatsappServer, response *apiModels.Se
 	// Checking for ready state
 	status := server.GetStatus()
 	if status != whatsapp.Ready {
-		err = &ApiServerNotReadyException{Wid: server.GetWId(), Status: status}
-		response.ParseError(err)
-		RespondInterfaceCode(w, response, http.StatusServiceUnavailable)
-		return
+		// Wait up to 5 seconds for transient reconnects
+		for i := 0; i < 20; i++ {
+			time.Sleep(250 * time.Millisecond)
+			status = server.GetStatus()
+			if status == whatsapp.Ready {
+				break
+			}
+		}
+		
+		if status != whatsapp.Ready {
+			err = &ApiServerNotReadyException{Wid: server.GetWId(), Status: status}
+			response.ParseError(err)
+			RespondInterfaceCode(w, response, http.StatusServiceUnavailable)
+			return
+		}
 	}
 
 	if !strings.Contains(waMsg.Chat.Id, whatsapp.WHATSAPP_SERVERDOMAIN_LID_SUFFIX) &&
