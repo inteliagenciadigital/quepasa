@@ -18,8 +18,21 @@ func CloneAndEnrichMessageForServer(server *QpWhatsappServer, message *whatsapp.
 		clone.Participant = &participant
 	}
 
+	normalizeLIDForWebhook(&clone)
 	applyConversationLabelsToMessage(server, &clone, nil)
 	return &clone
+}
+
+func normalizeLIDForWebhook(message *whatsapp.WhatsappMessage) {
+	if message == nil {
+		return
+	}
+	if strings.HasSuffix(message.Chat.Id, "@lid") && message.Chat.Phone != "" {
+		message.Chat.Id = message.Chat.Phone + "@s.whatsapp.net"
+	}
+	if message.Participant != nil && strings.HasSuffix(message.Participant.Id, "@lid") && message.Participant.Phone != "" {
+		message.Participant.Id = message.Participant.Phone + "@s.whatsapp.net"
+	}
 }
 
 func CloneAndEnrichMessagesForServer(server *QpWhatsappServer, messages []whatsapp.WhatsappMessage) []whatsapp.WhatsappMessage {
@@ -42,6 +55,10 @@ func CloneAndEnrichMessagesForServer(server *QpWhatsappServer, messages []whatsa
 			continue
 		}
 		chatIDs = append(chatIDs, chatID)
+	}
+
+	for index := range cloned {
+		normalizeLIDForWebhook(&cloned[index])
 	}
 
 	labelsByChatID := map[string][]*QpConversationLabel{}
