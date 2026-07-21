@@ -1,8 +1,10 @@
 package models
 
 import (
+	"fmt"
 	"strings"
 
+	"github.com/inteliagenciadigital/quepasa/environment"
 	whatsapp "github.com/inteliagenciadigital/quepasa/whatsapp"
 )
 
@@ -18,12 +20,12 @@ func CloneAndEnrichMessageForServer(server *QpWhatsappServer, message *whatsapp.
 		clone.Participant = &participant
 	}
 
-	normalizeLIDForWebhook(&clone)
+	enrichMessageForWebhook(server, &clone)
 	applyConversationLabelsToMessage(server, &clone, nil)
 	return &clone
 }
 
-func normalizeLIDForWebhook(message *whatsapp.WhatsappMessage) {
+func enrichMessageForWebhook(server *QpWhatsappServer, message *whatsapp.WhatsappMessage) {
 	if message == nil {
 		return
 	}
@@ -32,6 +34,19 @@ func normalizeLIDForWebhook(message *whatsapp.WhatsappMessage) {
 	}
 	if message.Participant != nil && strings.HasSuffix(message.Participant.Id, "@lid") && message.Participant.Phone != "" {
 		message.Participant.Id = message.Participant.Phone + "@s.whatsapp.net"
+	}
+
+	if message.Attachment != nil {
+		att := *message.Attachment
+		if att.Url == "" && message.Id != "" {
+			baseURL := strings.TrimRight(environment.Settings.Webserver.BaseURL, "/")
+			if server != nil && server.Token != "" {
+				att.Url = fmt.Sprintf("%s/server/%s/download/%s", baseURL, server.Token, message.Id)
+			} else {
+				att.Url = fmt.Sprintf("%s/download/%s", baseURL, message.Id)
+			}
+		}
+		message.Attachment = &att
 	}
 }
 
@@ -58,7 +73,7 @@ func CloneAndEnrichMessagesForServer(server *QpWhatsappServer, messages []whatsa
 	}
 
 	for index := range cloned {
-		normalizeLIDForWebhook(&cloned[index])
+		enrichMessageForWebhook(server, &cloned[index])
 	}
 
 	labelsByChatID := map[string][]*QpConversationLabel{}
