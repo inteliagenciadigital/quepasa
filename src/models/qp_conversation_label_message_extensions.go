@@ -40,10 +40,20 @@ func enrichMessageForWebhook(server *QpWhatsappServer, message *whatsapp.Whatsap
 		att := *message.Attachment
 		if att.Url == "" && message.Id != "" {
 			baseURL := strings.TrimRight(environment.Settings.WebServer.BaseURL, "/")
+			if baseURL == "" {
+				host := environment.Settings.WebServer.Host
+				if host == "" || host == "0.0.0.0" {
+					host = "127.0.0.1"
+				}
+				if !strings.HasPrefix(host, "http://") && !strings.HasPrefix(host, "https://") {
+					host = fmt.Sprintf("http://%s:%d", host, environment.Settings.WebServer.Port)
+				}
+				baseURL = host
+			}
 			if server != nil && server.Token != "" {
-				att.Url = fmt.Sprintf("%s/server/%s/download/%s", baseURL, server.Token, message.Id)
+				att.Url = fmt.Sprintf("%s/v4/bot/%s/download/%s", baseURL, server.Token, message.Id)
 			} else {
-				att.Url = fmt.Sprintf("%s/download/%s", baseURL, message.Id)
+				att.Url = fmt.Sprintf("%s/v4/download/%s", baseURL, message.Id)
 			}
 		}
 		message.Attachment = &att
