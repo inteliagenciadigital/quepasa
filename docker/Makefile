@@ -1,5 +1,5 @@
 # Image and binary can be overidden with env vars.
-DOCKER_IMAGE ?= codeleaks/quepasa
+DOCKER_IMAGE ?= srwarez/quepasa
 
 # Get the latest commit.
 GIT_COMMIT = $(strip $(shell git rev-parse --short HEAD))
